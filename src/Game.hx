@@ -44,20 +44,27 @@ class Game extends Process {
 		root.add(scroller, Const.DP_BG);
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
-		world = new World();
+		world = new World( hxd.Res.world.world.entry.getText() );
 		camera = new Camera();
 		fx = new Fx();
 		hud = new ui.Hud();
 		level = new Level(world.all_levels.FirstLevel);
+		camera.trackTarget(hero, true, 0, -Const.GRID*1.5);
 
 		Process.resizeAll();
-		trace(Lang.t._("Game is ready."));
 	}
 
 	/**
 		Called when the CastleDB changes on the disk, if hot-reloading is enabled in Boot.hx
 	**/
 	public function onCdbReload() {
+	}
+
+	/**
+		Called when LEd world changes on the disk, if hot-reloading is enabled in Boot.hx
+	**/
+	public function onLedReload() {
+		Main.ME.startGame();
 	}
 
 	override function onResize() {

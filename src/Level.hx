@@ -22,6 +22,14 @@ class Level extends dn.Process {
 		game.hero = new en.Hero(e);
 	}
 
+	override function onDispose() {
+		super.onDispose();
+		level = null;
+		marks = null;
+		tilesetSource.dispose();
+		tilesetSource = null;
+	}
+
 	/**
 		Mark the level for re-render at the end of current frame (before display)
 	**/

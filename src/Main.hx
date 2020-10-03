@@ -26,7 +26,7 @@ class Main extends dn.Process {
         hxd.Res.initEmbed();
         #end
 
-        // Hot reloading
+        // Hot reloading (CastleDB)
 		#if debug
         hxd.res.Resource.LIVE_UPDATE = true;
         hxd.Res.data.watch(function() {
@@ -36,6 +36,16 @@ class Main extends dn.Process {
             	Data.load( hxd.Res.data.entry.getBytes().toString() );
             	if( Game.ME!=null )
                     Game.ME.onCdbReload();
+            }, 0.2);
+        });
+
+        // Hot reloading (LEd)
+        hxd.Res.world.world.watch(function() {
+            delayer.cancelById("led");
+
+            delayer.addS("led", function() {
+            	if( Game.ME!=null )
+                    Game.ME.onLedReload();
             }, 0.2);
         });
 		#end
@@ -58,8 +68,9 @@ class Main extends dn.Process {
 		controller.bind(START, Key.N);
 
 		// Start
-		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
-		delayer.addF( startGame, 1 );
+		// new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
+		// delayer.addF( startGame, 1 );
+		startGame();
 	}
 
 	public function startGame() {
@@ -67,7 +78,7 @@ class Main extends dn.Process {
 			Game.ME.destroy();
 			delayer.addF(function() {
 				new Game();
-			}, 1);
+			}, 5);
 		}
 		else
 			new Game();
