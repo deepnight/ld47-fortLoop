@@ -12,7 +12,7 @@ class Mob extends Entity {
 		super(e.cx, e.cy);
 		ALL.push(this);
 		data = e;
-		initLife(3);
+		initLife(2);
 
 		dir = data.f_initialDir;
 		lockControlS(1);
@@ -60,7 +60,6 @@ class Mob extends Entity {
 		// Aggro hero
 		if( hero.isAlive() && distCase(hero)<=10 && onGround && M.fabs(cy-hero.cy)<=2 && sightCheck(hero) ) {
 			if( aggro(hero) ) {
-				trace("new aggro");
 				dir = dirTo(aggroTarget);
 				lockControlS(0.5);
 				setSquashX(0.6);
