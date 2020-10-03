@@ -161,7 +161,20 @@ class Level extends dn.Process {
 		for( autoTile in level.l_Bg.autoTiles ) {
 			var tile = level.l_Bg.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
 			bg.add(autoTile.renderX, autoTile.renderY, tile);
-			// burn.add(autoTile.renderX, autoTile.renderY, tile);
+		}
+
+		// Plants
+		for( autoTile in level.l_Plants.autoTiles ) {
+			var tile = level.l_Plants.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			tile.setCenterRatio();
+			walls.addTransform(
+				autoTile.renderX + rnd(0,3,true),
+				autoTile.renderY + rnd(0,3,true),
+				rnd(1.5, 2, true),
+				rnd(1.5, 2, true),
+				rnd(0,M.PI),
+				tile
+			);
 		}
 
 		// Walls
