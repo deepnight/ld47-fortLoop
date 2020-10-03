@@ -3,4 +3,7 @@ enum Affect {
 }
 
 enum LevelMark {
+	GrabLeft;
+	GrabRight;
+	PlatformEnd;
 }

@@ -2,8 +2,8 @@ class Level extends dn.Process {
 	public var game(get,never) : Game; inline function get_game() return Game.ME;
 	public var fx(get,never) : Fx; inline function get_fx() return Game.ME.fx;
 
-	public var wid(get,never) : Int; inline function get_wid() return level.l_Collisions.cWid;
-	public var hei(get,never) : Int; inline function get_hei() return level.l_Collisions.cHei;
+	public var cWid(get,never) : Int; inline function get_cWid() return level.l_Collisions.cWid;
+	public var cHei(get,never) : Int; inline function get_cHei() return level.l_Collisions.cHei;
 
 	public var level : World.World_Level;
 	var tilesetSource : h2d.Tile;
@@ -20,6 +20,24 @@ class Level extends dn.Process {
 		// Entities
 		var e = level.l_Entities.all_Hero[0];
 		game.hero = new en.Hero(e);
+
+		for(cy in 0...cHei)
+		for(cx in 0...cWid) {
+			if( !hasCollision(cx,cy) && !hasCollision(cx,cy-1) ) {
+				if( hasCollision(cx+1,cy) && !hasCollision(cx+1,cy-1) )
+					setMark(cx,cy, GrabRight);
+
+				if( hasCollision(cx-1,cy) && !hasCollision(cx-1,cy-1) )
+					setMark(cx,cy, GrabLeft);
+			}
+			
+			if( !hasCollision(cx,cy) && hasCollision(cx,cy+1) ) {
+				if( hasCollision(cx+1,cy) || !hasCollision(cx+1,cy+1) )
+					setMark(cx,cy, PlatformEnd);
+				if( hasCollision(cx-1,cy) || !hasCollision(cx-1,cy+1) )
+					setMark(cx,cy, PlatformEnd);
+			}
+		}
 	}
 
 	override function onDispose() {
@@ -40,12 +58,12 @@ class Level extends dn.Process {
 	/**
 		Return TRUE if given coordinates are in level bounds
 	**/
-	public inline function isValid(cx,cy) return cx>=0 && cx<wid && cy>=0 && cy<hei;
+	public inline function isValid(cx,cy) return cx>=0 && cx<cWid && cy>=0 && cy<cHei;
 
 	/**
 		Transform coordinates into a coordId
 	**/
-	public inline function coordId(cx,cy) return cx + cy*wid;
+	public inline function coordId(cx,cy) return cx + cy*cWid;
 
 
 	/** Return TRUE if mark is present at coordinates **/
@@ -54,7 +72,7 @@ class Level extends dn.Process {
 	}
 
 	/** Enable mark at coordinates **/
-	public function setMark(mark:LevelMark, cx:Int, cy:Int) {
+	public function setMark(cx:Int, cy:Int, mark:LevelMark) {
 		if( isValid(cx,cy) && !hasMark(mark,cx,cy) ) {
 			if( !marks.exists(mark) )
 				marks.set(mark, new Map());

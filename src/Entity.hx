@@ -518,7 +518,7 @@ class Entity {
 
 		// Y
 		if( !onGround )
-			dy += gravityMul*Const.GRAVITY;
+			dy += gravityMul*Const.GRAVITY * tmod;
 		var steps = M.ceil( M.fabs(dyTotal*tmod) );
 		var step = dyTotal*tmod / steps;
 		while( steps>0 ) {
