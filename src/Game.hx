@@ -97,7 +97,7 @@ class Game extends Process {
 				darkMask.visible = true;
 				darkMask.scaleX = w();
 				darkMask.scaleY = h();
-				tw.createMs(darkMask.alpha, 0.9>0, 2000, TEaseInt);
+				tw.createMs(darkMask.alpha, 0.7>0, 2000, TEaseInt);
 				tw.createMs(camera.zoom, 1>1.5, 1500, TEase);
 			}
 			else {
