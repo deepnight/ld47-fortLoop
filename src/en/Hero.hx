@@ -13,7 +13,7 @@ class Hero extends Entity {
 		ammo = maxAmmo = 15;
 		ca = Main.ME.controller.createAccess("hero");
 		ca.setLeftDeadZone(0.2);
-		stayInDark = true;
+		darkMode = Keep;
 		initLife(3);
 
 

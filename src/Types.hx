@@ -1,5 +1,6 @@
 enum Affect {
 	Stun;
+	Hidden;
 }
 
 enum LevelMark {
@@ -11,6 +12,8 @@ enum LevelMark {
 	PlatformEndRight;
 }
 
-enum ItemType {
-	Ammo;
+enum DarkMode {
+	Keep;
+	Destroy;
+	Hide;
 }

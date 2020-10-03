@@ -9,9 +9,15 @@ class Item extends Entity {
 		ALL.push(this);
 		data = e;
 
-		var g = new h2d.Graphics(spr);
-		g.beginFill(0xffcc00);
-		g.drawRect(-8, -16, 16,16);
+		spr.set(switch data.f_type {
+			case Ammo: "itemAmmo";
+			case Diamond: "itemDiamond";
+		});
+
+		switch data.f_type {
+			case Ammo:
+			case Diamond: darkMode = Hide;
+		}
 	}
 
 	override function dispose() {
@@ -22,9 +28,10 @@ class Item extends Entity {
 	override function update() {
 		super.update();
 
-		if( distCase(hero)<=0.9 ) {
+		if( distCase(hero)<=0.9 && !hasAffect(Hidden) ) {
 			switch data.f_type {
-			case Ammo: hero.addAmmo(6);
+			case Ammo: hero.addAmmo(6); fx.flashBangS(0xffcc00,0.1);
+			case Diamond: fx.flashBangS(0x04b6ff, 0.3, 1);
 			}
 			destroy();
 		}

@@ -69,12 +69,21 @@ class Level extends dn.Process {
 		}
 	}
 
+	var firstTime = true;
 	public function attachLightEntities() {
 		for( e in level.l_Entities.all_Mob )
 			new en.Mob(e);
 
-		for( e in level.l_Entities.all_Item )
+		for( e in level.l_Entities.all_Item ) {
+			switch e.f_type {
+				case Diamond:
+					if( !firstTime )
+						continue;
+				case _:
+			}
 			new en.Item(e);
+		}
+		firstTime = false;
 	}
 
 	override function onDispose() {

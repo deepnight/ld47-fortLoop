@@ -106,7 +106,7 @@ class Entity {
 	public var prevFrameFootY : Float = -Const.INFINITE;
 	var fallHighestCy = 0.;
 
-	public var stayInDark = false;
+	public var darkMode = Destroy;
 	public var climbing = false;
 
 	var actions : Array<{ id:String, cb:Void->Void, t:Float }> = [];
@@ -456,19 +456,31 @@ class Entity {
 	}
 
 	public function onDark() {
-		if( !stayInDark ) {
-			destroy();
-			return;
+		switch darkMode {
+			case Keep:
+			case Destroy:
+				destroy();
+				return;
+
+			case Hide:
+				setAffectS(Hidden,Const.INFINITE);
 		}
+
 		cd.setS("colorDarken",1);
 	}
 
 	public function onLight() {
 		colorMatrix.identity();
+		clearAffect(Hidden);
 		// spr.filter = null;
 	}
 
     public function postUpdate() {
+		if( hasAffect(Hidden) ) {
+			spr.visible = false;
+			return;
+		}
+
         spr.x = (cx+xr)*Const.GRID;
         spr.y = (cy+yr)*Const.GRID;
         spr.scaleX = dir*sprScaleX * sprSquashX;

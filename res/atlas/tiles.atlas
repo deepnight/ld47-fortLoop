@@ -20,7 +20,7 @@ fxCircle0
   index: -1
 fxDot0
   rotate: false
-  xy: 49, 46
+  xy: 60, 40
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
@@ -48,7 +48,7 @@ fxLineDir0
   index: -1
 fxSmallCircle0
   rotate: false
-  xy: 56, 28
+  xy: 55, 58
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
@@ -76,30 +76,44 @@ heroIdle0
   index: -1
 iconAmmoOff
   rotate: false
-  xy: 56, 39
+  xy: 35, 59
   size: 4, 8
   orig: 4, 8
   offset: 0, 0
   index: -1
 iconAmmoOn
   rotate: false
-  xy: 44, 46
+  xy: 40, 59
   size: 4, 8
   orig: 4, 8
   offset: 0, 0
   index: -1
 iconLifeOff
   rotate: false
-  xy: 46, 28
+  xy: 35, 46
   size: 9, 8
   orig: 9, 8
   offset: 0, 0
   index: -1
 iconLifeOn
   rotate: false
-  xy: 46, 37
+  xy: 45, 52
   size: 9, 8
   orig: 9, 8
+  offset: 0, 0
+  index: -1
+itemAmmo
+  rotate: false
+  xy: 46, 28
+  size: 14, 11
+  orig: 14, 11
+  offset: 0, 0
+  index: -1
+itemDiamond
+  rotate: false
+  xy: 46, 40
+  size: 13, 11
+  orig: 13, 11
   offset: 0, 0
   index: -1
 pixel
@@ -111,14 +125,14 @@ pixel
   index: -1
 uiBar
   rotate: false
-  xy: 56, 35
+  xy: 35, 55
   size: 6, 3
   orig: 6, 3
   offset: 0, 0
   index: -1
 uiBarBg
   rotate: false
-  xy: 35, 46
+  xy: 55, 52
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
