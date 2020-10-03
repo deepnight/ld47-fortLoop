@@ -194,10 +194,10 @@ class Level extends dn.Process {
 			var tile = level.l_Plants.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
 			tile.setCenterRatio();
 			walls.addTransform(
-				autoTile.renderX + rnd(0,3,true),
-				autoTile.renderY + rnd(0,3,true),
-				rnd(1.5, 2, true),
-				rnd(1.5, 2, true),
+				autoTile.renderX + Const.GRID*0.5 + rnd(0,6,true),
+				autoTile.renderY + Const.GRID*0.5 + rnd(0,6,true),
+				rnd(1, 1.5, true),
+				rnd(1, 1.5, true),
 				rnd(0,M.PI),
 				tile
 			);
