@@ -70,9 +70,12 @@ class Level extends dn.Process {
 		var e = level.l_Entities.all_Hero[0];
 		game.hero = new en.Hero(e);
 
+
+		if( level.l_Entities.all_Door!=null ) // BUG
 		for(e in level.l_Entities.all_Door)
 			new en.Door(e);
 
+		if( level.l_Entities.all_Item!=null ) // BUG
 		for( e in level.l_Entities.all_Item ) {
 			if( e.f_type==Diamond )
 				new en.Item(e);
@@ -80,9 +83,11 @@ class Level extends dn.Process {
 	}
 
 	public function attachLightEntities() {
+		if( level.l_Entities.all_Mob!=null ) // BUG
 		for( e in level.l_Entities.all_Mob )
 			new en.Mob(e);
 
+		if( level.l_Entities.all_Item!=null ) // BUG
 		for( e in level.l_Entities.all_Item )
 			switch e.f_type {
 				case Diamond: continue;

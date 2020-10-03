@@ -50,7 +50,7 @@ class Game extends Process {
 		camera = new Camera();
 		fx = new Fx();
 		hud = new ui.Hud();
-		level = new Level(world.all_levels.FirstLevel);
+		level = new Level(world.all_levels.Test);
 		level.attachMainEntities();
 		camera.trackTarget(hero, true);
 
