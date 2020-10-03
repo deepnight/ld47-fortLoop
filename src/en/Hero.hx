@@ -103,12 +103,21 @@ class Hero extends Entity {
 		if( cd.has("jumpForce") && ca.aDown() )
 			dy -= 0.05 * cd.getRatio("jumpForce") * tmod;
 
+		// Attack
+		if( ca.xPressed() ) {
+			for(e in en.Mob.ALL) {
+				if( M.fabs(e.centerY-centerY)<=Const.GRID && dirTo(e)==dir && sightCheck(e) ) {
+					e.hit(1, this);
+				}
+			}
+		}
+
 		// HACK
-		// #if debug
-		if( !controlsLocked() && ca.xPressed() ) {
+		#if debug
+		if( !controlsLocked() && ca.rbPressed() ) {
 			game.dark = !game.dark;
 		}
-		// #end
+		#end
 
 		if( !climbing && !cd.has("climbLock") && !controlsLocked() && ca.leftDist()>0 ) {
 			// Grab ladder up

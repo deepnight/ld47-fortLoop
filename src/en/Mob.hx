@@ -11,6 +11,7 @@ class Mob extends Entity {
 		super(e.cx, e.cy);
 		ALL.push(this);
 		data = e;
+		initLife(3);
 
 		dir = data.f_initialDir;
 		lockControlS(1);
@@ -26,6 +27,13 @@ class Mob extends Entity {
 	override function dispose() {
 		super.dispose();
 		ALL.remove(this);
+	}
+
+	override function onDamage(dmg:Int, from:Entity) {
+		super.onDamage(dmg, from);
+		bump( (from==null?-dir:from.dirTo(this))*rnd(0.05,0.07), -0.1 );
+		lockControlS(0.1);
+		setSquashX(0.5);
 	}
 
 	override function update() {
