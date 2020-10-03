@@ -31,6 +31,8 @@ class Game extends Process {
 
 	public var hero: en.Hero;
 
+	public var dark(default,set) : Bool;
+	var darkMask : h2d.Bitmap;
 
 	public function new() {
 		super(Main.ME);
@@ -49,9 +51,13 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 		level = new Level(world.all_levels.FirstLevel);
-		camera.trackTarget(hero, true, 0, -Const.GRID*1.5);
+		camera.trackTarget(hero, true);
+
+		darkMask = new h2d.Bitmap( h2d.Tile.fromColor(0x0) );
+		root.add(darkMask, Const.DP_TOP);
 
 		Process.resizeAll();
+		dark = false;
 	}
 
 	/**
@@ -72,6 +78,31 @@ class Game extends Process {
 		scroller.setScale(Const.SCALE);
 	}
 
+
+	function set_dark(v) {
+		dark = v;
+		level.setDark( dark );
+		camera.targetTrackOffY = Const.GRID  * (dark ? -1 : -1.5);
+
+		if( dark ) {
+			// Black effect
+			darkMask.visible = true;
+			darkMask.scaleX = w();
+			darkMask.scaleY = h();
+			tw.createMs(darkMask.alpha, 0.7>0, 2000, TEaseInt);
+			tw.createMs(camera.zoom, 1>1.5, 1500, TEase);
+		}
+		else {
+			// Super bright effect
+			tw.terminateWithoutCallbacks(darkMask.alpha);
+			darkMask.visible = false;
+			tw.createMs(level.burn.alpha, 1>0, 1000, TEaseIn);
+			fx.flashBangS(0xffcc00, 1, 2);
+			camera.shakeS(2, 0.3);
+			tw.createMs(camera.zoom, 1, 100, TElasticEnd);
+		}
+		return dark;
+	}
 
 	function gc() {
 		if( Entity.GC==null || Entity.GC.length==0 )

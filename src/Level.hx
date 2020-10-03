@@ -11,11 +11,27 @@ class Level extends dn.Process {
 	var marks : Map< LevelMark, Map<Int,Bool> > = new Map();
 	var invalidated = true;
 
+	var walls : h2d.TileGroup;
+	var bg : h2d.TileGroup;
+	var dark : h2d.TileGroup;
+	public var burn : h2d.TileGroup;
+
 	public function new(l:World.World_Level) {
 		super(Game.ME);
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 		level = l;
+
 		tilesetSource = hxd.Res.world.tileset.toTile();
+		bg = new h2d.TileGroup(tilesetSource, root);
+		walls = new h2d.TileGroup(tilesetSource, root);
+		dark = new h2d.TileGroup(tilesetSource, root);
+		burn = new h2d.TileGroup(tilesetSource, root);
+		burn.blendMode = Add;
+		burn.filter = new h2d.filter.Group([
+			new h2d.filter.Bloom(4, 1, 8),
+			new h2d.filter.Blur(8),
+		]);
+
 
 		// Entities
 		var e = level.l_Entities.all_Hero[0];
@@ -91,16 +107,37 @@ class Level extends dn.Process {
 		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==0;
 	}
 
+	public function setDark(v:Bool) {
+		dark.visible = v;
+		walls.visible = !v;
+		bg.visible = !v;
+		burn.visible = !v;
+	}
+
 	/** Render current level**/
 	function render() {
-		root.removeChildren();
+		bg.clear();
+		walls.clear();
+		dark.clear();
 
-		var tg = new h2d.TileGroup(tilesetSource, root);
+		// Bg
+		for( autoTile in level.l_Bg.autoTiles ) {
+			var tile = level.l_Bg.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			bg.add(autoTile.renderX, autoTile.renderY, tile);
+			// burn.add(autoTile.renderX, autoTile.renderY, tile);
+		}
 
-		var layer = level.l_Collisions;
-		for( autoTile in layer.autoTiles ) {
-			var tile = layer.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
-			tg.add(autoTile.renderX, autoTile.renderY, tile);
+		// Walls
+		for( autoTile in level.l_Collisions.autoTiles ) {
+			var tile = level.l_Collisions.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			walls.add(autoTile.renderX, autoTile.renderY, tile);
+			burn.add(autoTile.renderX, autoTile.renderY, tile);
+		}
+
+		// Dark
+		for( autoTile in level.l_DarkRender.autoTiles ) {
+			var tile = level.l_DarkRender.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			dark.add(autoTile.renderX, autoTile.renderY, tile);
 		}
 	}
 

@@ -10,7 +10,7 @@ class Hero extends Entity {
 		ca.setLeftDeadZone(0.2);
 
 		var g = new h2d.Graphics(spr);
-		g.beginFill(e.color);
+		g.beginFill(0x639122);
 		g.drawRect(-8, -16, 16,16);
 	}
 
@@ -40,7 +40,8 @@ class Hero extends Entity {
 
 		// Walk
 		if( !controlsLocked() && ca.leftDist() > 0 ) {
-			dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * 0.04 * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
+			var spd = 0.025;
+			dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
 			dir = dx>0 ? 1 : -1;
 		}
 
@@ -56,6 +57,11 @@ class Hero extends Entity {
 
 		if( cd.has("jumpForce") && ca.aDown() )
 			dy -= 0.15 * cd.getRatio("jumpForce") * tmod;
+
+		// HACK
+		if( !controlsLocked() && ca.xPressed() ) {
+			game.dark = !game.dark;
+		}
 
 		// Hop
 		if( yr<0.5 && dy>0 && ca.leftDist()>0 ) {
