@@ -228,10 +228,17 @@ class Game extends Process {
 					hxd.System.exit();
 			#end
 
+			#if debug
+			if( ca.isKeyboardPressed(K.K) )
+				for(e in en.Mob.ALL)
+					e.destroy();
+			#end
+
 			// Restart
 			if( ca.selectPressed() )
 				Main.ME.startGame();
 		}
 	}
 }
+
 
