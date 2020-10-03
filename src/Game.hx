@@ -108,7 +108,7 @@ class Game extends Process {
 				tw.createMs(level.burn.alpha, 1>0, 1000, TEaseIn);
 				fx.flashBangS(0xffcc00, 1, 2);
 				camera.shakeS(2, 0.3);
-				tw.createMs(camera.zoom, 1, 100, TElasticEnd);
+				tw.createMs(camera.zoom, 1, 700, TElasticEnd);
 			}
 		}
 
