@@ -223,6 +223,15 @@ class Entity {
 	public inline function distCaseX(e:Entity) return M.fabs( (cx+xr) - (e.cx+e.xr) );
 	public inline function distCaseY(e:Entity) return M.fabs( (cy+yr) - (e.cy+e.yr) );
 
+	function canSeeThrough(x,y) {
+		return !level.hasCollision(x,y);
+	}
+	public function sightCheck(e:Entity) {
+		if( destroyed || e.destroyed )
+			return false;
+		return dn.Bresenham.checkThinLine(cx,cy,e.cx,e.cy, canSeeThrough);
+	}
+
 	public inline function distPx(e:Entity) return M.dist(footX, footY, e.footX, e.footY);
 	public inline function distPxFree(x:Float, y:Float) return M.dist(footX, footY, x, y);
 
