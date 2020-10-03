@@ -29,6 +29,9 @@ class Game extends Process {
 	/** LEd world data **/
 	public var world : World;
 
+	public var hero: en.Hero;
+
+
 	public function new() {
 		super(Main.ME);
 		ME = this;

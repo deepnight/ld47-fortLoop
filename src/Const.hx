@@ -2,10 +2,11 @@ class Const {
 	public static var FPS = 60;
 	public static var FIXED_FPS = 30;
 	public static var AUTO_SCALE_TARGET_WID = -1; // -1 to disable auto-scaling on width
-	public static var AUTO_SCALE_TARGET_HEI = -1; // -1 to disable auto-scaling on height
+	public static var AUTO_SCALE_TARGET_HEI = 200; // -1 to disable auto-scaling on height
 	public static var SCALE = 1.0; // ignored if auto-scaling
 	public static var UI_SCALE = 1.0;
 	public static var GRID = 16;
+	public static var GRAVITY = 0.04;
 
 	static var _uniq = 0;
 	public static var NEXT_UNIQ(get,never) : Int; static inline function get_NEXT_UNIQ() return _uniq++;

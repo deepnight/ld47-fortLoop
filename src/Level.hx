@@ -16,6 +16,10 @@ class Level extends dn.Process {
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 		level = l;
 		tilesetSource = hxd.Res.world.tiles.toTile();
+
+		// Entities
+		var e = level.l_Entities.all_Hero[0];
+		game.hero = new en.Hero(e);
 	}
 
 	/**

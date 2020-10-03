@@ -11,6 +11,10 @@ class Entity {
 	var tmod(get,never) : Float; inline function get_tmod() return Game.ME.tmod;
 	var utmod(get,never) : Float; inline function get_utmod() return Game.ME.utmod;
 	public var hud(get,never) : ui.Hud; inline function get_hud() return Game.ME.hud;
+	public var hero(get,never) : en.Hero; inline function get_hero() return Game.ME.hero;
+
+	public var onGround(get,never): Bool;
+		inline function get_onGround() return dy==0 && level.hasCollision(cx,cy+1) && yr==1;
 
 	/** Cooldowns **/
 	public var cd : dn.Cooldown;
@@ -33,6 +37,8 @@ class Entity {
 	// Velocities
     public var dx = 0.;
 	public var dy = 0.;
+
+	public var gravityMul = 1.0;
 
 	// Uncontrollable bump velocities, usually applied by external
 	// factors (think of a bumper in Sonic for example)
@@ -97,6 +103,7 @@ class Entity {
 	public var centerY(get,never) : Float; inline function get_centerY() return footY-hei*0.5;
 	public var prevFrameFootX : Float = -Const.INFINITE;
 	public var prevFrameFootY : Float = -Const.INFINITE;
+	var fallHighestCy = 0.;
 
 	var actions : Array<{ id:String, cb:Void->Void, t:Float }> = [];
 
@@ -470,6 +477,17 @@ class Entity {
 		prevFrameFootY = footY;
 	}
 
+	public inline function lockControlS(t:Float) {
+		if( !destroyed )
+			cd.setS("ctrlLocked",t);
+	}
+
+	public inline function controlsLocked() {
+		return destroyed || cd.has("ctrlLocked");
+	}
+
+	function onLand(fallCHei:Float) {}
+
 	public function fixedUpdate() {} // runs at a "guaranteed" 30 fps
 
     public function update() { // runs at an unknown fps
@@ -479,7 +497,15 @@ class Entity {
 		while( steps>0 ) {
 			xr+=step;
 
-			// [ add X collisions checks here ]
+			if( level.hasCollision(cx+1,cy) && xr>=0.7 ) {
+				xr = 0.7;
+				dx *= Math.pow(0.5,tmod);
+			}
+
+			if( level.hasCollision(cx-1,cy) && xr<=0.3 ) {
+				xr = 0.3;
+				dx *= Math.pow(0.5,tmod);
+			}
 
 			while( xr>1 ) { xr--; cx++; }
 			while( xr<0 ) { xr++; cx--; }
@@ -491,12 +517,26 @@ class Entity {
 		if( M.fabs(bdx)<=0.0005*tmod ) bdx = 0;
 
 		// Y
+		if( !onGround )
+			dy += gravityMul*Const.GRAVITY;
 		var steps = M.ceil( M.fabs(dyTotal*tmod) );
 		var step = dyTotal*tmod / steps;
 		while( steps>0 ) {
 			yr+=step;
 
-			// [ add Y collisions checks here ]
+			if( onGround || dy<=0 )
+				fallHighestCy = cy+yr;
+
+			if( level.hasCollision(cx,cy-1) && yr<0.5 ) {
+				yr = 0.5;
+				dy *= Math.pow(0.5,tmod);
+			}
+
+			if( level.hasCollision(cx,cy+1) && yr>=1 ) {
+				dy = 0;
+				yr = 1;
+				onLand(cy+yr-fallHighestCy);
+			}
 
 			while( yr>1 ) { yr--; cy++; }
 			while( yr<0 ) { yr++; cy--; }
