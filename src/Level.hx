@@ -25,10 +25,13 @@ class Level extends dn.Process {
 		level = l;
 
 		tilesetSource = hxd.Res.world.tileset.toTile();
+
 		dark = new h2d.TileGroup(tilesetSource, root);
+
 		lightWrapper = new h2d.Object(root);
 		bg = new h2d.TileGroup(tilesetSource, lightWrapper);
 		walls = new h2d.TileGroup(tilesetSource, lightWrapper);
+
 		burn = new h2d.TileGroup(tilesetSource, lightWrapper);
 		burn.blendMode = Add;
 		burn.filter = new h2d.filter.Group([
