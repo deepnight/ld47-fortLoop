@@ -34,6 +34,7 @@ class Game extends Process {
 	public var dark(default,null) : Bool;
 	var darkMask : h2d.Bitmap;
 	public var autoSwitchS(default,null) : Float = Const.LIGHT_DURATION;
+	var darkHalo : HSprite;
 
 	public function new() {
 		super(Main.ME);
@@ -58,6 +59,10 @@ class Game extends Process {
 		darkMask = new h2d.Bitmap( h2d.Tile.fromColor(Const.DARK_COLOR) );
 		root.add(darkMask, Const.DP_TOP);
 
+		darkHalo = Assets.tiles.h_get("darkHalo");
+		root.add(darkHalo,Const.DP_TOP);
+		darkHalo.alpha = 0.;
+
 		Process.resizeAll();
 		setDarkness(false,true);
 		level.attachLightEntities();
@@ -79,6 +84,8 @@ class Game extends Process {
 	override function onResize() {
 		super.onResize();
 		scroller.setScale(Const.SCALE);
+		darkHalo.scaleX = w()/darkHalo.tile.width;
+		darkHalo.scaleY = h()/darkHalo.tile.height;
 	}
 
 
@@ -220,6 +227,8 @@ class Game extends Process {
 		updateSlowMos();
 		baseTimeMul = ( 0.2 + 0.8*curGameSpeed ) * ( ucd.has("stopFrame") ? 0.3 : 1 );
 		Assets.tiles.tmod = tmod;
+
+		darkHalo.alpha += ( (dark ? 0.4 : 0.) - darkHalo.alpha ) * 0.03;
 	}
 
 	override function fixedUpdate() {
