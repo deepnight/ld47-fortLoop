@@ -19,10 +19,6 @@ class Hero extends Entity {
 		ca.dispose();
 	}
 
-	override function fixedUpdate() {
-		super.fixedUpdate();
-	}
-
 	override function onLand(fallCHei:Float) {
 		super.onLand(fallCHei);
 		var impact = M.fmin(1, fallCHei/6);
