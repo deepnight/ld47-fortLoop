@@ -12,13 +12,15 @@ class Mob extends Entity {
 		super(e.cx, e.cy);
 		ALL.push(this);
 		data = e;
-		initLife(2);
+		initLife(5);
 
 		dir = data.f_initialDir;
 		lockControlS(1);
 
 		origin = makePoint();
 		patrolTarget = data.f_patrol==null ? null : new CPoint(data.f_patrol.cx, data.f_patrol.cy);
+
+		circularCollisions = true;
 
 		spr.anim.registerStateAnim("mobIdle",0);
 	}
@@ -30,11 +32,10 @@ class Mob extends Entity {
 
 	override function onDamage(dmg:Int, from:Entity) {
 		super.onDamage(dmg, from);
-		bump( (from==null?-dir:from.dirTo(this))*rnd(0.2,0.3), -rnd(0.05,0.10) );
+		// bump( (from==null?-dir:from.dirTo(this))*rnd(0.2,0.3), -rnd(0.05,0.10) );
 		lockControlS(0.1);
 		setSquashX(0.5);
-		blink(0xffcc00);
-	}
+		blink(0xffcc00);}
 
 	public function aggro(e:Entity) {
 		cd.setS("keepAggro",5);
@@ -120,11 +121,11 @@ class Mob extends Entity {
 		}
 
 		// Hit hero
-		if( distCaseX(hero)<=0.7 && hero.footY>=footY-Const.GRID*1 && hero.footY<=footY+Const.GRID*0.5 && !cd.hasSetS("heroHitLock",0.3) ) {
-			hero.hit(1,this);
-			lockControlS(0.6);
-			setSquashX(0.5);
-			bump(-dirTo(hero)*0.15, -0.1);
-		}
+		// if( distCaseX(hero)<=0.7 && hero.footY>=footY-Const.GRID*1 && hero.footY<=footY+Const.GRID*0.5 && !cd.hasSetS("heroHitLock",0.3) ) {
+		// 	hero.hit(1,this);
+		// 	lockControlS(0.6);
+		// 	setSquashX(0.5);
+		// 	bump(-dirTo(hero)*0.15, -0.1);
+		// }
 	}
 }

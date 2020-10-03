@@ -14,6 +14,7 @@ class Hero extends Entity {
 		ca = Main.ME.controller.createAccess("hero");
 		ca.setLeftDeadZone(0.2);
 		darkMode = Keep;
+		circularCollisions = true;
 		initLife(3);
 
 
@@ -157,7 +158,7 @@ class Hero extends Entity {
 		// HACK
 		#if debug
 		if( !controlsLocked() && ca.rbPressed() ) {
-			game.dark = !game.dark;
+			game.setDarkness(!game.dark);
 		}
 		#end
 
@@ -216,6 +217,16 @@ class Hero extends Entity {
 				yr = M.fmin(0.4,yr);
 				dy = -0.2;
 				dx-=0.2;
+			}
+		}
+
+		// Auto attack
+		for(e in en.Mob.ALL) {
+			if( distCaseX(e)<=1 && footY>=e.footY-Const.GRID*1 && footY<=e.footY+Const.GRID*0.5 && !cd.hasSetS("autoAtk",0.1) ) {
+				// hero.attack(this);
+				e.hit(1,hero);
+				bump(-dirTo(e)*rnd(0.03,0.06), 0);
+				e.bump(dirTo(e)*rnd(0.06,0.12), -rnd(0.04,0.08));
 			}
 		}
 

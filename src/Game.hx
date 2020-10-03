@@ -31,8 +31,9 @@ class Game extends Process {
 
 	public var hero: en.Hero;
 
-	public var dark(default,set) : Null<Bool>;
+	public var dark(default,null) : Bool;
 	var darkMask : h2d.Bitmap;
+	public var autoSwitchS(default,null) : Float = Const.LIGHT_DURATION;
 
 	public function new() {
 		super(Main.ME);
@@ -50,7 +51,7 @@ class Game extends Process {
 		camera = new Camera();
 		fx = new Fx();
 		hud = new ui.Hud();
-		level = new Level(world.all_levels.Test);
+		level = new Level(world.all_levels.Combat);
 		level.attachMainEntities();
 		camera.trackTarget(hero, true);
 
@@ -58,7 +59,7 @@ class Game extends Process {
 		root.add(darkMask, Const.DP_TOP);
 
 		Process.resizeAll();
-		dark = false;
+		setDarkness(false,true);
 		level.attachLightEntities();
 	}
 
@@ -81,12 +82,12 @@ class Game extends Process {
 	}
 
 
-	function set_dark(v) {
-		var init = dark==null;
+	public function setDarkness(v:Bool, init=false) {
 		dark = v;
 		level.setDark( dark );
 		camera.targetTrackOffY = Const.GRID  * (dark ? -1 : -2);
 
+		// Visual effect
 		if( init )
 			level.burn.visible = false;
 		else {
@@ -110,6 +111,17 @@ class Game extends Process {
 				tw.createMs(camera.zoom, 1, 700, TElasticEnd);
 			}
 		}
+
+		// Doors
+		if( !dark )
+			delayer.addS("doors", ()->{
+				for(e in en.Door.ALL)
+					if( !e.destroyed )
+						e.setClosed(false);
+			}, init ? 0 : 0.5);
+
+		// Timer
+		autoSwitchS = dark ? Const.DARKNESS_DURATION : Const.LIGHT_DURATION;
 
 		// Entities callback
 		for(e in Entity.ALL)
@@ -241,6 +253,15 @@ class Game extends Process {
 			if( ca.selectPressed() )
 				Main.ME.startGame();
 		}
+
+		// Auto light/dark switch
+		autoSwitchS -= tmod/Const.FPS;
+		if( !dark && autoSwitchS<=0.5 && !cd.hasSetS("autoDarkBefore",2) ) {
+			for(e in en.Door.ALL)
+				e.setClosed(true);
+		}
+		if( autoSwitchS<=0 )
+			setDarkness(!dark);
 	}
 }
 

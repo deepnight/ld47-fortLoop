@@ -20,6 +20,8 @@ class Level extends dn.Process {
 
 	public var haloMask : h2d.Graphics;
 
+	public var fakeLight(default,set) = 1.0;
+
 
 	public function new(l:World.World_Level) {
 		super(Game.ME);
@@ -217,6 +219,12 @@ class Level extends dn.Process {
 		}
 	}
 
+	function set_fakeLight(v) {
+		fakeLight = v;
+		bg.alpha = walls.alpha = fakeLight;
+		return fakeLight;
+	}
+
 	override function postUpdate() {
 		super.postUpdate();
 
@@ -234,5 +242,14 @@ class Level extends dn.Process {
 			invalidated = false;
 			render();
 		}
+
+		// Light warning
+		if( !game.dark && game.autoSwitchS<=3 ) {
+			var a = ( game.autoSwitchS<=1 ? 0.4 : 0.7 ) + 0.12 * Math.sin(ftime*0.25) + rnd(0,0.04);
+			fakeLight = a;
+		}
+		else
+			fakeLight = 1;
+
 	}
 }

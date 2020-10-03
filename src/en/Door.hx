@@ -15,11 +15,16 @@ class Door extends Entity {
 		Game.ME.scroller.add(spr, Const.DP_BG);
 	}
 
-	function setClosed(closed:Bool) {
+	public function setClosed(closed:Bool) {
 		if( level==null || level.destroyed )
 			return;
 
 		isClosed = closed;
+
+		if( isClosed )
+			setSquashX(0.7);
+		else
+			setSquashY(0.7);
 
 		if( spr!=null && !spr.destroyed )
 			spr.set(closed ? "doorClosed" : "doorOpen");

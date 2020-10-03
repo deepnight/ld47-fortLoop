@@ -11,6 +11,9 @@ class Const {
 	public static var DARK_COLOR = 0x1b131b;
 	public static var DARK_LIGHT_COLOR = 0x493346;
 
+	public static var DARKNESS_DURATION = 3;
+	public static var LIGHT_DURATION = 10;
+
 	static var _uniq = 0;
 	public static var NEXT_UNIQ(get,never) : Int; static inline function get_NEXT_UNIQ() return _uniq++;
 	public static var INFINITE = 999999;
