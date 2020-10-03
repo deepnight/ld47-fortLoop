@@ -11,7 +11,7 @@
 	"defaultPivotY": 1,
 	"defaultGridSize": 16,
 	"bgColor": "#030507",
-	"nextUid": 126,
+	"nextUid": 127,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -1225,7 +1225,7 @@
 		],
 		"enums": [ { "identifier": "ItemType", "uid": 124, "values": [ { "id": "Ammo", "tileId": 640 }, { "id": "Diamond", "tileId": 641 } ], "iconTilesetUid": 4, "externalRelPath": null, "externalFileChecksum": null } ],
 		"externalEnums": [
-			{ "identifier": "Affect", "uid": 3, "values": [ { "id": "Stun", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "8451c738d450c913074b70b484449fc5" },
+			{ "identifier": "Affect", "uid": 3, "values": [ { "id": "Hidden", "tileId": null }, { "id": "Stun", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "27114e158d9ee5f0a1a29a50500c6910" },
 			{ "identifier": "LevelMark", "uid": 22, "values": [
 				{ "id": "Grab", "tileId": null },
 				{ "id": "GrabLeft", "tileId": null },
@@ -1233,7 +1233,8 @@
 				{ "id": "PlatformEnd", "tileId": null },
 				{ "id": "PlatformEndLeft", "tileId": null },
 				{ "id": "PlatformEndRight", "tileId": null }
-			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "8451c738d450c913074b70b484449fc5" }
+			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "27114e158d9ee5f0a1a29a50500c6910" },
+			{ "identifier": "DarkMode", "uid": 126, "values": [ { "id": "Destroy", "tileId": null }, { "id": "Hide", "tileId": null }, { "id": "Keep", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "27114e158d9ee5f0a1a29a50500c6910" }
 		]
 	},
 	"levels": [ {
