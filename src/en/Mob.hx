@@ -56,5 +56,18 @@ class Mob extends Entity {
 				}
 			}
 		}
+
+		if( distCase(hero)<=0.7 && !cd.hasSetS("heroHitLock",0.3) ) {
+			hero.cancelVelocities();
+			hero.bump(dirTo(hero)*0.2, -0.2);
+			hero.setSquashX(0.5);
+			hero.lockControlS(0.3);
+			camera.shakeS(0.5,0.5);
+			lockControlS(0.5);
+			setSquashX(0.5);
+			if( !level.hasMark(PlatformEnd,cx,cy) ) {
+				bump(-dirTo(hero)*0.05, -0.1);
+			}
+		}
 	}
 }
