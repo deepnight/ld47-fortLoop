@@ -9,6 +9,9 @@ class Camera extends dn.Process {
 	var bumpOffX = 0.;
 	var bumpOffY = 0.;
 
+	public var targetTrackOffX = 0.;
+	public var targetTrackOffY = 0.;
+
 	public function new() {
 		super(Game.ME);
 		x = y = 0;
@@ -23,7 +26,9 @@ class Camera extends dn.Process {
 		return M.ceil( Game.ME.h() / Const.SCALE );
 	}
 
-	public function trackTarget(e:Entity, immediate:Bool) {
+	public function 	trackTarget(e:Entity, immediate:Bool, xOff=0., yOff=0.) {
+		targetTrackOffX = xOff;
+		targetTrackOffY = yOff;
 		target = e;
 		if( immediate )
 			recenter();
@@ -35,8 +40,8 @@ class Camera extends dn.Process {
 
 	public function recenter() {
 		if( target!=null ) {
-			x = target.centerX;
-			y = target.centerY;
+			x = target.centerX + targetTrackOffX;
+			y = target.centerY + targetTrackOffY;
 		}
 	}
 
@@ -56,8 +61,8 @@ class Camera extends dn.Process {
 		if( target!=null ) {
 			var s = 0.006;
 			var deadZone = 5;
-			var tx = target.footX;
-			var ty = target.footY;
+			var tx = target.footX + targetTrackOffX;
+			var ty = target.footY + targetTrackOffY;
 
 			var d = M.dist(x,y, tx, ty);
 			if( d>=deadZone ) {
