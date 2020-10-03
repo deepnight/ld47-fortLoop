@@ -110,6 +110,7 @@ class Entity {
 
 	public var darkMode = Destroy;
 	public var climbing = false;
+	var grabbedItem : Null<en.Item>;
 
 	var actions : Array<{ id:String, cb:Void->Void, t:Float }> = [];
 
@@ -136,7 +137,7 @@ class Entity {
 	}
 
 	public function isOutOfTheGame() {
-		return game.dark && darkMode!=Keep;
+		return game.dark && darkMode!=Stay;
 	}
 
 	inline function set_colorMatrix(m) {
@@ -463,12 +464,12 @@ class Entity {
 
 	public function onDark() {
 		switch darkMode {
-			case Keep:
+			case Stay:
 			case Destroy:
 				destroy();
 				return;
 
-			case Hide:
+			case GoOutOfGame:
 		}
 
 		cd.setS("colorDarken",1);
@@ -480,7 +481,7 @@ class Entity {
 	}
 
     public function postUpdate() {
-		if( game.dark && darkMode!=Keep && spr.filter==null )
+		if( game.dark && darkMode!=Stay && spr.filter==null )
 			spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
 
         spr.x = (cx+xr)*Const.GRID;
@@ -551,6 +552,41 @@ class Entity {
 	public function stopClimbing() {
 		climbing = false;
 	}
+
+
+	public inline function isGrabbingAnything() {
+		return isAlive() && grabbedItem!=null && grabbedItem.isAlive();
+	}
+
+	public inline function isGrabbingType(k:Enum_ItemType) {
+		return isGrabbingAnything() && grabbedItem.type==k;
+	}
+
+	public inline function isGrabbing(e:en.Item) {
+		return isAlive() && grabbedItem==e;
+	}
+
+	public function grabItem(i:en.Item) {
+		dropItem();
+
+		if( i!=null && i.isAlive() ) {
+			i.inVault = false;
+			grabbedItem = i;
+		}
+	}
+
+	public function dropItem() : Null<en.Item> {
+		if( grabbedItem==null || !grabbedItem.isAlive() ) {
+			grabbedItem = null;
+			return null;
+		}
+
+		var old = grabbedItem;
+		grabbedItem.cd.setS("pickLock",0.5);
+		grabbedItem = null;
+		return old;
+	}
+
 
 	function onLand(fallCHei:Float) {
 		bdy = 0;
@@ -643,6 +679,19 @@ class Entity {
 		bdy*=Math.pow(bumpFrict,tmod);
 		if( M.fabs(dy)<=0.0005*tmod ) dy = 0;
 		if( M.fabs(bdy)<=0.0005*tmod ) bdy = 0;
+
+
+		// Lost item
+		if( grabbedItem!=null && !grabbedItem.isAlive() )
+			dropItem();
+
+		// Move grabbed item
+		if( grabbedItem!=null ) {
+			grabbedItem.setPosCase(cx,cy);
+			grabbedItem.xr = xr;
+			grabbedItem.yr = yr;
+			grabbedItem.cancelVelocities();
+		}
 
 
 		#if debug

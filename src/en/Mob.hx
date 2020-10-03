@@ -12,7 +12,7 @@ class Mob extends Entity {
 		super(e.cx, e.cy);
 		ALL.push(this);
 		data = e;
-		initLife(5);
+		initLife(4);
 
 		dir = data.f_initialDir;
 		lockControlS(1);
@@ -28,6 +28,15 @@ class Mob extends Entity {
 	override function dispose() {
 		super.dispose();
 		ALL.remove(this);
+	}
+
+	override function onDie() {
+		super.onDie();
+		if( data.f_loot!=null ) {
+			var e = new en.Item(cx,cy, data.f_loot);
+			e.dx = lastHitDirToSource * 0.04;
+			e.dy = -0.2;
+		}
 	}
 
 	override function onDamage(dmg:Int, from:Entity) {
@@ -85,13 +94,13 @@ class Mob extends Entity {
 				if( sightCheck(aggroTarget) && M.fabs(cy-aggroTarget.cy)<=1 ) {
 					// Track aggro target
 					dir = dirTo(aggroTarget);
-					dx += spd*2*dir*tmod;
+					dx += spd*1.2*dir*tmod;
 				}
 				else {
 					// Wander aggressively
-					if( !cd.hasSetS("aggroSearch",1) ) {
+					if( !cd.hasSetS("aggroSearch",rnd(0.5,0.9)) ) {
 						dir*=-1;
-						cd.setS("aggroWander", rnd(0.3,0.6) );
+						cd.setS("aggroWander", rnd(0.1,0.4) );
 					}
 					if( cd.has("aggroWander") )
 						dx += spd*2*dir*tmod;

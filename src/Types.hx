@@ -12,7 +12,7 @@ enum LevelMark {
 }
 
 enum DarkMode {
-	Keep;
+	Stay;
 	Destroy;
-	Hide;
+	GoOutOfGame;
 }

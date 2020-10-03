@@ -4,8 +4,6 @@ class Hero extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
 	public var ammo : Int;
 	public var maxAmmo : Int;
-	// var darkMask : h2d.Graphics;
-	// var darkHalo : h2d.Graphics;
 
 	public function new(e:Entity_Hero) {
 		super(e.cx, e.cy);
@@ -13,21 +11,10 @@ class Hero extends Entity {
 		ammo = maxAmmo = 15;
 		ca = Main.ME.controller.createAccess("hero");
 		ca.setLeftDeadZone(0.2);
-		darkMode = Keep;
+		darkMode = Stay;
 		circularCollisions = true;
 		initLife(3);
 
-
-		// darkMask = new h2d.Graphics();
-		// darkMask.filter = new h2d.filter.ColorMatrix();
-		// game.root.add(darkMask, Const.DP_FX_FRONT);
-
-		// darkHalo = new h2d.Graphics(darkMask);
-		// darkHalo.blendMode = Erase;
-		// darkHalo.beginFill(0xffffff, 1);
-		// darkHalo.drawCircle(0,0,Const.GRID*4);
-		// darkHalo.endFill();
-		// darkHalo.filter = new h2d.filter.Blur(32);
 
 		spr.anim.registerStateAnim("heroIdle",0);
 	}
@@ -42,7 +29,6 @@ class Hero extends Entity {
 		fx.flashBangS(0xff0000,0.2, 1);
 		camera.shakeS(0.5,0.5);
 		hud.invalidate();
-
 	}
 
 	public function refillAmmo() {
@@ -67,8 +53,6 @@ class Hero extends Entity {
 	override function dispose() {
 		super.dispose();
 		ca.dispose();
-		// darkHalo.remove();
-		// darkHalo = null;
 	}
 
 	override function onDark() {
@@ -93,17 +77,6 @@ class Hero extends Entity {
 
 	override function postUpdate() {
 		super.postUpdate();
-
-		// darkMask.visible = game.dark;
-		// if( game.dark ) {
-		// 	darkMask.clear();
-		// 	darkMask.beginFill(Const.DARK_COLOR);
-		// 	darkMask.drawRect(0,0,game.w(), game.h());
-
-		// 	darkHalo.setScale( Const.SCALE * camera.zoom );
-		// 	darkHalo.x = centerX*Const.SCALE*camera.zoom + game.scroller.x;
-		// 	darkHalo.y = centerY*Const.SCALE*camera.zoom + game.scroller.y;
-		// }
 	}
 
 	override function update() {
@@ -142,17 +115,30 @@ class Hero extends Entity {
 
 		// Attack
 		if( ca.xPressed() ) {
-			if( !useAmmo() )
-				fx.flashBangS(0x9182d3, 0.1, 0.1);
-			else {
-				var dh = new dn.DecisionHelper(en.Mob.ALL);
-				dh.keepOnly( (e)->e.isAlive() && M.fabs(cx-e.cx)<=10 && !e.isOutOfTheGame() );
-				dh.keepOnly( (e)->M.fabs(e.centerY-centerY)<=Const.GRID && dirTo(e)==dir && sightCheck(e) );
-				dh.score( (e)->-M.fabs(centerX-e.centerX) );
-				dh.useBest( (e)->{
-					e.hit(1, this);
-				});
+			var e = dropItem();
+			if( e!=null ) {
+				e.cd.setS("pickLock",0.1);
+				e.dx = dir*0.45;
+				e.dy = -0.15;
 			}
+			else {
+				for(e in en.Vault.ALL)
+					if( e.isGrabbingAnything() && distCase(e)<=1.5 ) {
+						grabItem( e.dropItem() );
+						break;
+					}
+			}
+			// if( !useAmmo() )
+			// 	fx.flashBangS(0x9182d3, 0.1, 0.1);
+			// else {
+			// 	var dh = new dn.DecisionHelper(en.Mob.ALL);
+			// 	dh.keepOnly( (e)->e.isAlive() && M.fabs(cx-e.cx)<=10 && !e.isOutOfTheGame() );
+			// 	dh.keepOnly( (e)->M.fabs(e.centerY-centerY)<=Const.GRID && dirTo(e)==dir && sightCheck(e) );
+			// 	dh.score( (e)->-M.fabs(centerX-e.centerX) );
+			// 	dh.useBest( (e)->{
+			// 		e.hit(1, this);
+			// 	});
+			// }
 		}
 
 		// HACK
@@ -223,10 +209,13 @@ class Hero extends Entity {
 		// Auto attack
 		for(e in en.Mob.ALL) {
 			if( e.isAlive() && !e.isOutOfTheGame() && distCaseX(e)<=1 && footY>=e.footY-Const.GRID*1 && footY<=e.footY+Const.GRID*0.5 && !cd.hasSetS("autoAtk",0.1) ) {
-				// hero.attack(this);
 				e.hit(1,hero);
 				bump(-dirTo(e)*rnd(0.03,0.06), 0);
 				e.bump(dirTo(e)*rnd(0.06,0.12), -rnd(0.04,0.08));
+				var i = dropItem();
+				if( i!=null ) {
+					i.bump(-dirTo(e)*rnd(0.1,0.2), -0.3);
+				}
 			}
 		}
 

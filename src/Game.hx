@@ -116,9 +116,9 @@ class Game extends Process {
 		if( !dark )
 			delayer.addS("doors", ()->{
 				for(e in en.Door.ALL)
-					if( !e.destroyed )
+					if( !e.destroyed && !e.needKey )
 						e.setClosed(false);
-			}, init ? 0 : 0.5);
+			}, init ? 0 : 0.2);
 
 		// Timer
 		autoSwitchS = dark ? Const.DARKNESS_DURATION : Const.LIGHT_DURATION;

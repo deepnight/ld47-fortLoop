@@ -5,12 +5,14 @@ class Door extends Entity {
 	var data : Entity_Door;
 	var cHei = 2;
 	var isClosed : Bool;
+	public var needKey : Bool;
 
 	public function new(e:Entity_Door) {
 		super(e.cx, e.cy);
 		ALL.push(this);
 		data = e;
-		darkMode = Hide;
+		needKey = data.f_needKey;
+		darkMode = GoOutOfGame;
 		setClosed(true);
 		Game.ME.scroller.add(spr, Const.DP_BG);
 	}
@@ -27,7 +29,7 @@ class Door extends Entity {
 			setSquashY(0.7);
 
 		if( spr!=null && !spr.destroyed )
-			spr.set(closed ? "doorClosed" : "doorOpen");
+			spr.set(needKey ? ( closed ? "doorKeyClosed" : "doorKeyOpen" ) : ( closed ? "doorClosed" : "doorOpen" ));
 
 		for(i in 0...cHei)
 			level.setExtraCollision(cx,cy-i, closed);
@@ -51,7 +53,12 @@ class Door extends Entity {
 	override function update() {
 		super.update();
 
-		// if( distCase(hero)<=1 && isClosed )
-		// 	setClosed(false);
+		if( needKey && isClosed ) {
+			for(e in en.Item.ALL)
+				if( distCase(e)<=1 && e.type==DoorKey && !e.cd.has("pickLock") ) {
+					e.destroy();
+					setClosed(false);
+				}
+		}
 	}
 }

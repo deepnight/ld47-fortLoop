@@ -5,7 +5,7 @@ class Level extends dn.Process {
 	public var cWid(get,never) : Int; inline function get_cWid() return level.l_Collisions.cWid;
 	public var cHei(get,never) : Int; inline function get_cHei() return level.l_Collisions.cHei;
 
-	public var level : World.World_Level;
+	public var level : World_Level;
 	var tilesetSource : h2d.Tile;
 
 	var marks : Map< LevelMark, Map<Int,Bool> > = new Map();
@@ -23,7 +23,7 @@ class Level extends dn.Process {
 	public var fakeLight(default,set) = 1.0;
 
 
-	public function new(l:World.World_Level) {
+	public function new(l:World_Level) {
 		super(Game.ME);
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 		level = l;
@@ -73,6 +73,10 @@ class Level extends dn.Process {
 		game.hero = new en.Hero(e);
 
 
+		if( level.l_Entities.all_Vault!=null ) // BUG
+		for(e in level.l_Entities.all_Vault)
+			new en.Vault(e);
+
 		if( level.l_Entities.all_Door!=null ) // BUG
 		for(e in level.l_Entities.all_Door)
 			new en.Door(e);
@@ -80,7 +84,7 @@ class Level extends dn.Process {
 		if( level.l_Entities.all_Item!=null ) // BUG
 		for( e in level.l_Entities.all_Item ) {
 			if( e.f_type==Diamond )
-				new en.Item(e);
+				new en.Item(e.cx, e.cy, e.f_type);
 		}
 	}
 
@@ -93,7 +97,7 @@ class Level extends dn.Process {
 		for( e in level.l_Entities.all_Item )
 			switch e.f_type {
 				case Diamond: continue;
-				case _: new en.Item(e);
+				case _: new en.Item(e.cx, e.cy, e.f_type);
 			}
 	}
 

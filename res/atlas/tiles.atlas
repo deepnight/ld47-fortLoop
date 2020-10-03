@@ -1,160 +1,202 @@
 
 tiles.png
-size: 128,128
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+darkHalo
+  rotate: false
+  xy: 1, 1
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 doorClosed
   rotate: false
-  xy: 1, 75
+  xy: 34, 303
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
+doorKeyClosed
+  rotate: false
+  xy: 46, 258
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+doorKeyOpen
+  rotate: false
+  xy: 1, 303
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 doorOpen
   rotate: false
-  xy: 80, 9
+  xy: 1, 336
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 empty
   rotate: false
-  xy: 119, 59
+  xy: 17, 510
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 fxCircle0
   rotate: false
-  xy: 1, 108
+  xy: 63, 258
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 fxDot0
   rotate: false
-  xy: 121, 60
+  xy: 95, 269
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
   index: -1
 fxImpact0
   rotate: false
-  xy: 112, 43
+  xy: 1, 501
   size: 15, 9
   orig: 15, 9
   offset: 0, 0
   index: -1
 fxLine0
   rotate: false
-  xy: 80, 1
+  xy: 63, 287
   size: 33, 3
   orig: 33, 3
   offset: 0, 0
   index: -1
 fxLineDir0
   rotate: false
-  xy: 80, 5
+  xy: 92, 281
   size: 33, 3
   orig: 33, 3
   offset: 0, 0
   index: -1
 fxSmallCircle0
   rotate: false
-  xy: 121, 53
+  xy: 90, 258
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
   index: -1
 fxSmoke0
   rotate: false
-  xy: 1, 1
+  xy: 1, 258
   size: 44, 44
   orig: 44, 44
   offset: 0, 0
   index: -1
 fxTail0
   rotate: false
-  xy: 46, 1
+  xy: 46, 291
   size: 33, 11
   orig: 33, 11
   offset: 0, 0
   index: -1
 heroIdle0
   rotate: false
-  xy: 46, 13
+  xy: 1, 369
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 iconAmmoOff
   rotate: false
-  xy: 123, 25
+  xy: 80, 258
   size: 4, 8
   orig: 4, 8
   offset: 0, 0
   index: -1
 iconAmmoOn
   rotate: false
-  xy: 123, 34
+  xy: 85, 258
   size: 4, 8
   orig: 4, 8
   offset: 0, 0
   index: -1
 iconLifeOff
   rotate: false
-  xy: 113, 25
+  xy: 17, 501
   size: 9, 8
   orig: 9, 8
   offset: 0, 0
   index: -1
 iconLifeOn
   rotate: false
-  xy: 113, 34
+  xy: 27, 501
   size: 9, 8
   orig: 9, 8
   offset: 0, 0
   index: -1
 itemAmmo
   rotate: false
-  xy: 113, 13
+  xy: 63, 275
   size: 14, 11
   orig: 14, 11
   offset: 0, 0
   index: -1
 itemDiamond
   rotate: false
-  xy: 114, 1
+  xy: 78, 275
   size: 13, 11
   orig: 13, 11
   offset: 0, 0
   index: -1
+itemKey
+  rotate: false
+  xy: 80, 267
+  size: 14, 7
+  orig: 14, 7
+  offset: 0, 0
+  index: -1
 mobIdle0
   rotate: false
-  xy: 79, 42
+  xy: 1, 402
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 pixel
   rotate: false
-  xy: 119, 61
+  xy: 19, 510
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 uiBar
   rotate: false
-  xy: 112, 59
+  xy: 95, 265
   size: 6, 3
   orig: 6, 3
   offset: 0, 0
   index: -1
 uiBarBg
   rotate: false
-  xy: 112, 53
+  xy: 92, 275
   size: 8, 5
   orig: 8, 5
+  offset: 0, 0
+  index: -1
+vault
+  rotate: false
+  xy: 1, 435
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+vaultLock
+  rotate: false
+  xy: 1, 468
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
