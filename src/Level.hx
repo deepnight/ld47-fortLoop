@@ -19,6 +19,7 @@ class Level extends dn.Process {
 
 	public var haloMask : h2d.Graphics;
 
+
 	public function new(l:World.World_Level) {
 		super(Game.ME);
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
@@ -71,6 +72,9 @@ class Level extends dn.Process {
 	public function attachLightEntities() {
 		for( e in level.l_Entities.all_Mob )
 			new en.Mob(e);
+
+		for( e in level.l_Entities.all_Item )
+			new en.Item(e);
 	}
 
 	override function onDispose() {

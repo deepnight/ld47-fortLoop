@@ -127,6 +127,8 @@ class Entity {
 		spr.setCenterRatio(0.5,1);
 		colorMatrix = h3d.Matrix.I();
 
+		initLife(1);
+
 		if( ui.Console.ME.hasFlag("bounds") )
 			enableBounds();
 	}
@@ -535,7 +537,9 @@ class Entity {
 		climbing = false;
 	}
 
-	function onLand(fallCHei:Float) {}
+	function onLand(fallCHei:Float) {
+		bdy = 0;
+	}
 
 	public function fixedUpdate() {} // runs at a "guaranteed" 30 fps
 

@@ -10,3 +10,7 @@ enum LevelMark {
 	PlatformEndLeft;
 	PlatformEndRight;
 }
+
+enum ItemType {
+	Ammo;
+}

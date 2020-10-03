@@ -11,7 +11,7 @@
 	"defaultPivotY": 1,
 	"defaultGridSize": 16,
 	"bgColor": "#1A212E",
-	"nextUid": 64,
+	"nextUid": 67,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -711,6 +711,39 @@
 						"defaultOverride": { "id": "V_Int", "params": [ 1 ] }
 					}
 				]
+			},
+			{
+				"identifier": "Item",
+				"uid": 64,
+				"width": 16,
+				"height": 16,
+				"color": "#FFC800",
+				"renderMode": "Rectangle",
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0.5,
+				"pivotY": 1,
+				"fieldDefs": [
+					{
+						"identifier": "type",
+						"__type": "ExternEnum.ItemType",
+						"uid": 66,
+						"type": { "id": "F_Enum", "params": [ 65 ] },
+						"isArray": false,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "ValueOnly",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": false,
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					}
+				]
 			}
 		],
 		"tilesets": [
@@ -728,7 +761,7 @@
 		],
 		"enums": [],
 		"externalEnums": [
-			{ "identifier": "Affect", "uid": 3, "values": [ { "id": "Stun", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "f366d360506721dc764bb8b2e77ced1a" },
+			{ "identifier": "Affect", "uid": 3, "values": [ { "id": "Stun", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "c13c6a5c9fa7f223d7a1189c4f833948" },
 			{ "identifier": "LevelMark", "uid": 22, "values": [
 				{ "id": "Grab", "tileId": null },
 				{ "id": "GrabLeft", "tileId": null },
@@ -736,7 +769,8 @@
 				{ "id": "PlatformEnd", "tileId": null },
 				{ "id": "PlatformEndLeft", "tileId": null },
 				{ "id": "PlatformEndRight", "tileId": null }
-			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "f366d360506721dc764bb8b2e77ced1a" }
+			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "c13c6a5c9fa7f223d7a1189c4f833948" },
+			{ "identifier": "ItemType", "uid": 65, "values": [ { "id": "Ammo", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "c13c6a5c9fa7f223d7a1189c4f833948" }
 		]
 	},
 	"levels": [ {
@@ -760,7 +794,7 @@
 				"seed": 8550708,
 				"gridTiles": [],
 				"entityInstances": [
-					{ "__identifier": "Hero", "__cx": 15, "__cy": 23, "defUid": 20, "x": 248, "y": 384, "fieldInstances": [] },
+					{ "__identifier": "Hero", "__cx": 28, "__cy": 19, "defUid": 20, "x": 456, "y": 320, "fieldInstances": [] },
 					{ "__identifier": "Mob", "__cx": 15, "__cy": 19, "defUid": 40, "x": 248, "y": 320, "fieldInstances": [
 						{ "__identifier": "patrol", "__value": null, "__type": "Point", "defUid": 43, "realEditorValues": [] },
 						{
@@ -800,7 +834,27 @@
 							"defUid": 46,
 							"realEditorValues": [ null ]
 						}
-					] }
+					] },
+					{ "__identifier": "Item", "__cx": 27, "__cy": 23, "defUid": 64, "x": 440, "y": 384, "fieldInstances": [ {
+						"__identifier": "type",
+						"__value": "Ammo",
+						"__type": "ExternEnum.ItemType",
+						"defUid": 66,
+						"realEditorValues": [ {
+							"id": "V_String",
+							"params": [ "Ammo" ]
+						} ]
+					} ] },
+					{ "__identifier": "Item", "__cx": 45, "__cy": 20, "defUid": 64, "x": 728, "y": 336, "fieldInstances": [ {
+						"__identifier": "type",
+						"__value": "Ammo",
+						"__type": "ExternEnum.ItemType",
+						"defUid": 66,
+						"realEditorValues": [ {
+							"id": "V_String",
+							"params": [ "Ammo" ]
+						} ]
+					} ] }
 				]
 			},
 			{

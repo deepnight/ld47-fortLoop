@@ -2,15 +2,19 @@ package en;
 
 class Hero extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
+	public var ammo : Int;
+	public var maxAmmo : Int;
 	// var darkMask : h2d.Graphics;
 	// var darkHalo : h2d.Graphics;
 
 	public function new(e:Entity_Hero) {
 		super(e.cx, e.cy);
 
+		ammo = maxAmmo = 15;
 		ca = Main.ME.controller.createAccess("hero");
 		ca.setLeftDeadZone(0.2);
 		stayInDark = true;
+		initLife(3);
 
 
 		// darkMask = new h2d.Graphics();
@@ -25,6 +29,38 @@ class Hero extends Entity {
 		// darkHalo.filter = new h2d.filter.Blur(32);
 
 		spr.anim.registerStateAnim("heroIdle",0);
+	}
+
+	override function onDamage(dmg:Int, from:Entity) {
+		super.onDamage(dmg, from);
+		cancelVelocities();
+		if( from!=null )
+			bump(from.dirTo(this)*0.2, -0.2);
+		setSquashX(0.5);
+		lockControlS(0.3);
+		fx.flashBangS(0xff0000,0.2, 1);
+		camera.shakeS(0.5,0.5);
+		hud.invalidate();
+
+	}
+
+	public function refillAmmo() {
+		ammo = maxAmmo;
+		hud.invalidate();
+	}
+
+	public function addAmmo(n:Int) {
+		ammo = M.imin(maxAmmo, ammo+n);
+		hud.invalidate();
+	}
+
+	public function useAmmo() {
+		if( ammo<=0 )
+			return false;
+
+		ammo--;
+		hud.invalidate();
+		return true;
 	}
 
 	override function dispose() {
@@ -90,7 +126,7 @@ class Hero extends Entity {
 			if( climbing ) {
 				stopClimbing();
 				cd.setS("climbLock",0.2);
-				dx = dir*0.2;
+				dx = dir*0.1;
 			}
 			setSquashX(0.7);
 			dy = -0.07;
@@ -105,10 +141,16 @@ class Hero extends Entity {
 
 		// Attack
 		if( ca.xPressed() ) {
-			for(e in en.Mob.ALL) {
-				if( M.fabs(e.centerY-centerY)<=Const.GRID && dirTo(e)==dir && sightCheck(e) ) {
+			if( !useAmmo() )
+				fx.flashBangS(0x9182d3, 0.1, 0.1);
+			else {
+				var dh = new dn.DecisionHelper(en.Mob.ALL);
+				dh.keepOnly( (e)->e.isAlive() && M.fabs(cx-e.cx)<=10 );
+				dh.keepOnly( (e)->M.fabs(e.centerY-centerY)<=Const.GRID && dirTo(e)==dir && sightCheck(e) );
+				dh.score( (e)->-M.fabs(centerX-e.centerX) );
+				dh.useBest( (e)->{
 					e.hit(1, this);
-				}
+				});
 			}
 		}
 
