@@ -20,9 +20,7 @@ class Mob extends Entity {
 		origin = makePoint();
 		patrolTarget = data.f_patrol==null ? null : new CPoint(data.f_patrol.cx, data.f_patrol.cy);
 
-		var g = new h2d.Graphics(spr);
-		g.beginFill(0xff0000);
-		g.drawRect(-8, -16, 16,16);
+		spr.anim.registerStateAnim("mobIdle",0);
 	}
 
 	override function dispose() {
@@ -32,9 +30,10 @@ class Mob extends Entity {
 
 	override function onDamage(dmg:Int, from:Entity) {
 		super.onDamage(dmg, from);
-		bump( (from==null?-dir:from.dirTo(this))*rnd(0.05,0.07), -0.1 );
+		bump( (from==null?-dir:from.dirTo(this))*rnd(0.2,0.3), -rnd(0.05,0.10) );
 		lockControlS(0.1);
 		setSquashX(0.5);
+		blink(0xffcc00);
 	}
 
 	public function aggro(e:Entity) {
@@ -47,8 +46,16 @@ class Mob extends Entity {
 		return true;
 	}
 
+	override function postUpdate() {
+		super.postUpdate();
+		spr.alpha = isOutOfTheGame() ? 0.2 : 1;
+	}
+
 	override function update() {
 		super.update();
+
+		if( isOutOfTheGame() )
+			return;
 
 		// Lost aggro
 		if( aggroTarget!=null && ( !cd.has("keepAggro") || aggroTarget.destroyed ) ) {
@@ -66,8 +73,6 @@ class Mob extends Entity {
 				bump(0,-0.1);
 			}
 		}
-
-		debug("agg="+aggroTarget);
 
 		if( onGround )
 			cd.setS("airControl",0.5);
@@ -114,12 +119,12 @@ class Mob extends Entity {
 			}
 		}
 
+		// Hit hero
 		if( distCaseX(hero)<=0.7 && hero.footY>=footY-Const.GRID*1 && hero.footY<=footY+Const.GRID*0.5 && !cd.hasSetS("heroHitLock",0.3) ) {
 			hero.hit(1,this);
 			lockControlS(0.6);
 			setSquashX(0.5);
-			// if( !level.hasMark(PlatformEnd,cx,cy) )
-				bump(-dirTo(hero)*0.15, -0.1);
+			bump(-dirTo(hero)*0.15, -0.1);
 		}
 	}
 }

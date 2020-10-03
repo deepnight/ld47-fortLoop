@@ -1,6 +1,5 @@
 enum Affect {
 	Stun;
-	Hidden;
 }
 
 enum LevelMark {

@@ -6,7 +6,7 @@ filter: Linear,Linear
 repeat: none
 doorClosed
   rotate: false
-  xy: 79, 42
+  xy: 1, 75
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
@@ -20,28 +20,28 @@ doorOpen
   index: -1
 empty
   rotate: false
-  xy: 126, 43
+  xy: 119, 59
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 fxCircle0
   rotate: false
-  xy: 96, 42
+  xy: 1, 108
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 fxDot0
   rotate: false
-  xy: 122, 43
+  xy: 121, 60
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
   index: -1
 fxImpact0
   rotate: false
-  xy: 96, 59
+  xy: 112, 43
   size: 15, 9
   orig: 15, 9
   offset: 0, 0
@@ -62,7 +62,7 @@ fxLineDir0
   index: -1
 fxSmallCircle0
   rotate: false
-  xy: 113, 49
+  xy: 121, 53
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
@@ -130,23 +130,30 @@ itemDiamond
   orig: 13, 11
   offset: 0, 0
   index: -1
+mobIdle0
+  rotate: false
+  xy: 79, 42
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 pixel
   rotate: false
-  xy: 126, 45
+  xy: 119, 61
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 uiBar
   rotate: false
-  xy: 120, 49
+  xy: 112, 59
   size: 6, 3
   orig: 6, 3
   offset: 0, 0
   index: -1
 uiBarBg
   rotate: false
-  xy: 113, 43
+  xy: 112, 53
   size: 8, 5
   orig: 8, 5
   offset: 0, 0

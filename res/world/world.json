@@ -1379,7 +1379,17 @@
 							"params": [ "Diamond" ]
 						} ]
 					} ] },
-					{ "__identifier": "Door", "__cx": 11, "__cy": 23, "defUid": 127, "x": 184, "y": 384, "fieldInstances": [] }
+					{ "__identifier": "Door", "__cx": 11, "__cy": 23, "defUid": 127, "x": 184, "y": 384, "fieldInstances": [] },
+					{ "__identifier": "Mob", "__cx": 19, "__cy": 23, "defUid": 40, "x": 312, "y": 384, "fieldInstances": [
+						{ "__identifier": "patrol", "__value": null, "__type": "Point", "defUid": 43, "realEditorValues": [] },
+						{
+							"__identifier": "initialDir",
+							"__value": 1,
+							"__type": "Int",
+							"defUid": 46,
+							"realEditorValues": [ null ]
+						}
+					] }
 				]
 			},
 			{

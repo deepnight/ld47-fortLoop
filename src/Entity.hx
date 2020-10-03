@@ -133,6 +133,10 @@ class Entity {
 			enableBounds();
 	}
 
+	public function isOutOfTheGame() {
+		return game.dark && darkMode!=Keep;
+	}
+
 	inline function set_colorMatrix(m) {
 		return destroyed ? null : spr.colorMatrix = m;
 	}
@@ -463,8 +467,6 @@ class Entity {
 				return;
 
 			case Hide:
-				setAffectS(Hidden,Const.INFINITE);
-				spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
 		}
 
 		cd.setS("colorDarken",1);
@@ -472,11 +474,13 @@ class Entity {
 
 	public function onLight() {
 		colorMatrix.identity();
-		clearAffect(Hidden);
 		spr.filter = null;
 	}
 
     public function postUpdate() {
+		if( game.dark && darkMode!=Keep && spr.filter==null )
+			spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
+
         spr.x = (cx+xr)*Const.GRID;
         spr.y = (cy+yr)*Const.GRID;
         spr.scaleX = dir*sprScaleX * sprSquashX;

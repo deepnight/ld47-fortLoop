@@ -59,6 +59,7 @@ class Game extends Process {
 
 		Process.resizeAll();
 		dark = false;
+		level.attachLightEntities();
 	}
 
 	/**
@@ -86,10 +87,6 @@ class Game extends Process {
 		level.setDark( dark );
 		camera.targetTrackOffY = Const.GRID  * (dark ? -1 : -2);
 
-		// Init entities
-		if( !dark )
-			level.attachLightEntities();
-
 		if( init )
 			level.burn.visible = false;
 		else {
@@ -106,8 +103,9 @@ class Game extends Process {
 				// Super bright effect
 				tw.terminateWithoutCallbacks(darkMask.alpha);
 				darkMask.visible = false;
-				tw.createMs(level.burn.alpha, 1>0, 1000, TEaseIn);
-				fx.flashBangS(0xffcc00, 1, 2);
+				level.burn.visible = true;
+				tw.createMs(level.burn.alpha, 0.5>0, 1000, TEaseIn);
+				fx.flashBangS(0xffcc00, 0.3, 2);
 				camera.shakeS(2, 0.3);
 				tw.createMs(camera.zoom, 1, 700, TElasticEnd);
 			}
@@ -120,6 +118,10 @@ class Game extends Process {
 					e.onDark();
 				else
 					e.onLight();
+
+		// Init entities
+		if( dark )
+			level.attachLightEntities();
 
 		return dark;
 	}

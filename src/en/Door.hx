@@ -30,7 +30,7 @@ class Door extends Entity {
 
 	override function postUpdate() {
 		super.postUpdate();
-		if( !isClosed && hasAffect(Hidden) )
+		if( !isClosed && isOutOfTheGame() )
 			spr.visible = false;
 	}
 

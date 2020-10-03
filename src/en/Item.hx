@@ -28,7 +28,7 @@ class Item extends Entity {
 	override function update() {
 		super.update();
 
-		if( distCase(hero)<=0.9 && !hasAffect(Hidden) ) {
+		if( distCase(hero)<=0.9 && !isOutOfTheGame() ) {
 			switch data.f_type {
 			case Ammo: hero.addAmmo(6); fx.flashBangS(0xffcc00,0.1);
 			case Diamond: fx.flashBangS(0x04b6ff, 0.3, 1);
@@ -36,7 +36,7 @@ class Item extends Entity {
 			destroy();
 		}
 
-		if( data.f_type==Diamond && !hasAffect(Hidden) && !cd.hasSetS("jump",1) && onGround )
+		if( data.f_type==Diamond && !isOutOfTheGame() && !cd.hasSetS("jump",1) && onGround )
 			dy = -0.2;
 	}
 }

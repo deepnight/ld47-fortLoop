@@ -72,7 +72,7 @@ class Hero extends Entity {
 
 	override function onDark() {
 		super.onDark();
-		lockControlS(0.5);
+		lockControlS(0.25);
 	}
 
 	override function onLight() {
@@ -145,7 +145,7 @@ class Hero extends Entity {
 				fx.flashBangS(0x9182d3, 0.1, 0.1);
 			else {
 				var dh = new dn.DecisionHelper(en.Mob.ALL);
-				dh.keepOnly( (e)->e.isAlive() && M.fabs(cx-e.cx)<=10 );
+				dh.keepOnly( (e)->e.isAlive() && M.fabs(cx-e.cx)<=10 && !e.isOutOfTheGame() );
 				dh.keepOnly( (e)->M.fabs(e.centerY-centerY)<=Const.GRID && dirTo(e)==dir && sightCheck(e) );
 				dh.score( (e)->-M.fabs(centerX-e.centerX) );
 				dh.useBest( (e)->{

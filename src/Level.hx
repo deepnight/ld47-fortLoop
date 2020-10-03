@@ -37,8 +37,8 @@ class Level extends dn.Process {
 		burn = new h2d.TileGroup(tilesetSource, lightWrapper);
 		burn.blendMode = Add;
 		burn.filter = new h2d.filter.Group([
-			new h2d.filter.Bloom(4, 1, 8),
-			new h2d.filter.Blur(8),
+			new h2d.filter.Bloom(4, 1, 16),
+			// new h2d.filter.Blur(8),
 		]);
 
 		haloMask = new h2d.Graphics(lightWrapper);
