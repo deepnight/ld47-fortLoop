@@ -37,23 +37,34 @@ class Level extends dn.Process {
 		var e = level.l_Entities.all_Hero[0];
 		game.hero = new en.Hero(e);
 
+		// Marking
 		for(cy in 0...cHei)
 		for(cx in 0...cWid) {
 			if( !hasCollision(cx,cy) && !hasCollision(cx,cy-1) ) {
 				if( hasCollision(cx+1,cy) && !hasCollision(cx+1,cy-1) )
-					setMark(cx,cy, GrabRight);
+					setMarks(cx,cy, [Grab,GrabRight]);
 
 				if( hasCollision(cx-1,cy) && !hasCollision(cx-1,cy-1) )
-					setMark(cx,cy, GrabLeft);
+					setMarks(cx,cy, [Grab,GrabLeft]);
 			}
 
 			if( !hasCollision(cx,cy) && hasCollision(cx,cy+1) ) {
 				if( hasCollision(cx+1,cy) || !hasCollision(cx+1,cy+1) )
-					setMark(cx,cy, PlatformEnd);
+					setMarks(cx,cy, [PlatformEnd,PlatformEndRight]);
 				if( hasCollision(cx-1,cy) || !hasCollision(cx-1,cy+1) )
-					setMark(cx,cy, PlatformEnd);
+					setMarks(cx,cy, [PlatformEnd,PlatformEndLeft]);
 			}
 		}
+	}
+
+	public function detachLightEntities() {
+		for(e in en.Mob.ALL)
+			e.destroy();
+	}
+
+	public function attachLightEntities() {
+		for( e in level.l_Entities.all_Mob )
+			new en.Mob(e);
 	}
 
 	override function onDispose() {
@@ -94,6 +105,11 @@ class Level extends dn.Process {
 				marks.set(mark, new Map());
 			marks.get(mark).set( coordId(cx,cy), true );
 		}
+	}
+
+	public inline function setMarks(cx,cy,marks:Array<LevelMark>) {
+		for(m in marks)
+			setMark(cx,cy,m);
 	}
 
 	/** Remove mark at coordinates **/

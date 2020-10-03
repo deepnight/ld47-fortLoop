@@ -27,9 +27,9 @@ class CPoint {
 
 	public inline function distCase(?e:Entity, ?pt:CPoint, ?cx=0, ?cy=0, ?xr=0.5, ?yr=0.5) {
 		if( e!=null )
-			return M.dist(cx+xr, cy+yr, e.cx+e.xr, e.cy+e.yr);
+			return M.dist(this.cx+this.xr, this.cy+this.yr, e.cx+e.xr, e.cy+e.yr);
 		else if( pt!=null )
-			return M.dist(cx+xr, cy+yr, pt.cx+pt.xr, pt.cy+pt.yr);
+			return M.dist(this.cx+this.xr, this.cy+this.yr, pt.cx+pt.xr, pt.cy+pt.yr);
 		else
 			return M.dist(this.cx+this.xr, this.cy+this.yr, cx+xr, cy+yr);
 	}

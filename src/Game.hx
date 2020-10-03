@@ -84,6 +84,11 @@ class Game extends Process {
 		level.setDark( dark );
 		camera.targetTrackOffY = Const.GRID  * (dark ? -1 : -1.5);
 
+		if( dark )
+			level.detachLightEntities();
+		else
+			level.attachLightEntities();
+
 		if( dark ) {
 			// Black effect
 			darkMask.visible = true;
