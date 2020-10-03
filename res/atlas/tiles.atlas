@@ -67,6 +67,13 @@ fxTail0
   orig: 33, 11
   offset: 0, 0
   index: -1
+heroIdle0
+  rotate: false
+  xy: 1, 66
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 pixel
   rotate: false
   xy: 62, 20
