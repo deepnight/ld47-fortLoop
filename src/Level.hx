@@ -11,10 +11,13 @@ class Level extends dn.Process {
 	var marks : Map< LevelMark, Map<Int,Bool> > = new Map();
 	var invalidated = true;
 
+	var lightWrapper : h2d.Object;
 	var walls : h2d.TileGroup;
 	var bg : h2d.TileGroup;
 	var dark : h2d.TileGroup;
 	public var burn : h2d.TileGroup;
+
+	public var haloMask : h2d.Graphics;
 
 	public function new(l:World.World_Level) {
 		super(Game.ME);
@@ -22,16 +25,21 @@ class Level extends dn.Process {
 		level = l;
 
 		tilesetSource = hxd.Res.world.tileset.toTile();
-		bg = new h2d.TileGroup(tilesetSource, root);
-		walls = new h2d.TileGroup(tilesetSource, root);
 		dark = new h2d.TileGroup(tilesetSource, root);
-		burn = new h2d.TileGroup(tilesetSource, root);
+		lightWrapper = new h2d.Object(root);
+		bg = new h2d.TileGroup(tilesetSource, lightWrapper);
+		walls = new h2d.TileGroup(tilesetSource, lightWrapper);
+		burn = new h2d.TileGroup(tilesetSource, lightWrapper);
 		burn.blendMode = Add;
 		burn.filter = new h2d.filter.Group([
 			new h2d.filter.Bloom(4, 1, 8),
 			new h2d.filter.Blur(8),
 		]);
 
+		haloMask = new h2d.Graphics(lightWrapper);
+		haloMask.beginFill(0xffffff);
+		haloMask.drawCircle(0,0,Const.GRID*5);
+		haloMask.visible = false;
 
 		// Entities
 		var e = level.l_Entities.all_Hero[0];
@@ -124,10 +132,16 @@ class Level extends dn.Process {
 	}
 
 	public function setDark(v:Bool) {
-		dark.visible = v;
-		walls.visible = !v;
-		bg.visible = !v;
-		burn.visible = !v;
+		haloMask.setScale(0.1);
+		haloMask.visible = v;
+		if( v )
+			lightWrapper.filter = new h2d.filter.Mask(haloMask);
+		else
+			lightWrapper.filter = null;
+		// dark.visible = v;
+		// walls.visible = !v;
+		// bg.visible = !v;
+		// burn.visible = !v;
 	}
 
 	/** Render current level**/
@@ -159,6 +173,16 @@ class Level extends dn.Process {
 
 	override function postUpdate() {
 		super.postUpdate();
+
+		lightWrapper.alpha += ( ( game.dark ? 0.2 : 1 ) - lightWrapper.alpha ) * 0.05;
+
+		var tx = game.hero.centerX + game.hero.dir*5 + Math.cos(ftime*0.05)*2;
+		var ty = game.hero.centerY + Math.sin(ftime*0.032)*2;
+		haloMask.x += (tx-haloMask.x)*0.2;
+		haloMask.y += (ty-haloMask.y)*0.2;
+
+		haloMask.scaleX += (0.5 + Math.cos(ftime*0.03)*0.04 - haloMask.scaleX) * 0.07;
+		haloMask.scaleY += (0.5 + Math.sin(ftime*0.04)*0.03 - haloMask.scaleY) * 0.07;
 
 		if( invalidated ) {
 			invalidated = false;

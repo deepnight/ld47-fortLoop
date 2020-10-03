@@ -104,11 +104,11 @@ class Hero extends Entity {
 			dy -= 0.05 * cd.getRatio("jumpForce") * tmod;
 
 		// HACK
-		#if debug
+		// #if debug
 		if( !controlsLocked() && ca.xPressed() ) {
 			game.dark = !game.dark;
 		}
-		#end
+		// #end
 
 		if( !climbing && !cd.has("climbLock") && !controlsLocked() && ca.leftDist()>0 ) {
 			// Grab ladder up
@@ -167,5 +167,7 @@ class Hero extends Entity {
 				dx-=0.2;
 			}
 		}
+
+		debug( M.pretty(hxd.Timer.fps(),1) );
 	}
 }

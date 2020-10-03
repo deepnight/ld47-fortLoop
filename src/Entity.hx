@@ -263,7 +263,6 @@ class Entity {
 		debug( pretty(v), c );
 	}
 	public inline function debug(?v:Dynamic, ?c=0xffffff) {
-		#if debug
 		if( v==null && debugLabel!=null ) {
 			debugLabel.remove();
 			debugLabel = null;
@@ -274,7 +273,6 @@ class Entity {
 			debugLabel.text = Std.string(v);
 			debugLabel.textColor = c;
 		}
-		#end
 	}
 
 	public function disableBounds() {
@@ -451,14 +449,12 @@ class Entity {
 			destroy();
 			return;
 		}
-		spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
-		colorMatrix = C.getColorizeMatrixH2d(Const.DARK_COLOR, 1);
-		trace(this);
+		cd.setS("colorDarken",1);
 	}
 
 	public function onLight() {
 		colorMatrix.identity();
-		spr.filter = null;
+		// spr.filter = null;
 	}
 
     public function postUpdate() {
@@ -470,6 +466,9 @@ class Entity {
 
 		sprSquashX += (1-sprSquashX) * 0.2;
 		sprSquashY += (1-sprSquashY) * 0.2;
+
+		if( game.dark )
+			colorMatrix.load( C.getColorizeMatrixH2d(Const.DARK_COLOR, 0.5*(1-cd.getRatio("colorDarken"))) );
 
 		// Blink
 		if( !cd.has("keepBlink") ) {
