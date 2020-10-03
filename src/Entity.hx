@@ -107,6 +107,7 @@ class Entity {
 	var fallHighestCy = 0.;
 
 	public var stayInDark = false;
+	public var climbing = false;
 
 	var actions : Array<{ id:String, cb:Void->Void, t:Float }> = [];
 
@@ -219,6 +220,8 @@ class Entity {
 
 	public inline function distCase(e:Entity) return M.dist(cx+xr, cy+yr, e.cx+e.xr, e.cy+e.yr);
 	public inline function distCaseFree(tcx:Int, tcy:Int, ?txr=0.5, ?tyr=0.5) return M.dist(cx+xr, cy+yr, tcx+txr, tcy+tyr);
+	public inline function distCaseX(e:Entity) return M.fabs( (cx+xr) - (e.cx+e.xr) );
+	public inline function distCaseY(e:Entity) return M.fabs( (cy+yr) - (e.cy+e.yr) );
 
 	public inline function distPx(e:Entity) return M.dist(footX, footY, e.footX, e.footY);
 	public inline function distPxFree(x:Float, y:Float) return M.dist(footX, footY, x, y);
@@ -512,6 +515,18 @@ class Entity {
 		return destroyed || cd.has("ctrlLocked");
 	}
 
+	public function startClimbing() {
+		climbing = true;
+		bdx*=0.2;
+		bdy*=0.2;
+		dx*=0.3;
+		dy*=0.3;
+	}
+
+	public function stopClimbing() {
+		climbing = false;
+	}
+
 	function onLand(fallCHei:Float) {}
 
 	public function fixedUpdate() {} // runs at a "guaranteed" 30 fps
@@ -543,7 +558,7 @@ class Entity {
 		if( M.fabs(bdx)<=0.0005*tmod ) bdx = 0;
 
 		// Y
-		if( !onGround )
+		if( !onGround && !climbing )
 			dy += gravityMul*Const.GRAVITY * tmod;
 		var steps = M.ceil( M.fabs(dyTotal*tmod) );
 		var step = dyTotal*tmod / steps;
@@ -553,7 +568,7 @@ class Entity {
 			if( onGround || dy<=0 )
 				fallHighestCy = cy+yr;
 
-			if( level.hasCollision(cx,cy-1) && yr<0.5 ) {
+			if( !climbing && level.hasCollision(cx,cy-1) && yr<0.5 ) {
 				yr = 0.5;
 				dy *= Math.pow(0.5,tmod);
 			}

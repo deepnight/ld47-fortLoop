@@ -57,7 +57,7 @@ class Mob extends Entity {
 			}
 		}
 
-		if( distCase(hero)<=0.7 && !cd.hasSetS("heroHitLock",0.3) ) {
+		if( distCaseX(hero)<=0.7 && hero.footY>=footY-Const.GRID*1 && hero.footY<=footY+Const.GRID*0.5 && !cd.hasSetS("heroHitLock",0.3) ) {
 			hero.cancelVelocities();
 			hero.bump(dirTo(hero)*0.2, -0.2);
 			hero.setSquashX(0.5);

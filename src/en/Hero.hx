@@ -36,6 +36,7 @@ class Hero extends Entity {
 
 	override function onDark() {
 		super.onDark();
+		lockControlS(0.5);
 	}
 
 	override function onLight() {
@@ -70,6 +71,7 @@ class Hero extends Entity {
 
 	override function update() {
 		super.update();
+		var spd = 0.015;
 
 		if( onGround ) {
 			cd.setS("onGroundRecently",0.1);
@@ -78,15 +80,20 @@ class Hero extends Entity {
 
 		// Walk
 		if( !controlsLocked() && ca.leftDist() > 0 ) {
-			var spd = 0.015;
-			dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
-			dir = dx>0 ? 1 : -1;
+			if( !climbing )
+				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
+			dir = M.sign( Math.cos(ca.leftAngle()) );
 		}
 
 		// Jump
-		if( !controlsLocked() && ca.aPressed() && cd.has("onGroundRecently") ) {
+		if( !controlsLocked() && ca.aPressed() && ( cd.has("onGroundRecently") || climbing ) ) {
+			if( climbing ) {
+				stopClimbing();
+				cd.setS("climbLock",0.2);
+				dx = dir*0.2;
+			}
 			setSquashX(0.7);
-			dy = -0.12;
+			dy = -0.07;
 			cd.setS("jumpForce",0.1);
 			cd.setS("jumpExtra",0.1);
 		}
@@ -94,23 +101,69 @@ class Hero extends Entity {
 			dy-=0.04*tmod;
 
 		if( cd.has("jumpForce") && ca.aDown() )
-			dy -= 0.1 * cd.getRatio("jumpForce") * tmod;
+			dy -= 0.05 * cd.getRatio("jumpForce") * tmod;
 
 		// HACK
+		#if debug
 		if( !controlsLocked() && ca.xPressed() ) {
 			game.dark = !game.dark;
+		}
+		#end
+
+		if( !climbing && !cd.has("climbLock") && !controlsLocked() && ca.leftDist()>0 ) {
+			// Grab ladder up
+			if( M.radDistance(ca.leftAngle(),-M.PIHALF)<=M.PIHALF*0.5 && level.hasLadder(cx,cy) ) {
+				startClimbing();
+				setSquashX(0.6);
+				dy-=0.2;
+			}
+			// Grab ladder down
+			if( M.radDistance(ca.leftAngle(),M.PIHALF)<=M.PIHALF*0.5 && level.hasLadder(cx,cy+1) ) {
+				startClimbing();
+				cy++;
+				yr = 0.1;
+				setSquashY(0.6);
+				dy=0.2;
+			}
+		}
+
+		// Lost ladder
+		if( climbing && !level.hasLadder(cx,cy) )
+			stopClimbing();
+
+		// Reach ladder top
+		if( climbing && dy<0 && !level.hasLadder(cx,cy-1) && yr<=0.7 ) {
+			stopClimbing();
+			dy = -0.2;
+			yr = 0.2;
+			cd.setS("climbLock",0.2);
+		}
+
+		if( climbing )
+			xr += (0.5-xr)*0.1;
+
+		// Reach ladder bottom
+		if( climbing && dy>0 && !level.hasLadder(cx,cy+1) ) {
+			stopClimbing();
+			dy = 0.1;
+			cd.setS("climbLock",0.2);
+		}
+
+		// Climb ladder
+		if( climbing && ca.leftDist()>0 ) {
+			dy+=Math.sin(ca.leftAngle()) * spd * 0.5 * tmod;
 		}
 
 		// Hop
 		if( !controlsLocked() && yr<0.5 && dy>0 && ca.leftDist()>0 ) {
 			if( xr>=0.5 && level.hasMark(GrabRight,cx,cy) && M.radDistance(ca.leftAngle(),0)<=M.PIHALF*0.7 ) {
-				yr = M.fmin(0.3,yr);
-				dy = -0.3;
+				yr = M.fmin(0.4,yr);
+				dy = -0.2;
 				dx+=0.2;
 			}
 			if( xr<=0.5 && level.hasMark(GrabLeft,cx,cy) && M.radDistance(ca.leftAngle(),M.PI)<=M.PIHALF*0.7 ) {
-				yr = M.fmin(0.3,yr);
-				dy = -0.3;
+				yr = M.fmin(0.4,yr);
+				dy = -0.2;
 				dx-=0.2;
 			}
 		}

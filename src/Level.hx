@@ -118,6 +118,11 @@ class Level extends dn.Process {
 		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==0;
 	}
 
+	/** Return TRUE if "Collisions" layer contains a collision value **/
+	public inline function hasLadder(cx,cy) : Bool {
+		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==1 || hasCollision(cx,cy) && level.l_Collisions.getInt(cx,cy+1)==1;
+	}
+
 	public function setDark(v:Bool) {
 		dark.visible = v;
 		walls.visible = !v;

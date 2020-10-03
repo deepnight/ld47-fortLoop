@@ -11,7 +11,7 @@
 	"defaultPivotY": 1,
 	"defaultGridSize": 16,
 	"bgColor": "#1A212E",
-	"nextUid": 53,
+	"nextUid": 63,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -38,9 +38,97 @@
 				"uid": 1,
 				"gridSize": 16,
 				"displayOpacity": 1,
-				"intGridValues": [ { "identifier": "walls", "color": "#FFFFFF" } ],
+				"intGridValues": [ { "identifier": "walls", "color": "#FFFFFF" }, { "identifier": "ladders", "color": "#9C6911" } ],
 				"autoTilesetDefUid": 4,
 				"autoRuleGroups": [
+					{
+						"uid": 53,
+						"name": "ladders",
+						"active": true,
+						"collapsed": false,
+						"rules": [
+							{
+								"uid": 62,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 67 ],
+								"chance": 1,
+								"pattern": [ 0, 0, 0, 0, -1000001, 0, 0, 2, 0 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 7684501,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 55,
+								"active": true,
+								"size": 5,
+								"tileIds": [ 67 ],
+								"chance": 1,
+								"pattern": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 0, 0 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 260052,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 58,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 99 ],
+								"chance": 1,
+								"pattern": [ 0, 0, 0, 0, 1, 0, 0, 2, 0 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 9129725,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 54,
+								"active": true,
+								"size": 1,
+								"tileIds": [ 99 ],
+								"chance": 1,
+								"pattern": [ 2 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 3071677,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							}
+						]
+					},
 					{
 						"uid": 35,
 						"name": "Far walls",
@@ -354,154 +442,204 @@
 				"displayOpacity": 1,
 				"intGridValues": [ { "identifier": null, "color": "#000000" } ],
 				"autoTilesetDefUid": 4,
-				"autoRuleGroups": [ {
-					"uid": 26,
-					"name": "walls",
-					"active": true,
-					"collapsed": false,
-					"rules": [
-						{
-							"uid": 48,
-							"active": true,
-							"size": 3,
-							"tileIds": [ 128 ],
-							"chance": 0.3,
-							"pattern": [ 0, 1, 0, 0, -1, 0, 0, 0, 0 ],
-							"flipX": false,
-							"flipY": true,
-							"xModulo": 1,
-							"yModulo": 1,
-							"checker": "None",
-							"tileMode": "Single",
-							"pivotX": 0,
-							"pivotY": 0,
-							"perlinActive": true,
-							"perlinSeed": 4241317,
-							"perlinScale": 0.2,
-							"perlinOctaves": 2
-						},
-						{
-							"uid": 30,
-							"active": true,
-							"size": 3,
-							"tileIds": [ 97 ],
-							"chance": 0.82,
-							"pattern": [ 0, -1, 0, 0, 1, -1, 0, 0, 0 ],
-							"flipX": true,
-							"flipY": true,
-							"xModulo": 1,
-							"yModulo": 1,
-							"checker": "None",
-							"tileMode": "Single",
-							"pivotX": 0,
-							"pivotY": 0,
-							"perlinActive": false,
-							"perlinSeed": 9318599,
-							"perlinScale": 0.2,
-							"perlinOctaves": 2
-						},
-						{
-							"uid": 28,
-							"active": true,
-							"size": 3,
-							"tileIds": [ 128 ],
-							"chance": 0.74,
-							"pattern": [ 0, -1, 0, 0, 1, 0, 0, 0, 0 ],
-							"flipX": false,
-							"flipY": true,
-							"xModulo": 1,
-							"yModulo": 1,
-							"checker": "None",
-							"tileMode": "Single",
-							"pivotX": 0,
-							"pivotY": 0,
-							"perlinActive": true,
-							"perlinSeed": 7400435,
-							"perlinScale": 0.44,
-							"perlinOctaves": 3
-						},
-						{
-							"uid": 27,
-							"active": true,
-							"size": 3,
-							"tileIds": [ 96 ],
-							"chance": 0.78,
-							"pattern": [ 0, 0, 0, 0, 1, -1, 0, 0, 0 ],
-							"flipX": true,
-							"flipY": false,
-							"xModulo": 1,
-							"yModulo": 1,
-							"checker": "None",
-							"tileMode": "Single",
-							"pivotX": 0,
-							"pivotY": 0,
-							"perlinActive": false,
-							"perlinSeed": 3495628,
-							"perlinScale": 0.2,
-							"perlinOctaves": 2
-						},
-						{
-							"uid": 33,
-							"active": true,
-							"size": 1,
-							"tileIds": [ 161, 162 ],
-							"chance": 0.61,
-							"pattern": [ 1 ],
-							"flipX": false,
-							"flipY": false,
-							"xModulo": 1,
-							"yModulo": 1,
-							"checker": "None",
-							"tileMode": "Single",
-							"pivotX": 0,
-							"pivotY": 0,
-							"perlinActive": true,
-							"perlinSeed": 173465,
-							"perlinScale": 0.2,
-							"perlinOctaves": 2
-						},
-						{
-							"uid": 32,
-							"active": true,
-							"size": 1,
-							"tileIds": [ 5 ],
-							"chance": 1,
-							"pattern": [ -1 ],
-							"flipX": false,
-							"flipY": false,
-							"xModulo": 1,
-							"yModulo": 1,
-							"checker": "None",
-							"tileMode": "Single",
-							"pivotX": 0,
-							"pivotY": 0,
-							"perlinActive": false,
-							"perlinSeed": 3958088,
-							"perlinScale": 0.2,
-							"perlinOctaves": 2
-						},
-						{
-							"uid": 31,
-							"active": true,
-							"size": 1,
-							"tileIds": [ 5 ],
-							"chance": 1,
-							"pattern": [ 1 ],
-							"flipX": false,
-							"flipY": false,
-							"xModulo": 1,
-							"yModulo": 1,
-							"checker": "None",
-							"tileMode": "Single",
-							"pivotX": 0,
-							"pivotY": 0,
-							"perlinActive": false,
-							"perlinSeed": 6524556,
-							"perlinScale": 0.2,
-							"perlinOctaves": 2
-						}
-					]
-				} ],
+				"autoRuleGroups": [
+					{
+						"uid": 59,
+						"name": "ladders",
+						"active": true,
+						"collapsed": false,
+						"rules": [
+							{
+								"uid": 61,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 131 ],
+								"chance": 1,
+								"pattern": [ 0, 0, 0, 0, 1, 0, 0, 2, 0 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 2301637,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 60,
+								"active": true,
+								"size": 1,
+								"tileIds": [ 131 ],
+								"chance": 1,
+								"pattern": [ 2 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 5539295,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							}
+						]
+					},
+					{
+						"uid": 26,
+						"name": "walls",
+						"active": true,
+						"collapsed": false,
+						"rules": [
+							{
+								"uid": 48,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 128 ],
+								"chance": 0.3,
+								"pattern": [ 0, 1, 0, 0, -1, 0, 0, 0, 0 ],
+								"flipX": false,
+								"flipY": true,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": true,
+								"perlinSeed": 4241317,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 30,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 97 ],
+								"chance": 0.82,
+								"pattern": [ 0, -1, 0, 0, 1, -1, 0, 0, 0 ],
+								"flipX": true,
+								"flipY": true,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 9318599,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 28,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 128 ],
+								"chance": 0.74,
+								"pattern": [ 0, -1, 0, 0, 1, 0, 0, 0, 0 ],
+								"flipX": false,
+								"flipY": true,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": true,
+								"perlinSeed": 7400435,
+								"perlinScale": 0.44,
+								"perlinOctaves": 3
+							},
+							{
+								"uid": 27,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 96 ],
+								"chance": 0.78,
+								"pattern": [ 0, 0, 0, 0, 1, -1, 0, 0, 0 ],
+								"flipX": true,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 3495628,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 33,
+								"active": true,
+								"size": 1,
+								"tileIds": [ 161, 162 ],
+								"chance": 0.61,
+								"pattern": [ 1 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": true,
+								"perlinSeed": 173465,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 32,
+								"active": true,
+								"size": 1,
+								"tileIds": [ 5 ],
+								"chance": 1,
+								"pattern": [ -1 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 3958088,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 31,
+								"active": true,
+								"size": 1,
+								"tileIds": [ 5 ],
+								"chance": 1,
+								"pattern": [ 1 ],
+								"flipX": false,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 6524556,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							}
+						]
+					}
+				],
 				"autoSourceLayerDefUid": 1,
 				"tilesetDefUid": null,
 				"tilePivotX": 0,
@@ -1426,6 +1564,7 @@
 					{ "coordId": 803, "v": 0 },
 					{ "coordId": 804, "v": 0 },
 					{ "coordId": 805, "v": 0 },
+					{ "coordId": 815, "v": 1 },
 					{ "coordId": 825, "v": 0 },
 					{ "coordId": 826, "v": 0 },
 					{ "coordId": 827, "v": 0 },
@@ -1458,6 +1597,7 @@
 					{ "coordId": 854, "v": 0 },
 					{ "coordId": 855, "v": 0 },
 					{ "coordId": 856, "v": 0 },
+					{ "coordId": 859, "v": 1 },
 					{ "coordId": 869, "v": 0 },
 					{ "coordId": 870, "v": 0 },
 					{ "coordId": 871, "v": 0 },
@@ -1483,6 +1623,7 @@
 					{ "coordId": 891, "v": 0 },
 					{ "coordId": 892, "v": 0 },
 					{ "coordId": 893, "v": 0 },
+					{ "coordId": 896, "v": 1 },
 					{ "coordId": 902, "v": 0 },
 					{ "coordId": 903, "v": 0 },
 					{ "coordId": 913, "v": 0 },
@@ -1510,6 +1651,7 @@
 					{ "coordId": 935, "v": 0 },
 					{ "coordId": 936, "v": 0 },
 					{ "coordId": 937, "v": 0 },
+					{ "coordId": 940, "v": 1 },
 					{ "coordId": 946, "v": 0 },
 					{ "coordId": 947, "v": 0 },
 					{ "coordId": 957, "v": 0 },
@@ -1537,6 +1679,7 @@
 					{ "coordId": 979, "v": 0 },
 					{ "coordId": 980, "v": 0 },
 					{ "coordId": 981, "v": 0 },
+					{ "coordId": 984, "v": 1 },
 					{ "coordId": 988, "v": 0 },
 					{ "coordId": 989, "v": 0 },
 					{ "coordId": 990, "v": 0 },
@@ -1569,6 +1712,8 @@
 					{ "coordId": 1023, "v": 0 },
 					{ "coordId": 1024, "v": 0 },
 					{ "coordId": 1025, "v": 0 },
+					{ "coordId": 1028, "v": 1 },
+					{ "coordId": 1031, "v": 0 },
 					{ "coordId": 1032, "v": 0 },
 					{ "coordId": 1033, "v": 0 },
 					{ "coordId": 1034, "v": 0 },
@@ -2205,6 +2350,92 @@
 					{ "coordId": 1671, "v": 0 }
 				],
 				"autoTiles": [
+					{ "ruleId": 62, "results": [] },
+					{
+						"ruleId": 55,
+						"results": [
+							{
+								"__cx": 23,
+								"__cy": 16,
+								"coordId": 727,
+								"tiles": [ { "tileId": 67, "__x": 368, "__y": 256, "__srcX": 48, "__srcY": 32 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 18,
+								"coordId": 808,
+								"tiles": [ { "tileId": 67, "__x": 256, "__y": 288, "__srcX": 48, "__srcY": 32 } ],
+								"flips": 0
+							}
+						]
+					},
+					{
+						"ruleId": 58,
+						"results": [
+							{
+								"__cx": 23,
+								"__cy": 17,
+								"coordId": 771,
+								"tiles": [ { "tileId": 99, "__x": 368, "__y": 272, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 19,
+								"coordId": 852,
+								"tiles": [ { "tileId": 99, "__x": 256, "__y": 304, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							}
+						]
+					},
+					{
+						"ruleId": 54,
+						"results": [
+							{
+								"__cx": 23,
+								"__cy": 18,
+								"coordId": 815,
+								"tiles": [ { "tileId": 99, "__x": 368, "__y": 288, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 23,
+								"__cy": 19,
+								"coordId": 859,
+								"tiles": [ { "tileId": 99, "__x": 368, "__y": 304, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 20,
+								"coordId": 896,
+								"tiles": [ { "tileId": 99, "__x": 256, "__y": 320, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 21,
+								"coordId": 940,
+								"tiles": [ { "tileId": 99, "__x": 256, "__y": 336, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 22,
+								"coordId": 984,
+								"tiles": [ { "tileId": 99, "__x": 256, "__y": 352, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 23,
+								"coordId": 1028,
+								"tiles": [ { "tileId": 99, "__x": 256, "__y": 368, "__srcX": 48, "__srcY": 48 } ],
+								"flips": 0
+							}
+						]
+					},
 					{
 						"ruleId": 15,
 						"results": [
@@ -4783,6 +5014,13 @@
 								"flips": 0
 							},
 							{
+								"__cx": 19,
+								"__cy": 22,
+								"coordId": 987,
+								"tiles": [ { "tileId": 3, "__x": 304, "__y": 352, "__srcX": 48, "__srcY": 0 } ],
+								"flips": 0
+							},
+							{
 								"__cx": 14,
 								"__cy": 23,
 								"coordId": 1026,
@@ -4815,13 +5053,6 @@
 								"__cy": 23,
 								"coordId": 1030,
 								"tiles": [ { "tileId": 3, "__x": 288, "__y": 368, "__srcX": 48, "__srcY": 0 } ],
-								"flips": 0
-							},
-							{
-								"__cx": 19,
-								"__cy": 23,
-								"coordId": 1031,
-								"tiles": [ { "tileId": 3, "__x": 304, "__y": 368, "__srcX": 48, "__srcY": 0 } ],
 								"flips": 0
 							},
 							{
@@ -8005,6 +8236,13 @@
 								"__cy": 23,
 								"coordId": 1025,
 								"tiles": [ { "tileId": 2, "__x": 208, "__y": 368, "__srcX": 32, "__srcY": 0 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 19,
+								"__cy": 23,
+								"coordId": 1031,
+								"tiles": [ { "tileId": 2, "__x": 304, "__y": 368, "__srcX": 32, "__srcY": 0 } ],
 								"flips": 0
 							},
 							{
@@ -16511,6 +16749,13 @@
 								"flips": 0
 							},
 							{
+								"__cx": 19,
+								"__cy": 23,
+								"coordId": 1031,
+								"tiles": [ { "tileId": 0, "__x": 304, "__y": 368, "__srcX": 0, "__srcY": 0 } ],
+								"flips": 0
+							},
+							{
 								"__cx": 20,
 								"__cy": 23,
 								"coordId": 1032,
@@ -22799,13 +23044,6 @@
 								"flips": 0
 							},
 							{
-								"__cx": 19,
-								"__cy": 23,
-								"coordId": 1031,
-								"tiles": [ { "tileId": 4, "__x": 304, "__y": 368, "__srcX": 64, "__srcY": 0 } ],
-								"flips": 0
-							},
-							{
 								"__cx": 27,
 								"__cy": 23,
 								"coordId": 1039,
@@ -22866,6 +23104,72 @@
 				"pxOffsetY": 0,
 				"intGrid": [],
 				"autoTiles": [
+					{
+						"ruleId": 61,
+						"results": [
+							{
+								"__cx": 23,
+								"__cy": 17,
+								"coordId": 771,
+								"tiles": [ { "tileId": 131, "__x": 368, "__y": 272, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 19,
+								"coordId": 852,
+								"tiles": [ { "tileId": 131, "__x": 256, "__y": 304, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							}
+						]
+					},
+					{
+						"ruleId": 60,
+						"results": [
+							{
+								"__cx": 23,
+								"__cy": 18,
+								"coordId": 815,
+								"tiles": [ { "tileId": 131, "__x": 368, "__y": 288, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 23,
+								"__cy": 19,
+								"coordId": 859,
+								"tiles": [ { "tileId": 131, "__x": 368, "__y": 304, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 20,
+								"coordId": 896,
+								"tiles": [ { "tileId": 131, "__x": 256, "__y": 320, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 21,
+								"coordId": 940,
+								"tiles": [ { "tileId": 131, "__x": 256, "__y": 336, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 22,
+								"coordId": 984,
+								"tiles": [ { "tileId": 131, "__x": 256, "__y": 352, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 16,
+								"__cy": 23,
+								"coordId": 1028,
+								"tiles": [ { "tileId": 131, "__x": 256, "__y": 368, "__srcX": 48, "__srcY": 64 } ],
+								"flips": 0
+							}
+						]
+					},
 					{
 						"ruleId": 48,
 						"results": [
@@ -22933,6 +23237,13 @@
 								"flips": 0
 							},
 							{
+								"__cx": 19,
+								"__cy": 22,
+								"coordId": 987,
+								"tiles": [ { "tileId": 128, "__x": 304, "__y": 352, "__srcX": 0, "__srcY": 64 } ],
+								"flips": 2
+							},
+							{
 								"__cx": 17,
 								"__cy": 23,
 								"coordId": 1029,
@@ -22992,6 +23303,13 @@
 								"coordId": 994,
 								"tiles": [ { "tileId": 97, "__x": 416, "__y": 352, "__srcX": 16, "__srcY": 48 } ],
 								"flips": 0
+							},
+							{
+								"__cx": 19,
+								"__cy": 23,
+								"coordId": 1031,
+								"tiles": [ { "tileId": 97, "__x": 304, "__y": 368, "__srcX": 16, "__srcY": 48 } ],
+								"flips": 1
 							}
 						]
 					},
@@ -23087,13 +23405,6 @@
 								"__cy": 24,
 								"coordId": 1072,
 								"tiles": [ { "tileId": 128, "__x": 256, "__y": 384, "__srcX": 0, "__srcY": 64 } ],
-								"flips": 0
-							},
-							{
-								"__cx": 19,
-								"__cy": 24,
-								"coordId": 1075,
-								"tiles": [ { "tileId": 128, "__x": 304, "__y": 384, "__srcX": 0, "__srcY": 64 } ],
 								"flips": 0
 							},
 							{
@@ -27673,13 +27984,6 @@
 								"__cy": 23,
 								"coordId": 1030,
 								"tiles": [ { "tileId": 5, "__x": 288, "__y": 368, "__srcX": 80, "__srcY": 0 } ],
-								"flips": 0
-							},
-							{
-								"__cx": 19,
-								"__cy": 23,
-								"coordId": 1031,
-								"tiles": [ { "tileId": 5, "__x": 304, "__y": 368, "__srcX": 80, "__srcY": 0 } ],
 								"flips": 0
 							},
 							{
@@ -34006,6 +34310,13 @@
 								"__cy": 23,
 								"coordId": 1025,
 								"tiles": [ { "tileId": 5, "__x": 208, "__y": 368, "__srcX": 80, "__srcY": 0 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 19,
+								"__cy": 23,
+								"coordId": 1031,
+								"tiles": [ { "tileId": 5, "__x": 304, "__y": 368, "__srcX": 80, "__srcY": 0 } ],
 								"flips": 0
 							},
 							{
