@@ -222,7 +222,7 @@ class Hero extends Entity {
 
 		// Auto attack
 		for(e in en.Mob.ALL) {
-			if( distCaseX(e)<=1 && footY>=e.footY-Const.GRID*1 && footY<=e.footY+Const.GRID*0.5 && !cd.hasSetS("autoAtk",0.1) ) {
+			if( e.isAlive() && !e.isOutOfTheGame() && distCaseX(e)<=1 && footY>=e.footY-Const.GRID*1 && footY<=e.footY+Const.GRID*0.5 && !cd.hasSetS("autoAtk",0.1) ) {
 				// hero.attack(this);
 				e.hit(1,hero);
 				bump(-dirTo(e)*rnd(0.03,0.06), 0);

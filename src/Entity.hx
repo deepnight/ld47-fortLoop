@@ -558,13 +558,17 @@ class Entity {
 
 	public function fixedUpdate() {} // runs at a "guaranteed" 30 fps
 
+	function hasCircularCollisions() {
+		return isAlive() && circularCollisions && !isOutOfTheGame();
+	}
+
 	function hasCircularCollisionsWith(e:Entity) {
-		return e!=this && circularCollisions && e.circularCollisions && isAlive() && e.isAlive();
+		return e!=this && hasCircularCollisions() && e.hasCircularCollisions();
 	}
 
 	public function update() { // runs at an unknown fps
 		// Circular collisions
-		if( circularCollisions ) {
+		if( hasCircularCollisions() ) {
 			var d = 0.;
 			var a = 0.;
 			for(e in ALL)
