@@ -51,6 +51,7 @@ class Game extends Process {
 		fx = new Fx();
 		hud = new ui.Hud();
 		level = new Level(world.all_levels.FirstLevel);
+		level.attachMainEntities();
 		camera.trackTarget(hero, true);
 
 		darkMask = new h2d.Bitmap( h2d.Tile.fromColor(Const.DARK_COLOR) );

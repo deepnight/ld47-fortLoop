@@ -16,6 +16,7 @@ class Level extends dn.Process {
 	var bg : h2d.TileGroup;
 	var dark : h2d.TileGroup;
 	public var burn : h2d.TileGroup;
+	var extraCollMap : Map<Int,Bool> = new Map();
 
 	public var haloMask : h2d.Graphics;
 
@@ -45,10 +46,6 @@ class Level extends dn.Process {
 		haloMask.drawCircle(0,0,Const.GRID*5);
 		haloMask.visible = false;
 
-		// Entities
-		var e = level.l_Entities.all_Hero[0];
-		game.hero = new en.Hero(e);
-
 		// Marking
 		for(cy in 0...cHei)
 		for(cx in 0...cWid) {
@@ -69,21 +66,28 @@ class Level extends dn.Process {
 		}
 	}
 
-	var firstTime = true;
+	public function attachMainEntities() {
+		var e = level.l_Entities.all_Hero[0];
+		game.hero = new en.Hero(e);
+
+		for(e in level.l_Entities.all_Door)
+			new en.Door(e);
+
+		for( e in level.l_Entities.all_Item ) {
+			if( e.f_type==Diamond )
+				new en.Item(e);
+		}
+	}
+
 	public function attachLightEntities() {
 		for( e in level.l_Entities.all_Mob )
 			new en.Mob(e);
 
-		for( e in level.l_Entities.all_Item ) {
+		for( e in level.l_Entities.all_Item )
 			switch e.f_type {
-				case Diamond:
-					if( !firstTime )
-						continue;
-				case _:
+				case Diamond: continue;
+				case _: new en.Item(e);
 			}
-			new en.Item(e);
-		}
-		firstTime = false;
 	}
 
 	override function onDispose() {
@@ -139,7 +143,15 @@ class Level extends dn.Process {
 
 	/** Return TRUE if "Collisions" layer contains a collision value **/
 	public inline function hasCollision(cx,cy) : Bool {
-		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==0;
+		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==0 || extraCollMap.exists(coordId(cx,cy));
+	}
+
+	public function setExtraCollision(cx,cy,v:Bool) {
+		if( isValid(cx,cy) )
+			if( v )
+				extraCollMap.set( coordId(cx,cy), true );
+			else
+				extraCollMap.remove( coordId(cx,cy) );
 	}
 
 	/** Return TRUE if "Collisions" layer contains a collision value **/
@@ -210,8 +222,8 @@ class Level extends dn.Process {
 		haloMask.x += (tx-haloMask.x)*0.2;
 		haloMask.y += (ty-haloMask.y)*0.2;
 
-		haloMask.scaleX += (0.5 + Math.cos(ftime*0.03)*0.04 - haloMask.scaleX) * 0.07;
-		haloMask.scaleY += (0.5 + Math.sin(ftime*0.04)*0.03 - haloMask.scaleY) * 0.07;
+		haloMask.scaleX += (0.3 + Math.cos(ftime*0.03)*0.04 - haloMask.scaleX) * 0.07;
+		haloMask.scaleY += (0.3 + Math.sin(ftime*0.04)*0.03 - haloMask.scaleY) * 0.07;
 
 		if( invalidated ) {
 			invalidated = false;

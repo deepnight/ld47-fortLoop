@@ -464,6 +464,7 @@ class Entity {
 
 			case Hide:
 				setAffectS(Hidden,Const.INFINITE);
+				spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
 		}
 
 		cd.setS("colorDarken",1);
@@ -472,15 +473,10 @@ class Entity {
 	public function onLight() {
 		colorMatrix.identity();
 		clearAffect(Hidden);
-		// spr.filter = null;
+		spr.filter = null;
 	}
 
     public function postUpdate() {
-		if( hasAffect(Hidden) ) {
-			spr.visible = false;
-			return;
-		}
-
         spr.x = (cx+xr)*Const.GRID;
         spr.y = (cy+yr)*Const.GRID;
         spr.scaleX = dir*sprScaleX * sprSquashX;

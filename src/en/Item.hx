@@ -35,5 +35,8 @@ class Item extends Entity {
 			}
 			destroy();
 		}
+
+		if( data.f_type==Diamond && !hasAffect(Hidden) && !cd.hasSetS("jump",1) && onGround )
+			dy = -0.2;
 	}
 }

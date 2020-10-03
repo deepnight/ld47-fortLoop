@@ -9,7 +9,7 @@ class Const {
 	public static var GRAVITY = 0.028;
 
 	public static var DARK_COLOR = 0x1b131b;
-	public static var DARK_LIGHT_COLOR = 0x2b1e29;
+	public static var DARK_LIGHT_COLOR = 0x493346;
 
 	static var _uniq = 0;
 	public static var NEXT_UNIQ(get,never) : Int; static inline function get_NEXT_UNIQ() return _uniq++;
