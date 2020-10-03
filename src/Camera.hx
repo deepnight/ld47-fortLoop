@@ -11,6 +11,7 @@ class Camera extends dn.Process {
 
 	public var targetTrackOffX = 0.;
 	public var targetTrackOffY = 0.;
+	public var zoom = 1.;
 
 	public function new() {
 		super(Game.ME);
@@ -99,20 +100,21 @@ class Camera extends dn.Process {
 			var scroller = Game.ME.scroller;
 
 			// Update scroller
-			if( wid<level.cWid*Const.GRID)
-				scroller.x = -x + wid*0.5;
+			if( wid/zoom<level.cWid*Const.GRID)
+				scroller.x = -x*zoom + wid*0.5;
 			else
-				scroller.x = wid*0.5 - level.cWid*0.5*Const.GRID;
-			if( hei<level.cHei*Const.GRID)
-				scroller.y = -y + hei*0.5;
+				scroller.x = wid*0.5/zoom - level.cWid*0.5*Const.GRID;
+
+			if( hei/zoom<level.cHei*Const.GRID)
+				scroller.y = -y*zoom + hei*0.5;
 			else
-				scroller.y = hei*0.5 - level.cHei*0.5*Const.GRID;
+				scroller.y = hei*0.5/zoom - level.cHei*0.5*Const.GRID;
 
 			// Clamp
-			if( wid<level.cWid*Const.GRID)
-				scroller.x = M.fclamp(scroller.x, wid-level.cWid*Const.GRID, 0);
-			if( hei<level.cHei*Const.GRID)
-				scroller.y = M.fclamp(scroller.y, hei-level.cHei*Const.GRID, 0);
+			if( wid<level.cWid*Const.GRID*zoom )
+				scroller.x = M.fclamp(scroller.x, wid-level.cWid*Const.GRID*zoom, 0);
+			if( hei<level.cHei*Const.GRID*zoom )
+				scroller.y = M.fclamp(scroller.y, hei-level.cHei*Const.GRID*zoom, 0);
 
 			// Bumps friction
 			bumpOffX *= Math.pow(0.75, tmod);
@@ -135,6 +137,9 @@ class Camera extends dn.Process {
 			// Rounding
 			scroller.x = M.round(scroller.x);
 			scroller.y = M.round(scroller.y);
+
+			// Zoom
+			scroller.setScale( Const.SCALE * zoom );
 		}
 	}
 }
