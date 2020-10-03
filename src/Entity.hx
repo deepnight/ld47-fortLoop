@@ -448,12 +448,14 @@ class Entity {
 			destroy();
 			return;
 		}
+		spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
 		colorMatrix = C.getColorizeMatrixH2d(Const.DARK_COLOR, 1);
 		trace(this);
 	}
 
 	public function onLight() {
 		colorMatrix.identity();
+		spr.filter = null;
 	}
 
     public function postUpdate() {

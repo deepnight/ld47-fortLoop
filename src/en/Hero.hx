@@ -34,6 +34,14 @@ class Hero extends Entity {
 		// darkHalo = null;
 	}
 
+	override function onDark() {
+		super.onDark();
+	}
+
+	override function onLight() {
+		super.onLight();
+	}
+
 	override function onLand(fallCHei:Float) {
 		super.onLand(fallCHei);
 		var impact = M.fmin(1, fallCHei/6);
@@ -86,7 +94,7 @@ class Hero extends Entity {
 			dy-=0.04*tmod;
 
 		if( cd.has("jumpForce") && ca.aDown() )
-			dy -= 0.15 * cd.getRatio("jumpForce") * tmod;
+			dy -= 0.1 * cd.getRatio("jumpForce") * tmod;
 
 		// HACK
 		if( !controlsLocked() && ca.xPressed() ) {
@@ -96,12 +104,12 @@ class Hero extends Entity {
 		// Hop
 		if( !controlsLocked() && yr<0.5 && dy>0 && ca.leftDist()>0 ) {
 			if( xr>=0.5 && level.hasMark(GrabRight,cx,cy) && M.radDistance(ca.leftAngle(),0)<=M.PIHALF*0.7 ) {
-				yr = 0.2;
+				yr = M.fmin(0.3,yr);
 				dy = -0.3;
 				dx+=0.2;
 			}
 			if( xr<=0.5 && level.hasMark(GrabLeft,cx,cy) && M.radDistance(ca.leftAngle(),M.PI)<=M.PIHALF*0.7 ) {
-				yr = 0.2;
+				yr = M.fmin(0.3,yr);
 				dy = -0.3;
 				dx-=0.2;
 			}
