@@ -15,7 +15,7 @@ class Level extends dn.Process {
 		super(Game.ME);
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 		level = l;
-		tilesetSource = hxd.Res.world.tiles.toTile();
+		tilesetSource = hxd.Res.world.tileset.toTile();
 
 		// Entities
 		var e = level.l_Entities.all_Hero[0];
@@ -30,7 +30,7 @@ class Level extends dn.Process {
 				if( hasCollision(cx-1,cy) && !hasCollision(cx-1,cy-1) )
 					setMark(cx,cy, GrabLeft);
 			}
-			
+
 			if( !hasCollision(cx,cy) && hasCollision(cx,cy+1) ) {
 				if( hasCollision(cx+1,cy) || !hasCollision(cx+1,cy+1) )
 					setMark(cx,cy, PlatformEnd);
