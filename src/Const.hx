@@ -8,6 +8,8 @@ class Const {
 	public static var GRID = 16;
 	public static var GRAVITY = 0.04;
 
+	public static var DARK_COLOR = 0x1b131b;
+
 	static var _uniq = 0;
 	public static var NEXT_UNIQ(get,never) : Int; static inline function get_NEXT_UNIQ() return _uniq++;
 	public static var INFINITE = 999999;

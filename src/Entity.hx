@@ -11,6 +11,7 @@ class Entity {
 	var tmod(get,never) : Float; inline function get_tmod() return Game.ME.tmod;
 	var utmod(get,never) : Float; inline function get_utmod() return Game.ME.utmod;
 	public var hud(get,never) : ui.Hud; inline function get_hud() return Game.ME.hud;
+	public var camera(get,never) : Camera; inline function get_camera() return Game.ME.camera;
 	public var hero(get,never) : en.Hero; inline function get_hero() return Game.ME.hero;
 
 	public var onGround(get,never): Bool;
@@ -87,7 +88,7 @@ class Entity {
     public var spr : HSprite;
 	public var baseColor : h3d.Vector;
 	public var blinkColor : h3d.Vector;
-	public var colorMatrix : h3d.Matrix;
+	public var colorMatrix(get,set) : Null<h3d.Matrix>;
 
 	// Debug stuff
 	var debugLabel : Null<h2d.Text>;
@@ -105,6 +106,8 @@ class Entity {
 	public var prevFrameFootY : Float = -Const.INFINITE;
 	var fallHighestCy = 0.;
 
+	public var stayInDark = false;
+
 	var actions : Array<{ id:String, cb:Void->Void, t:Float }> = [];
 
     public function new(x:Int, y:Int) {
@@ -120,12 +123,20 @@ class Entity {
 		spr.colorAdd = new h3d.Vector();
 		baseColor = new h3d.Vector();
 		blinkColor = new h3d.Vector();
-		spr.colorMatrix = colorMatrix = h3d.Matrix.I();
 		spr.setCenterRatio(0.5,1);
+		colorMatrix = h3d.Matrix.I();
 
 		if( ui.Console.ME.hasFlag("bounds") )
 			enableBounds();
-    }
+	}
+
+	inline function set_colorMatrix(m) {
+		return destroyed ? null : spr.colorMatrix = m;
+	}
+
+	inline function get_colorMatrix() {
+		return destroyed ? null : spr.colorMatrix;
+	}
 
 	public function initLife(v) {
 		life = maxLife = v;
@@ -430,7 +441,20 @@ class Entity {
 		cd.update(tmod);
 		updateAffects();
 		updateActions();
-    }
+	}
+
+	public function onDark() {
+		if( !stayInDark ) {
+			destroy();
+			return;
+		}
+		colorMatrix = C.getColorizeMatrixH2d(Const.DARK_COLOR, 1);
+		trace(this);
+	}
+
+	public function onLight() {
+		colorMatrix.identity();
+	}
 
     public function postUpdate() {
         spr.x = (cx+xr)*Const.GRID;

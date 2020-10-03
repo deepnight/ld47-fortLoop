@@ -14,7 +14,7 @@ class Main extends dn.Process {
 
 		// Engine settings
 		hxd.Timer.wantedFPS = Const.FPS;
-		engine.backgroundColor = 0xff<<24|0x111133;
+		engine.backgroundColor = 0xff<<24|0x0;
         #if( hl && !debug )
         engine.fullScreen = true;
         #end

@@ -57,11 +57,6 @@ class Level extends dn.Process {
 		}
 	}
 
-	public function detachLightEntities() {
-		for(e in en.Mob.ALL)
-			e.destroy();
-	}
-
 	public function attachLightEntities() {
 		for( e in level.l_Entities.all_Mob )
 			new en.Mob(e);

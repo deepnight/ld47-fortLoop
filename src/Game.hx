@@ -31,7 +31,7 @@ class Game extends Process {
 
 	public var hero: en.Hero;
 
-	public var dark(default,set) : Bool;
+	public var dark(default,set) : Null<Bool>;
 	var darkMask : h2d.Bitmap;
 
 	public function new() {
@@ -53,7 +53,7 @@ class Game extends Process {
 		level = new Level(world.all_levels.FirstLevel);
 		camera.trackTarget(hero, true);
 
-		darkMask = new h2d.Bitmap( h2d.Tile.fromColor(0x0) );
+		darkMask = new h2d.Bitmap( h2d.Tile.fromColor(Const.DARK_COLOR) );
 		root.add(darkMask, Const.DP_TOP);
 
 		Process.resizeAll();
@@ -80,32 +80,45 @@ class Game extends Process {
 
 
 	function set_dark(v) {
+		var init = dark==null;
 		dark = v;
 		level.setDark( dark );
-		camera.targetTrackOffY = Const.GRID  * (dark ? -1 : -1.5);
+		camera.targetTrackOffY = Const.GRID  * (dark ? -1 : -2);
 
-		if( dark )
-			level.detachLightEntities();
-		else
+		// Init entities
+		if( !dark )
 			level.attachLightEntities();
 
-		if( dark ) {
-			// Black effect
-			darkMask.visible = true;
-			darkMask.scaleX = w();
-			darkMask.scaleY = h();
-			tw.createMs(darkMask.alpha, 0.7>0, 2000, TEaseInt);
-			tw.createMs(camera.zoom, 1>1.5, 1500, TEase);
-		}
+		if( init )
+			level.burn.visible = false;
 		else {
-			// Super bright effect
-			tw.terminateWithoutCallbacks(darkMask.alpha);
-			darkMask.visible = false;
-			tw.createMs(level.burn.alpha, 1>0, 1000, TEaseIn);
-			fx.flashBangS(0xffcc00, 1, 2);
-			camera.shakeS(2, 0.3);
-			tw.createMs(camera.zoom, 1, 100, TElasticEnd);
+			if( dark ) {
+				// Black effect
+				darkMask.visible = true;
+				darkMask.scaleX = w();
+				darkMask.scaleY = h();
+				tw.createMs(darkMask.alpha, 0.9>0, 2000, TEaseInt);
+				tw.createMs(camera.zoom, 1>1.5, 1500, TEase);
+			}
+			else {
+				// Super bright effect
+				tw.terminateWithoutCallbacks(darkMask.alpha);
+				darkMask.visible = false;
+				tw.createMs(level.burn.alpha, 1>0, 1000, TEaseIn);
+				fx.flashBangS(0xffcc00, 1, 2);
+				camera.shakeS(2, 0.3);
+				tw.createMs(camera.zoom, 1, 100, TElasticEnd);
+			}
 		}
+
+		// Entities callback
+		for(e in Entity.ALL)
+			if( !e.destroyed )
+				if( dark )
+					e.onDark();
+				else
+					e.onLight();
+
 		return dark;
 	}
 

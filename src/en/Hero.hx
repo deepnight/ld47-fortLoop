@@ -2,21 +2,36 @@ package en;
 
 class Hero extends Entity {
 	var ca : dn.heaps.Controller.ControllerAccess;
+	// var darkMask : h2d.Graphics;
+	// var darkHalo : h2d.Graphics;
 
 	public function new(e:Entity_Hero) {
 		super(e.cx, e.cy);
 
 		ca = Main.ME.controller.createAccess("hero");
 		ca.setLeftDeadZone(0.2);
+		stayInDark = true;
 
-		var g = new h2d.Graphics(spr);
-		g.beginFill(0x639122);
-		g.drawRect(-8, -16, 16,16);
+
+		// darkMask = new h2d.Graphics();
+		// darkMask.filter = new h2d.filter.ColorMatrix();
+		// game.root.add(darkMask, Const.DP_FX_FRONT);
+
+		// darkHalo = new h2d.Graphics(darkMask);
+		// darkHalo.blendMode = Erase;
+		// darkHalo.beginFill(0xffffff, 1);
+		// darkHalo.drawCircle(0,0,Const.GRID*4);
+		// darkHalo.endFill();
+		// darkHalo.filter = new h2d.filter.Blur(32);
+
+		spr.anim.registerStateAnim("heroIdle",0);
 	}
 
 	override function dispose() {
 		super.dispose();
 		ca.dispose();
+		// darkHalo.remove();
+		// darkHalo = null;
 	}
 
 	override function onLand(fallCHei:Float) {
@@ -30,6 +45,21 @@ class Hero extends Entity {
 			lockControlS(0.03*impact);
 	}
 
+	override function postUpdate() {
+		super.postUpdate();
+
+		// darkMask.visible = game.dark;
+		// if( game.dark ) {
+		// 	darkMask.clear();
+		// 	darkMask.beginFill(Const.DARK_COLOR);
+		// 	darkMask.drawRect(0,0,game.w(), game.h());
+
+		// 	darkHalo.setScale( Const.SCALE * camera.zoom );
+		// 	darkHalo.x = centerX*Const.SCALE*camera.zoom + game.scroller.x;
+		// 	darkHalo.y = centerY*Const.SCALE*camera.zoom + game.scroller.y;
+		// }
+	}
+
 	override function update() {
 		super.update();
 
@@ -40,7 +70,7 @@ class Hero extends Entity {
 
 		// Walk
 		if( !controlsLocked() && ca.leftDist() > 0 ) {
-			var spd = 0.025;
+			var spd = 0.015;
 			dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
 			dir = dx>0 ? 1 : -1;
 		}
@@ -48,7 +78,7 @@ class Hero extends Entity {
 		// Jump
 		if( !controlsLocked() && ca.aPressed() && cd.has("onGroundRecently") ) {
 			setSquashX(0.7);
-			dy = -0.22;
+			dy = -0.12;
 			cd.setS("jumpForce",0.1);
 			cd.setS("jumpExtra",0.1);
 		}
@@ -64,7 +94,7 @@ class Hero extends Entity {
 		}
 
 		// Hop
-		if( yr<0.5 && dy>0 && ca.leftDist()>0 ) {
+		if( !controlsLocked() && yr<0.5 && dy>0 && ca.leftDist()>0 ) {
 			if( xr>=0.5 && level.hasMark(GrabRight,cx,cy) && M.radDistance(ca.leftAngle(),0)<=M.PIHALF*0.7 ) {
 				yr = 0.2;
 				dy = -0.3;
