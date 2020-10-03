@@ -60,7 +60,7 @@ class Entity {
 	public var hei(default,set) : Float = Const.GRID;
 	inline function set_hei(v) { invalidateDebugBounds=true;  return hei=v; }
 
-	public var radius(default,set) = Const.GRID*0.5;
+	public var radius(default,set) = Const.GRID*0.3;
 	inline function set_radius(v) { invalidateDebugBounds=true;  return radius=v; }
 
 	/** Horizontal direction, can only be -1 or 1 **/
@@ -555,7 +555,30 @@ class Entity {
 
 	public function fixedUpdate() {} // runs at a "guaranteed" 30 fps
 
-    public function update() { // runs at an unknown fps
+	function hasCircularCollisionsWith(e:Entity) {
+		return e!=this && isAlive() && e.isAlive();
+	}
+
+	public function update() { // runs at an unknown fps
+		// Circular collisions
+		var d = 0.;
+		var a = 0.;
+		for(e in ALL)
+			if( hasCircularCollisionsWith(e) ) {
+				d = M.dist(centerX,centerY, e.centerX,e.centerY);
+				if( d<=radius+e.radius ) {
+					a = Math.atan2(e.centerY-centerY, e.centerX-centerX);
+					var repel = ( 1 - d / (radius+e.radius) ) * 0.02 * tmod;
+					e.dx += Math.cos(a)*repel;
+					// if( !e.onGround )
+						// e.dy += Math.sin(a)*repel;
+
+					dx -= Math.cos(a)*repel;
+					// if( !onGround )
+						// dy -= Math.sin(a)*repel;
+				}
+			}
+
 		// X
 		var steps = M.ceil( M.fabs(dxTotal*tmod) );
 		var step = dxTotal*tmod / steps;
