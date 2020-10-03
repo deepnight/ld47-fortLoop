@@ -93,6 +93,7 @@ class Game extends Process {
 			level.burn.visible = false;
 		else {
 			if( dark ) {
+				camera.shakeS(2, 0.5);
 				// Black effect
 				// darkMask.visible = true;
 				// darkMask.scaleX = w();
