@@ -120,7 +120,11 @@ class Game extends Process {
 		}
 
 		// Doors
-		if( !dark )
+		if( dark ) {
+			for(e in en.Door.ALL)
+				e.setClosed(true);
+		}
+		else
 			delayer.addS("doors", ()->{
 				for(e in en.Door.ALL)
 					if( !e.destroyed && !e.needKey )
@@ -265,10 +269,10 @@ class Game extends Process {
 
 		// Auto light/dark switch
 		autoSwitchS -= tmod/Const.FPS;
-		if( !dark && autoSwitchS<=0.5 && !cd.hasSetS("autoDarkBefore",2) ) {
-			for(e in en.Door.ALL)
-				e.setClosed(true);
-		}
+		// if( !dark && autoSwitchS<=0.5 && !cd.hasSetS("autoDarkBefore",2) ) {
+		// 	for(e in en.Door.ALL)
+		// 		e.setClosed(true);
+		// }
 		if( autoSwitchS<=0 )
 			setDarkness(!dark);
 	}

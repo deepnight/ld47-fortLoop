@@ -77,6 +77,10 @@ class Level extends dn.Process {
 		for(e in level.l_Entities.all_Vault)
 			new en.Vault(e);
 
+		if( level.l_Entities.all_Trigger!=null ) // BUG
+		for(e in level.l_Entities.all_Trigger)
+			new en.Trigger(e);
+
 		if( level.l_Entities.all_Door!=null ) // BUG
 		for(e in level.l_Entities.all_Door)
 			new en.Door(e);

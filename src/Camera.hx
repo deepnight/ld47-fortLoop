@@ -111,10 +111,11 @@ class Camera extends dn.Process {
 				scroller.y = hei*0.5/zoom - level.cHei*0.5*Const.GRID;
 
 			// Clamp
+			var pad = Const.GRID*2;
 			if( wid<level.cWid*Const.GRID*zoom )
-				scroller.x = M.fclamp(scroller.x, wid-level.cWid*Const.GRID*zoom, 0);
+				scroller.x = M.fclamp(scroller.x, wid-level.cWid*Const.GRID*zoom+pad, -pad);
 			if( hei<level.cHei*Const.GRID*zoom )
-				scroller.y = M.fclamp(scroller.y, hei-level.cHei*Const.GRID*zoom, 0);
+				scroller.y = M.fclamp(scroller.y, hei-level.cHei*Const.GRID*zoom+pad, -pad);
 
 			// Bumps friction
 			bumpOffX *= Math.pow(0.75, tmod);

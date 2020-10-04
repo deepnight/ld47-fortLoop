@@ -4,7 +4,7 @@ class Door extends Entity {
 	public static var ALL : Array<Door> = [];
 	var data : Entity_Door;
 	var cHei = 2;
-	var isClosed : Bool;
+	public var isClosed(default,null) : Bool;
 	public var needKey : Bool;
 
 	public function new(e:Entity_Door) {
@@ -18,7 +18,7 @@ class Door extends Entity {
 	}
 
 	public function setClosed(closed:Bool) {
-		if( level==null || level.destroyed )
+		if( level==null || level.destroyed || !isAlive() )
 			return;
 
 		isClosed = closed;
@@ -55,7 +55,7 @@ class Door extends Entity {
 
 		if( needKey && isClosed ) {
 			for(e in en.Item.ALL)
-				if( distCase(e)<=1 && e.type==DoorKey && !e.cd.has("pickLock") ) {
+				if( distCase(e)<=1 && e.type==DoorKey && !e.cd.has("pickLock") && !e.isGrabbedByHero() ) {
 					e.destroy();
 					setClosed(false);
 				}

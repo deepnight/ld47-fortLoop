@@ -55,22 +55,26 @@ class Item extends Entity {
 
 	public inline function isGrabbedByHero() return hero!=null && hero.isGrabbing(this);
 
+	override function postUpdate() {
+		super.postUpdate();
+		if( hero.isGrabbing(this) ) {
+			spr.y-=Const.GRID*1.1;
+		}
+	}
+
 	override function update() {
 		super.update();
 
-		if( distCase(hero)<=0.9 && !isOutOfTheGame() && !hero.isGrabbingAnything() && !cd.has("pickLock") ) {
+		if( !inVault && distCase(hero)<=0.9 && !isOutOfTheGame() && !hero.isGrabbingAnything() && !cd.has("pickLock") ) {
 			switch type {
 			case Ammo:
 				hero.addAmmo(6);
-				fx.flashBangS(0xffcc00,0.1);
 				destroy();
 
 			case Diamond:
-				fx.flashBangS(0x04b6ff, 0.3, 1);
 				hero.grabItem(this);
 
 			case DoorKey:
-				fx.flashBangS(0xffcc00, 0.3, 0.2);
 				hero.grabItem(this);
 			}
 		}

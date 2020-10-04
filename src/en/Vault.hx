@@ -35,14 +35,16 @@ class Vault extends Entity {
 	override function update() {
 		super.update();
 
-		for(e in en.Item.ALL)
-			if( !e.isGrabbedByHero() && distCase(e)<=1.3 ) {
-				grabItem(e);
-				e.cd.setS("pickLock",0.6);
-				e.inVault = true;
-				e.origin.set(cx,cy);
-				break;
-			}
+		if( !isGrabbingAnything() ) {
+			for(e in en.Item.ALL)
+				if( e.isAlive() && e.type==Diamond && !e.isGrabbedByHero() && distCase(e)<=1.3 ) {
+					grabItem(e);
+					e.cd.setS("pickLock",0.6);
+					e.inVault = true;
+					e.origin.set(cx,cy);
+					break;
+				}
+		}
 
 		darkMode = isGrabbingAnything() ? Stay : GoOutOfGame;
 

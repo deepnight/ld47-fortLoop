@@ -81,7 +81,7 @@ class Hero extends Entity {
 
 	override function update() {
 		super.update();
-		var spd = 0.015;
+		var spd = 0.015 * (game.dark?2:1);
 
 		if( onGround ) {
 			cd.setS("onGroundRecently",0.1);
@@ -101,9 +101,12 @@ class Hero extends Entity {
 				stopClimbing();
 				cd.setS("climbLock",0.2);
 				dx = dir*0.1;
+				dy = 0;
 			}
-			setSquashX(0.7);
-			dy = -0.07;
+			else {
+				setSquashX(0.7);
+				dy = -0.07;
+			}
 			cd.setS("jumpForce",0.1);
 			cd.setS("jumpExtra",0.1);
 		}
@@ -113,7 +116,7 @@ class Hero extends Entity {
 		if( cd.has("jumpForce") && ca.aDown() )
 			dy -= 0.05 * cd.getRatio("jumpForce") * tmod;
 
-		// Attack
+		// Throw item
 		if( ca.xPressed() ) {
 			var e = dropItem();
 			if( e!=null ) {
@@ -121,13 +124,13 @@ class Hero extends Entity {
 				e.dx = dir*0.45;
 				e.dy = -0.15;
 			}
-			else {
-				for(e in en.Vault.ALL)
-					if( e.isGrabbingAnything() && distCase(e)<=1.5 ) {
-						grabItem( e.dropItem() );
-						break;
-					}
-			}
+			// else {
+			// 	for(e in en.Vault.ALL)
+			// 		if( e.isGrabbingAnything() && distCase(e)<=1.5 ) {
+			// 			grabItem( e.dropItem() );
+			// 			break;
+			// 		}
+			// }
 			// if( !useAmmo() )
 			// 	fx.flashBangS(0x9182d3, 0.1, 0.1);
 			// else {
@@ -212,10 +215,9 @@ class Hero extends Entity {
 				e.hit(1,hero);
 				bump(-dirTo(e)*rnd(0.03,0.06), 0);
 				e.bump(dirTo(e)*rnd(0.06,0.12), -rnd(0.04,0.08));
-				var i = dropItem();
-				if( i!=null ) {
-					i.bump(-dirTo(e)*rnd(0.1,0.2), -0.3);
-				}
+				// var i = dropItem();
+				// if( i!=null )
+				// 	i.bump(-dirTo(e)*rnd(0.1,0.2), -0.3);
 			}
 		}
 
