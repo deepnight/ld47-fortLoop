@@ -221,6 +221,8 @@ class Hero extends Entity {
 			}
 		}
 
+		// #if debug
 		debug( M.pretty(hxd.Timer.fps(),1) );
+		// #end
 	}
 }

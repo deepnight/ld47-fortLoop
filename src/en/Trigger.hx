@@ -27,7 +27,6 @@ class Trigger extends Entity {
 			d.setClosed(false);
 
 		if( data.f_target!=null ) {
-			debug("this");
 			for(e in en.Text.ALL)
 				if( !e.textVisible && e.distCaseFree(data.f_target.cx, data.f_target.cy)<=2 )
 					e.reveal();

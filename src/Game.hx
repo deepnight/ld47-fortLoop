@@ -34,6 +34,7 @@ class Game extends Process {
 	public var dark(default,null) : Bool;
 	var darkMask : h2d.Bitmap;
 	var darkHalo : HSprite;
+	var fadeMask : h2d.Bitmap;
 
 	public var curLevelIdx = 0;
 
@@ -57,6 +58,9 @@ class Game extends Process {
 		darkMask = new h2d.Bitmap( h2d.Tile.fromColor(Const.DARK_COLOR) );
 		root.add(darkMask, Const.DP_TOP);
 
+		fadeMask = new h2d.Bitmap( h2d.Tile.fromColor(Const.DARK_COLOR) );
+		root.add(fadeMask, Const.DP_TOP);
+
 		darkHalo = Assets.tiles.h_get("darkHalo");
 		root.add(darkHalo,Const.DP_TOP);
 		darkHalo.alpha = 0.;
@@ -65,9 +69,22 @@ class Game extends Process {
 	}
 
 
+	function fadeIn() {
+		tw.terminateWithoutCallbacks(fadeMask.alpha);
+		fadeMask.visible = true;
+		tw.createMs( fadeMask.alpha, 1>0, 800, TEaseIn ).end( ()->fadeMask.visible = false );
+	}
+
+	function fadeOut() {
+		tw.terminateWithoutCallbacks(fadeMask.alpha);
+		fadeMask.visible = true;
+		tw.createMs( fadeMask.alpha, 0>1, 2000, TEaseIn );
+	}
+
 	function startLevel(idx=-1, ?data:World_Level) {
 		curLevelIdx = idx;
 		cd.unset("levelComplete");
+		fadeIn();
 
 		// Cleanup
 		if( level!=null )
@@ -110,8 +127,12 @@ class Game extends Process {
 	override function onResize() {
 		super.onResize();
 		scroller.setScale(Const.SCALE);
+
 		darkHalo.scaleX = w()/darkHalo.tile.width;
 		darkHalo.scaleY = h()/darkHalo.tile.height;
+
+		fadeMask.scaleX = w()/fadeMask.tile.width;
+		fadeMask.scaleY = h()/fadeMask.tile.height;
 	}
 
 
@@ -326,9 +347,9 @@ class Game extends Process {
 				if( dark )
 					setDarkness(false);
 
-				for(e in en.Mob.ALL)
-					if( e.isAlive() )
-						e.kill(null);
+				// for(e in en.Mob.ALL)
+				// 	if( e.isAlive() )
+				// 		e.kill(null);
 
 				for(e in en.Item.ALL)
 					if( e.isAlive() && !e.inVault )
@@ -338,6 +359,7 @@ class Game extends Process {
 				fx.flashBangS(0xffcc00, 0.4, 1);
 				cd.setS("levelComplete", Const.INFINITE);
 				cd.setS("autoNext",2);
+				fadeOut();
 			}
 		}
 

@@ -7,7 +7,7 @@ class Torch extends Entity {
 		super(e.cx, e.cy);
 		ALL.push(this);
 		gravityMul = 0;
-		darkMode = DestroyAndHide;
+		// darkMode = DestroyAndHide;
 		game.scroller.add(spr, Const.DP_BG);
 
 		spr.set("torchOff");
@@ -27,8 +27,15 @@ class Torch extends Entity {
 
 	override function postUpdate() {
 		super.postUpdate();
+
+		spr.filter = null;
+		spr.alpha = 0.3;
+
 		if( !isOutOfTheGame() && !cd.hasSetS("fx",0.1) )
 			fx.torchFlame(footX, footY-10, game.getAutoSwitchRatio());
+
+		if( isOutOfTheGame() && !cd.hasSetS("fx",0.1) )
+			fx.torchFlame(footX, footY-10, 0);
 	}
 
 	override function update() {
