@@ -3,8 +3,10 @@ package en;
 class Torch extends Entity {
 	public static var ALL : Array<Torch> = [];
 
-	public function new(e:World_Entity) {
+	var fake = false;
+	public function new(e:World.Entity_Torch) {
 		super(e.cx, e.cy);
+		fake = e.f_fake;
 		ALL.push(this);
 		gravityMul = 0;
 		// darkMode = DestroyAndHide;
@@ -15,7 +17,7 @@ class Torch extends Entity {
 
 	public static function any() {
 		for(e in ALL)
-			if( e.isAlive() )
+			if( e.isAlive() && !e.fake )
 				return true;
 		return false;
 	}

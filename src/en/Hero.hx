@@ -292,9 +292,13 @@ class Hero extends Entity {
 				fx.gibs(e.centerX, e.centerY, dirTo(e));
 
 				var a = [
-					Assets.SLIB.hit7,
 					Assets.SLIB.hit8,
 					Assets.SLIB.hit9,
+				];
+				a[Std.random(a.length)](0.7);
+				var a = [
+					Assets.SLIB.hit6,
+					Assets.SLIB.hit7,
 				];
 				a[Std.random(a.length)](0.6);
 				// var i = dropItem();
@@ -314,8 +318,8 @@ class Hero extends Entity {
 		if( !onGround && dy>0 )
 			setSquashX( 1 - 0.1 * (1-cd.getRatio("fallSquash")) );
 
-		// #if debug
+		#if debug
 		debug( M.pretty(hxd.Timer.fps(),1) );
-		// #end
+		#end
 	}
 }

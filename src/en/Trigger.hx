@@ -29,8 +29,10 @@ class Trigger extends Entity {
 		}
 
 		var d = getTargetDoor();
-		if( d!=null )
+		if( d!=null ) {
+			Assets.SLIB.door0(1);
 			d.setClosed(false);
+		}
 
 		if( data.f_target!=null ) {
 			for(e in en.Text.ALL)
