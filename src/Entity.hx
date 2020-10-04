@@ -477,7 +477,8 @@ class Entity {
 
 	public function onLight() {
 		colorMatrix.identity();
-		spr.filter = null;
+		if( darkMode!=Stay && darkMode!=DestroyAndHide )
+			spr.filter = null;
 	}
 
     public function postUpdate() {

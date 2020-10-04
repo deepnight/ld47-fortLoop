@@ -19,6 +19,8 @@ class Assets {
 		fontSmall = hxd.Res.fonts.barlow_condensed_medium_regular_11.toFont();
 		fontMedium = hxd.Res.fonts.barlow_condensed_medium_regular_17.toFont();
 		fontLarge = hxd.Res.fonts.barlow_condensed_medium_regular_32.toFont();
+
 		tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
+		tiles.defineAnim("heroRun", "0(5), 1(3), 2(5), 3(3)");
 	}
 }

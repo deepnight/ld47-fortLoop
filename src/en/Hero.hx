@@ -16,7 +16,11 @@ class Hero extends Entity {
 		initLife(3);
 
 
+		spr.filter = new dn.heaps.filter.PixelOutline();
+		spr.anim.setGlobalSpeed(0.2);
+		spr.anim.registerStateAnim("heroRun",1, 2, ()->M.fabs(dx)>=0.05 );
 		spr.anim.registerStateAnim("heroIdle",0);
+		spr.anim.registerTransition("heroIdle","heroRun","heroIdleRun",0.4);
 	}
 
 	override function onDamage(dmg:Int, from:Entity) {
@@ -92,7 +96,10 @@ class Hero extends Entity {
 		if( !controlsLocked() && ca.leftDist() > 0 ) {
 			if( !climbing )
 				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
+			var old = dir;
 			dir = M.sign( Math.cos(ca.leftAngle()) );
+			if( old!=dir )
+				spr.anim.playOverlap("heroTurn", 0.66);
 		}
 
 		// Jump
