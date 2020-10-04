@@ -41,7 +41,7 @@ doorOpen
   index: -1
 empty
   rotate: false
-  xy: 1, 509
+  xy: 7, 497
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -55,14 +55,14 @@ fxAbrams
   index: -1
 fxCircle0
   rotate: false
-  xy: 67, 477
+  xy: 73, 477
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 fxDot0
   rotate: false
-  xy: 66, 313
+  xy: 66, 307
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
@@ -76,14 +76,14 @@ fxGib0
   index: -1
 fxGib1
   rotate: false
-  xy: 66, 291
+  xy: 104, 493
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
   index: -1
 fxGib2
   rotate: false
-  xy: 66, 297
+  xy: 66, 291
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
@@ -111,7 +111,7 @@ fxLineDir0
   index: -1
 fxSmallCircle0
   rotate: false
-  xy: 88, 493
+  xy: 88, 494
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
@@ -132,7 +132,7 @@ fxStar
   index: -1
 fxTail0
   rotate: false
-  xy: 1, 497
+  xy: 1, 499
   size: 33, 11
   orig: 33, 11
   offset: 0, 0
@@ -167,7 +167,7 @@ heroClimb0
   index: -1
 heroClimb1
   rotate: false
-  xy: 101, 455
+  xy: 107, 455
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -209,14 +209,14 @@ heroCrouchRun1
   index: -1
 heroCrouchRun2
   rotate: false
-  xy: 134, 423
+  xy: 140, 423
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroIdle0
   rotate: false
-  xy: 134, 456
+  xy: 140, 456
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -258,14 +258,14 @@ heroJumpDown0
   index: -1
 heroJumpDown1
   rotate: false
-  xy: 167, 423
+  xy: 173, 423
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroJumpDown2
   rotate: false
-  xy: 167, 456
+  xy: 173, 456
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -307,14 +307,14 @@ heroRun3
   index: -1
 heroThrow0
   rotate: false
-  xy: 200, 423
+  xy: 206, 423
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroThrow1
   rotate: false
-  xy: 200, 456
+  xy: 206, 456
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -405,21 +405,21 @@ knightWalk1
   index: -1
 knightWalk2
   rotate: false
-  xy: 233, 423
+  xy: 239, 423
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 mobIdle0
   rotate: false
-  xy: 233, 456
+  xy: 239, 456
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 pixel
   rotate: false
-  xy: 3, 509
+  xy: 9, 497
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -452,37 +452,44 @@ stair
   orig: 32, 32
   offset: 0, 0
   index: -1
+sword
+  rotate: false
+  xy: 1, 480
+  size: 5, 18
+  orig: 5, 18
+  offset: 0, 0
+  index: -1
 torchOff
   rotate: false
-  xy: 84, 476
+  xy: 90, 476
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 triggerOff
   rotate: false
-  xy: 1, 480
+  xy: 7, 480
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 triggerOn
   rotate: false
-  xy: 34, 480
+  xy: 40, 480
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 uiBar
   rotate: false
-  xy: 66, 309
+  xy: 66, 303
   size: 6, 3
   orig: 6, 3
   offset: 0, 0
   index: -1
 uiBarBg
   rotate: false
-  xy: 66, 303
+  xy: 66, 297
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
