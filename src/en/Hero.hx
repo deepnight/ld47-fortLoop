@@ -79,6 +79,10 @@ class Hero extends Entity {
 		super.postUpdate();
 	}
 
+	public inline function isCrouching() {
+		return isAlive() && onGround && level.hasCollision(cx,cy-1);
+	}
+
 	override function update() {
 		super.update();
 		var spd = 0.015 * (game.dark?2:1);
@@ -96,7 +100,7 @@ class Hero extends Entity {
 		}
 
 		// Jump
-		if( !controlsLocked() && ca.aPressed() && ( cd.has("onGroundRecently") || climbing ) ) {
+		if( !controlsLocked() && ca.aPressed() && ( cd.has("onGroundRecently") || climbing ) && !isCrouching() ) {
 			if( climbing ) {
 				stopClimbing();
 				cd.setS("climbLock",0.2);
@@ -219,6 +223,18 @@ class Hero extends Entity {
 				// if( i!=null )
 				// 	i.bump(-dirTo(e)*rnd(0.1,0.2), -0.3);
 			}
+		}
+
+		// Drop item while crouching
+		if( isGrabbingAnything() && isCrouching() ) {
+			var e = dropItem();
+			var dh = new dn.DecisionHelper( dn.Bresenham.getDisc(cx,cy, 3) );
+			dh.keepOnly( (pt)->!level.hasCollision(pt.x,pt.y) && !level.hasCollision(pt.x,pt.y-1) );
+			dh.score( (pt)->-e.distCaseFree(pt.x,pt.y) );
+			dh.useBest( (pt)->e.setPosCase(pt.x, pt.y) );
+			e.dy = -0.2;
+			e.dx = dirTo(e)*0.1;
+			e.xr = dirTo(e)==1 ? 0.1 : 0.9;
 		}
 
 		// #if debug
