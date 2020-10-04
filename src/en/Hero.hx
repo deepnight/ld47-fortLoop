@@ -75,10 +75,6 @@ class Hero extends Entity {
 			lockControlS(0.03*impact);
 	}
 
-	override function postUpdate() {
-		super.postUpdate();
-	}
-
 	public inline function isCrouching() {
 		return isAlive() && onGround && level.hasCollision(cx,cy-1);
 	}

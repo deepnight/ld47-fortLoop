@@ -12,6 +12,7 @@ class Level extends dn.Process {
 	var invalidated = true;
 
 	var lightWrapper : h2d.Object;
+	var front : h2d.TileGroup;
 	var details : h2d.TileGroup;
 	var walls : h2d.TileGroup;
 	var bg : h2d.TileGroup;
@@ -30,6 +31,9 @@ class Level extends dn.Process {
 		level = l;
 
 		tilesetSource = hxd.Res.world.tileset.toTile();
+
+		front = new h2d.TileGroup(tilesetSource);
+		game.scroller.add(front, Const.DP_FRONT);
 
 		dark = new h2d.TileGroup(tilesetSource, root);
 
@@ -124,6 +128,7 @@ class Level extends dn.Process {
 		marks = null;
 		tilesetSource.dispose();
 		tilesetSource = null;
+		front.remove();
 	}
 
 	/**
@@ -194,6 +199,8 @@ class Level extends dn.Process {
 			lightWrapper.filter = new h2d.filter.Mask(haloMask);
 		else
 			lightWrapper.filter = null;
+
+		front.colorMatrix = v ? C.getColorizeMatrixH2d(Const.DARK_COLOR) : null;
 		// dark.visible = v;
 		// walls.visible = !v;
 		// bg.visible = !v;
@@ -206,12 +213,19 @@ class Level extends dn.Process {
 		walls.clear();
 		dark.clear();
 		details.clear();
+		front.clear();
 
 		// Entrance gate
 		var e = level.l_Entities.all_Hero[0];
 		var t = Assets.tiles.getTile("stair");
 		t.setCenterRatio(0.5,1);
 		details.add( e.pixelX, e.pixelY, t );
+
+		// Front
+		for( autoTile in level.l_Front_elements.autoTiles ) {
+			var tile = level.l_Front_elements.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			front.add(autoTile.renderX, autoTile.renderY, tile);
+		}
 
 		// Bg
 		for( autoTile in level.l_Bg.autoTiles ) {
