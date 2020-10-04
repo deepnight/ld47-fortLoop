@@ -5,6 +5,8 @@ class Hero extends Entity {
 	public var ammo : Int;
 	public var maxAmmo : Int;
 
+	var shadow : h2d.filter.DropShadow;
+
 	public function new(e:Entity_Hero) {
 		super(e.cx, e.cy);
 
@@ -15,16 +17,26 @@ class Hero extends Entity {
 		circularCollisions = true;
 		initLife(3);
 
+		shadow = new h2d.filter.DropShadow(4, 0, 0x0, 0.3); // overriden in postUpdate()!
+		spr.filter = new h2d.filter.Group([
+			new dn.heaps.filter.PixelOutline(),
+			shadow,
+		]);
 
-		spr.filter = new dn.heaps.filter.PixelOutline();
-		spr.anim.setGlobalSpeed(0.2);
-		
-		spr.anim.registerStateAnim("heroCrouchRun",2, 2, ()->M.fabs(dx)>=0.05 && isCrouching() );
-		spr.anim.registerStateAnim("heroRun",1, 2, ()->M.fabs(dx)>=0.05 );
+		spr.anim.registerStateAnim("heroJumpUp",15, ()->!climbing && !onGround && dy<=0.05 );
+		spr.anim.registerStateAnim("heroJumpDown",15, ()->!climbing && !onGround && dy>0.05 );
+
+		spr.anim.registerStateAnim("heroClimb",11, 2, ()->climbing && M.fabs(dy)>=0.05 );
+		spr.anim.registerStateAnim("heroClimbIdle",10, ()->climbing);
+
+		spr.anim.registerStateAnim("heroCrouchRun",6, 2, ()->M.fabs(dx)>=0.05 && isCrouching() );
+		spr.anim.registerStateAnim("heroRun",5, 2.5, ()->M.fabs(dx)>=0.05 );
+
+		spr.anim.registerStateAnim("heroIdleGrab",1, ()->!isCrouching() && isGrabbingAnything());
 		spr.anim.registerStateAnim("heroCrouchIdle",0, ()->isCrouching());
 		spr.anim.registerStateAnim("heroIdle",0, ()->!isCrouching());
 
-		spr.anim.registerTransition("heroIdle","heroRun","heroIdleRun", 0.4);
+		spr.anim.registerTransitions(["heroIdle","heroIdleGrab"],["heroRun"],"heroIdleRun", 0.5);
 	}
 
 	override function onDamage(dmg:Int, from:Entity) {
@@ -87,6 +99,22 @@ class Hero extends Entity {
 		return isAlive() && level.hasCollision(cx,cy-1) && level.hasCollision(cx,cy+1);
 	}
 
+	override function postUpdate() {
+		super.postUpdate();
+		spr.anim.setGlobalSpeed( game.dark ? 0.25 : 0.2 );
+
+		shadow.angle = dir==1 ? 0 : M.PI;
+		shadow.distance = 4;
+		if( climbing ) {
+			shadow.distance = 1;
+			shadow.alpha = 0.2;
+		}
+		else if( level.hasSky(cx,cy) || level.hasSky(cx,cy-1) )
+			shadow.alpha = 0;
+		else
+			shadow.alpha = 0.3;
+	}
+
 	override function update() {
 		super.update();
 		var spd = 0.015 * (game.dark?2:1);
@@ -102,7 +130,7 @@ class Hero extends Entity {
 				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
 			var old = dir;
 			dir = M.sign( Math.cos(ca.leftAngle()) );
-			if( old!=dir && !isCrouching() )
+			if( old!=dir && !isCrouching() && !climbing )
 				spr.anim.playOverlap("heroTurn", 0.66);
 		}
 
@@ -112,14 +140,20 @@ class Hero extends Entity {
 				stopClimbing();
 				cd.setS("climbLock",0.2);
 				dx = dir*0.1;
-				dy = 0;
+				if( dy>0 )
+					dy = 0.2;
+				else {
+					dy = -0.05;
+					cd.setS("jumpForce",0.1);
+					cd.setS("jumpExtra",0.1);
+				}
 			}
 			else {
 				setSquashX(0.7);
 				dy = -0.07;
+				cd.setS("jumpForce",0.1);
+				cd.setS("jumpExtra",0.1);
 			}
-			cd.setS("jumpForce",0.1);
-			cd.setS("jumpExtra",0.1);
 		}
 		else if( cd.has("jumpExtra") && ca.aDown() )
 			dy-=0.04*tmod;
@@ -134,6 +168,9 @@ class Hero extends Entity {
 				e.cd.setS("pickLock",0.1);
 				e.dx = dir*0.45;
 				e.dy = -0.15;
+				bump(dir*0.05, 0);
+				spr.anim.play("heroThrow");
+				lockControlS(0.4);
 			}
 			// else {
 			// 	for(e in en.Vault.ALL)
@@ -201,10 +238,9 @@ class Hero extends Entity {
 			cd.setS("climbLock",0.2);
 		}
 
-		// Climb ladder
-		if( climbing && ca.leftDist()>0 ) {
+		// Climb movement
+		if( climbing && ca.leftDist()>0 )
 			dy+=Math.sin(ca.leftAngle()) * spd * 0.75 * tmod;
-		}
 
 		// Hop
 		if( !controlsLocked() && yr<0.5 && dy>0 && ca.leftDist()>0 ) {

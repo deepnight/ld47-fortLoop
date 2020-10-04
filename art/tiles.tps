@@ -214,6 +214,10 @@
             </struct>
             <key type="filename">export_tiles/doorKeyOpen.png</key>
             <key type="filename">export_tiles/doorOpen.png</key>
+            <key type="filename">export_tiles/heroClimb0.png</key>
+            <key type="filename">export_tiles/heroClimb1.png</key>
+            <key type="filename">export_tiles/heroClimb2.png</key>
+            <key type="filename">export_tiles/heroClimbIdle0.png</key>
             <key type="filename">export_tiles/heroCrouchIdle0.png</key>
             <key type="filename">export_tiles/heroCrouchRun0.png</key>
             <key type="filename">export_tiles/heroCrouchRun1.png</key>

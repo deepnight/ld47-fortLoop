@@ -179,6 +179,11 @@ class Level extends dn.Process {
 		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==0 || extraCollMap.exists(coordId(cx,cy));
 	}
 
+	/** Return TRUE if "Collisions" layer contains a collision value **/
+	public inline function hasSky(cx,cy) : Bool {
+		return !isValid(cx,cy) ? false : level.l_Collisions.getInt(cx,cy)==2;
+	}
+
 	public function setExtraCollision(cx,cy,v:Bool) {
 		if( isValid(cx,cy) )
 			if( v )

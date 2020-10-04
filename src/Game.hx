@@ -93,6 +93,8 @@ class Game extends Process {
 			e.destroy();
 		fx.clear();
 		gc();
+		tw.terminateWithoutCallbacks(camera.zoom);
+		camera.zoom = 1;
 
 		// End game
 		if( data==null && idx>=world.levels.length ) {
@@ -359,6 +361,7 @@ class Game extends Process {
 				fx.flashBangS(0xffcc00, 0.4, 1);
 				cd.setS("levelComplete", Const.INFINITE);
 				cd.setS("autoNext",2);
+				tw.createMs(camera.zoom, 1.3, 2000);
 				fadeOut();
 			}
 		}

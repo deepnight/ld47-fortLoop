@@ -62,7 +62,12 @@ class Item extends Entity {
 	override function postUpdate() {
 		super.postUpdate();
 		if( hero.isGrabbing(this) ) {
-			spr.y-=Const.GRID*1.1;
+			if( M.fabs(hero.dx)>=0.05 ) {
+				spr.x += hero.dir*6;
+				spr.y -= 5;
+			}
+			else
+				spr.y-=Const.GRID*0.8;
 		}
 
 		if( !isOutOfTheGame() && !isGrabbedByHero() && type==Diamond && !cd.hasSetS("fx",rnd(0.1,0.4)) )
