@@ -214,7 +214,17 @@
             </struct>
             <key type="filename">export_tiles/doorKeyOpen.png</key>
             <key type="filename">export_tiles/doorOpen.png</key>
+            <key type="filename">export_tiles/heroCrouchIdle0.png</key>
+            <key type="filename">export_tiles/heroCrouchRun0.png</key>
+            <key type="filename">export_tiles/heroCrouchRun1.png</key>
+            <key type="filename">export_tiles/heroCrouchRun2.png</key>
             <key type="filename">export_tiles/heroIdle0.png</key>
+            <key type="filename">export_tiles/heroIdleRun0.png</key>
+            <key type="filename">export_tiles/heroRun0.png</key>
+            <key type="filename">export_tiles/heroRun1.png</key>
+            <key type="filename">export_tiles/heroRun2.png</key>
+            <key type="filename">export_tiles/heroRun3.png</key>
+            <key type="filename">export_tiles/heroTurn0.png</key>
             <key type="filename">export_tiles/mobIdle0.png</key>
             <key type="filename">export_tiles/stair.png</key>
             <key type="filename">export_tiles/uiBox.png</key>

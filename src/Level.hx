@@ -200,11 +200,8 @@ class Level extends dn.Process {
 		else
 			lightWrapper.filter = null;
 
-		front.colorMatrix = v ? C.getColorizeMatrixH2d(Const.DARK_COLOR) : null;
-		// dark.visible = v;
-		// walls.visible = !v;
-		// bg.visible = !v;
-		// burn.visible = !v;
+		front.colorMatrix = v ? C.getColorizeMatrixH2d(Const.DARK_LIGHT_COLOR) : null;
+		front.alpha = v ? 0.15 : 1;
 	}
 
 	/** Render current level**/

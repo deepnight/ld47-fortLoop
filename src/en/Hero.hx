@@ -18,9 +18,13 @@ class Hero extends Entity {
 
 		spr.filter = new dn.heaps.filter.PixelOutline();
 		spr.anim.setGlobalSpeed(0.2);
+		
+		spr.anim.registerStateAnim("heroCrouchRun",2, 2, ()->M.fabs(dx)>=0.05 && isCrouching() );
 		spr.anim.registerStateAnim("heroRun",1, 2, ()->M.fabs(dx)>=0.05 );
-		spr.anim.registerStateAnim("heroIdle",0);
-		spr.anim.registerTransition("heroIdle","heroRun","heroIdleRun",0.4);
+		spr.anim.registerStateAnim("heroCrouchIdle",0, ()->isCrouching());
+		spr.anim.registerStateAnim("heroIdle",0, ()->!isCrouching());
+
+		spr.anim.registerTransition("heroIdle","heroRun","heroIdleRun", 0.4);
 	}
 
 	override function onDamage(dmg:Int, from:Entity) {
@@ -80,7 +84,7 @@ class Hero extends Entity {
 	}
 
 	public inline function isCrouching() {
-		return isAlive() && onGround && level.hasCollision(cx,cy-1);
+		return isAlive() && level.hasCollision(cx,cy-1) && level.hasCollision(cx,cy+1);
 	}
 
 	override function update() {
@@ -98,7 +102,7 @@ class Hero extends Entity {
 				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
 			var old = dir;
 			dir = M.sign( Math.cos(ca.leftAngle()) );
-			if( old!=dir )
+			if( old!=dir && !isCrouching() )
 				spr.anim.playOverlap("heroTurn", 0.66);
 		}
 

@@ -22,5 +22,6 @@ class Assets {
 
 		tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
 		tiles.defineAnim("heroRun", "0(5), 1(3), 2(5), 3(3)");
+		tiles.defineAnim("heroCrouchRun", "0(5), 1(3), 2(5), 1(3)");
 	}
 }

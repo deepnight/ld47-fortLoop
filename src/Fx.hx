@@ -142,6 +142,32 @@ class Fx extends dn.Process {
 		});
 	}
 
+	public function torchSparks(x:Float, y:Float) {
+		// Flame red
+		for(i in 0...1) {
+			var p = allocBgAdd(getTile("pixel"), x+rnd(0,2,true), y+rnd(0,1,true));
+			p.colorize(0xff9200);
+			// p.colorize(C.interpolateInt(0xbb3572,0x871d1d, 1-pow));
+			p.alphaFlicker = 0.5;
+			p.setFadeS(rnd(0.1,0.6), 0, 0.06);
+			p.frict = rnd(0.86,0.96);
+			p.lifeS = 0.1;
+			p.dy = -rnd(0.5,1);
+			p.gy = rnd(0.1,0.2);
+		}
+	}
+
+	public function torchLightOn(x:Float, y:Float) {
+		var p = allocBgAdd(getTile("fxStar"), x,y);
+		p.colorize(0xffe600);
+		p.setFadeS(rnd(0.5,0.8), 0, 0.1);
+		p.setScale(rnd(2,3));
+		p.rotation = rnd(0,M.PI);
+		p.dr = 0.3;
+		p.scaleMul = rnd(0.9, 0.95);
+		p.lifeS = rnd(0.2,0.6);
+	}
+
 	public function torchFlame(x:Float, y:Float, pow:Float) {
 		var c = C.interpolateInt(0xffcc00, 0xff643e, 1-pow);
 

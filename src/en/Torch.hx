@@ -20,6 +20,11 @@ class Torch extends Entity {
 		return false;
 	}
 
+	override function onLight() {
+		super.onLight();
+		fx.torchLightOn(footX, footY-10);
+	}
+
 	override function dispose() {
 		super.dispose();
 		ALL.remove(this);
@@ -36,6 +41,9 @@ class Torch extends Entity {
 
 		if( isOutOfTheGame() && !cd.hasSetS("fx",0.1) )
 			fx.torchFlame(footX, footY-10, 0);
+
+		if( isOutOfTheGame() && game.getAutoSwitchS()<=1 )
+			fx.torchSparks(footX, footY-10);
 	}
 
 	override function update() {
