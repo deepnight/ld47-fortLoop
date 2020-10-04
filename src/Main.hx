@@ -14,7 +14,7 @@ class Main extends dn.Process {
 
 		// Engine settings
 		hxd.Timer.wantedFPS = Const.FPS;
-		engine.backgroundColor = 0xff<<24|0x0;
+		engine.backgroundColor = 0xff<<24|Const.DARK_COLOR;
         #if( hl && !debug )
         engine.fullScreen = true;
         #end
@@ -68,9 +68,20 @@ class Main extends dn.Process {
 		controller.bind(START, Key.N);
 
 		// Start
-		// new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
-		// delayer.addF( startGame, 1 );
-		startGame();
+		#if js
+			new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
+			delayer.addF( startIntro, 1 );
+		#else
+			#if debug
+			startGame();
+			#else
+			startIntro();
+			#end
+		#end
+	}
+
+	public function startIntro() {
+		new Intro(false);
 	}
 
 	public function startGame() {

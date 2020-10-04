@@ -1,516 +1,523 @@
 
 tiles.png
-size: 512,512
+size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 darkHalo
   rotate: false
-  xy: 1, 1
+  xy: 602, 1
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 doorClosed
   rotate: false
-  xy: 244, 390
+  xy: 892, 72
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 doorKeyClosed
   rotate: false
-  xy: 253, 291
+  xy: 892, 105
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 doorKeyOpen
   rotate: false
-  xy: 46, 435
+  xy: 978, 66
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 doorOpen
   rotate: false
-  xy: 55, 323
+  xy: 978, 99
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 empty
   rotate: false
-  xy: 7, 497
+  xy: 1022, 46
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 fxAbrams
   rotate: false
-  xy: 98, 506
+  xy: 892, 66
   size: 19, 5
   orig: 19, 5
   offset: 0, 0
   index: -1
 fxCircle0
   rotate: false
-  xy: 73, 477
+  xy: 892, 138
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 fxDot0
   rotate: false
-  xy: 66, 307
+  xy: 1020, 70
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
   index: -1
 fxGib0
   rotate: false
-  xy: 95, 493
+  xy: 1012, 64
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
   index: -1
 fxGib1
   rotate: false
-  xy: 104, 493
+  xy: 1011, 70
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
   index: -1
 fxGib2
   rotate: false
-  xy: 66, 291
+  xy: 1011, 76
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
   index: -1
 fxImpact0
   rotate: false
-  xy: 64, 497
+  xy: 1008, 132
   size: 15, 9
   orig: 15, 9
   offset: 0, 0
   index: -1
 fxLine0
   rotate: false
-  xy: 64, 507
+  xy: 978, 58
   size: 33, 3
   orig: 33, 3
   offset: 0, 0
   index: -1
 fxLineDir0
   rotate: false
-  xy: 80, 502
+  xy: 978, 62
   size: 33, 3
   orig: 33, 3
   offset: 0, 0
   index: -1
 fxSmallCircle0
   rotate: false
-  xy: 88, 494
+  xy: 1011, 96
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
   index: -1
 fxSmoke0
   rotate: false
-  xy: 1, 435
+  xy: 978, 1
   size: 44, 44
   orig: 44, 44
   offset: 0, 0
   index: -1
 fxStar
   rotate: false
-  xy: 80, 494
+  xy: 1011, 88
   size: 7, 7
   orig: 7, 7
   offset: 0, 0
   index: -1
 fxTail0
   rotate: false
-  xy: 1, 499
+  xy: 978, 46
   size: 33, 11
   orig: 33, 11
   offset: 0, 0
   index: -1
 heroAtkA0
   rotate: false
-  xy: 66, 258
+  xy: 859, 66
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroAtkA1
   rotate: false
-  xy: 55, 356
+  xy: 859, 99
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroAtkA2
   rotate: false
-  xy: 55, 389
+  xy: 859, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroClimb0
   rotate: false
-  xy: 79, 422
+  xy: 909, 113
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroClimb1
   rotate: false
-  xy: 107, 455
+  xy: 942, 113
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroClimb2
   rotate: false
-  xy: 88, 291
+  xy: 975, 132
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroClimbIdle0
   rotate: false
-  xy: 99, 258
+  xy: 909, 146
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroCrouchIdle0
   rotate: false
-  xy: 88, 324
+  xy: 942, 146
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroCrouchRun0
   rotate: false
-  xy: 88, 357
+  xy: 859, 165
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroCrouchRun1
   rotate: false
-  xy: 112, 390
+  xy: 975, 165
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroCrouchRun2
   rotate: false
-  xy: 140, 423
+  xy: 892, 179
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroIdle0
   rotate: false
-  xy: 140, 456
+  xy: 859, 198
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroIdle1
   rotate: false
-  xy: 121, 291
+  xy: 925, 179
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroIdle2
   rotate: false
-  xy: 132, 258
+  xy: 958, 198
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroIdleGrab0
   rotate: false
-  xy: 121, 324
+  xy: 991, 198
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroIdleRun0
   rotate: false
-  xy: 121, 357
+  xy: 892, 212
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroJumpDown0
   rotate: false
-  xy: 145, 390
+  xy: 859, 231
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroJumpDown1
   rotate: false
-  xy: 173, 423
+  xy: 925, 212
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroJumpDown2
   rotate: false
-  xy: 173, 456
+  xy: 958, 231
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroJumpUp0
   rotate: false
-  xy: 154, 291
+  xy: 991, 231
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroRun0
   rotate: false
-  xy: 165, 258
+  xy: 892, 245
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroRun1
   rotate: false
-  xy: 154, 324
+  xy: 925, 245
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroRun2
   rotate: false
-  xy: 154, 357
+  xy: 958, 264
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroRun3
   rotate: false
-  xy: 178, 390
+  xy: 991, 264
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroThrow0
   rotate: false
-  xy: 206, 423
+  xy: 602, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroThrow1
   rotate: false
-  xy: 206, 456
+  xy: 635, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 heroTurn0
   rotate: false
-  xy: 187, 291
+  xy: 668, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 iconAmmoOff
   rotate: false
-  xy: 66, 468
+  xy: 1019, 88
   size: 4, 8
   orig: 4, 8
   offset: 0, 0
   index: -1
 iconAmmoOn
   rotate: false
-  xy: 71, 468
+  xy: 1011, 107
   size: 4, 8
   orig: 4, 8
   offset: 0, 0
   index: -1
 iconLifeOff
   rotate: false
-  xy: 46, 468
+  xy: 1012, 46
   size: 9, 8
   orig: 9, 8
   offset: 0, 0
   index: -1
 iconLifeOn
   rotate: false
-  xy: 56, 468
+  xy: 1012, 55
   size: 9, 8
   orig: 9, 8
   offset: 0, 0
   index: -1
 itemAmmo
   rotate: false
-  xy: 35, 497
+  xy: 909, 72
   size: 14, 11
   orig: 14, 11
   offset: 0, 0
   index: -1
 itemDiamond
   rotate: false
-  xy: 50, 497
+  xy: 909, 92
   size: 13, 11
   orig: 13, 11
   offset: 0, 0
   index: -1
 itemKey
   rotate: false
-  xy: 76, 468
+  xy: 909, 84
   size: 14, 7
   orig: 14, 7
   offset: 0, 0
   index: -1
 knightHit
   rotate: false
-  xy: 198, 258
+  xy: 701, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 knightIdle0
   rotate: false
-  xy: 187, 324
+  xy: 734, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 knightWalk0
   rotate: false
-  xy: 187, 357
+  xy: 767, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 knightWalk1
   rotate: false
-  xy: 211, 390
+  xy: 800, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 knightWalk2
   rotate: false
-  xy: 239, 423
+  xy: 833, 264
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+logo
+  rotate: false
+  xy: 1, 1
+  size: 600, 400
+  orig: 600, 400
+  offset: 0, 0
+  index: -1
 mobIdle0
   rotate: false
-  xy: 239, 456
+  xy: 866, 278
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 pixel
   rotate: false
-  xy: 9, 497
+  xy: 1022, 48
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 slash0
   rotate: false
-  xy: 1, 323
+  xy: 924, 1
   size: 53, 55
   orig: 53, 55
   offset: 0, 0
   index: -1
 slash1
   rotate: false
-  xy: 1, 379
+  xy: 924, 57
   size: 53, 55
   orig: 53, 55
   offset: 0, 0
   index: -1
 slash2
   rotate: false
-  xy: 1, 258
+  xy: 859, 1
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 stair
   rotate: false
-  xy: 220, 291
+  xy: 899, 278
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 sword
   rotate: false
-  xy: 1, 480
+  xy: 1018, 97
   size: 5, 18
   orig: 5, 18
   offset: 0, 0
   index: -1
 torchOff
   rotate: false
-  xy: 90, 476
+  xy: 892, 155
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 triggerOff
   rotate: false
-  xy: 7, 480
+  xy: 635, 291
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 triggerOn
   rotate: false
-  xy: 40, 480
+  xy: 668, 291
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 uiBar
   rotate: false
-  xy: 66, 303
+  xy: 1011, 103
   size: 6, 3
   orig: 6, 3
   offset: 0, 0
   index: -1
 uiBarBg
   rotate: false
-  xy: 66, 297
+  xy: 1011, 82
   size: 8, 5
   orig: 8, 5
   offset: 0, 0
   index: -1
 uiBox
   rotate: false
-  xy: 231, 258
+  xy: 932, 297
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 vault
   rotate: false
-  xy: 220, 324
+  xy: 965, 297
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 vaultLock
   rotate: false
-  xy: 220, 357
+  xy: 602, 291
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

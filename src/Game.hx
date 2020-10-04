@@ -99,7 +99,7 @@ class Game extends Process {
 		// End game
 		if( data==null && idx>=world.levels.length ) {
 			destroy();
-			new EndGame();
+			new Intro(true);
 			return;
 		}
 
