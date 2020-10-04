@@ -81,6 +81,10 @@ class Game extends Process {
 		tw.createMs( fadeMask.alpha, 0>1, 2000, TEaseIn );
 	}
 
+	public function nextLevel() {
+		startLevel(curLevelIdx+1);
+	}
+
 	function startLevel(idx=-1, ?data:World_Level) {
 		curLevelIdx = idx;
 		cd.unset("levelComplete");
@@ -314,7 +318,7 @@ class Game extends Process {
 
 			#if debug
 			if( ca.isKeyboardPressed(K.N) )
-				startLevel(curLevelIdx+1);
+				nextLevel();
 
 			if( ca.isKeyboardPressed(K.K) )
 				for(e in en.Mob.ALL)

@@ -223,9 +223,11 @@ class Level extends dn.Process {
 
 		// Entrance gate
 		var e = level.l_Entities.all_Hero[0];
-		var t = Assets.tiles.getTile("stair");
-		t.setCenterRatio(0.5,1);
-		details.add( e.pixelX, e.pixelY, t );
+		if( !hasSky(e.cx,e.cy) && !hasSky(e.cx,e.cy-1) ) {
+			var t = Assets.tiles.getTile("stair");
+			t.setCenterRatio(0.5,1);
+			details.add( e.pixelX, e.pixelY, t );
+		}
 
 		// Front
 		for( autoTile in level.l_Front_elements.autoTiles ) {

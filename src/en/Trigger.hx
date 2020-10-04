@@ -22,6 +22,12 @@ class Trigger extends Entity {
 
 		triggered = true;
 		spr.set("triggerOn");
+
+		if( data.f_exitLevel ) {
+			game.nextLevel();
+			return true;
+		}
+
 		var d = getTargetDoor();
 		if( d!=null )
 			d.setClosed(false);

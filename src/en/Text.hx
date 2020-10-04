@@ -21,18 +21,19 @@ class Text extends Entity {
 		wrapper = new h2d.Object();
 		game.scroller.add(wrapper, Const.DP_BG);
 
+		var c = e.f_tutorial ? 0x9fabdd : e.f_color_int;
 		var px = 8;
 		var py = 6;
 		bg = new h2d.ScaleGrid(Assets.tiles.getTile("uiBox"), 5, 5, wrapper);
 		tf = new h2d.Text(Assets.fontPixel, wrapper);
 		tf.setPosition(px,py);
-		tf.text = e.f_text;
-		tf.textColor = e.f_color_int;
+		tf.text = e.f_tutorial ? e.f_text : '"${e.f_text}"';
+		tf.textColor = c;
 		tf.maxWidth = 160;
 
 		bg.width = px*2 + tf.textWidth;
 		bg.height = py*2 + tf.textHeight;
-		bg.color.setColor( C.addAlphaF( C.interpolateInt(e.f_color_int, 0x322445, 0.8) ) );
+		bg.color.setColor( C.addAlphaF( C.interpolateInt(c, 0x322445, 0.8) ) );
 		bg.colorAdd = new h3d.Vector();
 	}
 
