@@ -35,6 +35,16 @@ class Mob extends Entity {
 
 	override function onDie() {
 		super.onDie();
+
+
+		var a = [
+			Assets.SLIB.kill0,
+			Assets.SLIB.kill1,
+			Assets.SLIB.kill2,
+			Assets.SLIB.kill3,
+		];
+		a[Std.random(a.length)](0.6);
+
 		if( data.f_loot!=null ) {
 			var e = new en.Item(cx,cy, data.f_loot);
 			e.dx = lastHitDirToSource * 0.04;

@@ -37,6 +37,8 @@ class Vortex extends Entity {
 			e.dx = rnd(0.01,0.02,true);
 			e.dy = -0.1;
 			ignoreItem = e;
+			Assets.SLIB.vortexIn(1);
+			game.fx.vortexOut(centerX, centerY, 0x8b95cf);
 			itemOrigin = null;
 			content = null;
 		}
@@ -53,6 +55,7 @@ class Vortex extends Entity {
 				if( e.isAlive() && distCase(e)<=1.6 && e!=ignoreItem && e.cd.has("recentThrow") && !e.isGrabbedByHero() ) {
 					content = e.type;
 					itemOrigin = e.origin.clone();
+					Assets.SLIB.vortexOut1(1);
 					e.destroy();
 				}
 	}

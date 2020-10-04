@@ -84,8 +84,18 @@ class Hero extends Entity {
 		super.onLight();
 	}
 
+	override function startClimbing() {
+		super.startClimbing();
+		Assets.SLIB.ladder0(0.4);
+	}
+
 	override function onLand(fallCHei:Float) {
 		super.onLand(fallCHei);
+
+		if( fallCHei>=3 )
+			Assets.SLIB.land0(1);
+		else
+			Assets.SLIB.land1(0.5 * M.fmin(1,fallCHei/2));
 
 		var impact = M.fmin(1, fallCHei/6);
 		dx *= (1-impact)*0.5;
@@ -280,6 +290,13 @@ class Hero extends Entity {
 				camera.bump(dir*rnd(1,2), 0);
 				camera.shakeS(0.3,0.1);
 				fx.gibs(e.centerX, e.centerY, dirTo(e));
+
+				var a = [
+					Assets.SLIB.hit7,
+					Assets.SLIB.hit8,
+					Assets.SLIB.hit9,
+				];
+				a[Std.random(a.length)](0.6);
 				// var i = dropItem();
 				// if( i!=null )
 				// 	i.bump(-dirTo(e)*rnd(0.1,0.2), -0.3);

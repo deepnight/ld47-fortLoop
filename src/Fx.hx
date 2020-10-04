@@ -312,6 +312,36 @@ class Fx extends dn.Process {
 		p.lifeS = 0.2;
 	}
 
+	public function vortexOut(x:Float, y:Float, c:UInt) {
+
+		var n = 64;
+		for(i in 0...n) {
+			var a = M.PI2*i/30 + rnd(0,0.1,true);
+			var p = allocBgAdd(getTile("fxLineDir"), x+Math.cos(a)*10, y+Math.sin(a)*10);
+			p.colorize(c);
+			p.moveAwayFrom(x,y, i%2==0 ? 1 : 3);
+			p.frict = 0.96;
+			p.rotation = a;
+			p.lifeS = rnd(0.1,0.2);
+		}
+	}
+
+	public function vaultIn(x:Float, y:Float, c:UInt) {
+		var n = 64;
+		for(i in 0...n) {
+			var a = M.PI2*i/30 + rnd(0,0.1,true);
+			var p = allocBgAdd(getTile("fxLine"), x+Math.cos(a)*10, y+Math.sin(a)*10);
+			p.colorize(c);
+			p.moveAwayFrom(x,y, i%2==0 ? 1 : 2);
+			p.frict = 0.96;
+			p.scaleX = rnd(0.3,0.4);
+			p.rotation = a+M.PIHALF + rnd(0,0.1,true);
+			p.lifeS = rnd(0.1,0.2);
+			p.delayS = 0.2*i/n;
+		}
+	}
+
+
 	public function shine(x:Float, y:Float, c:UInt) {
 		var p = allocBgAdd(getTile("fxStar"),x,y);
 		p.colorize(c);

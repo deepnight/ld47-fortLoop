@@ -172,8 +172,14 @@ class Game extends Process {
 			}
 		}
 
+		if( dark )
+			Assets.SLIB.dark0(0.5);
+		else if( !init )
+			Assets.SLIB.light0(0.5);
+
 		// Doors
 		if( dark ) {
+			Assets.SLIB.door0(1);
 			for(e in en.Door.ALL)
 				e.setClosed(true);
 		}
@@ -352,6 +358,8 @@ class Game extends Process {
 			if( win ) {
 				if( dark )
 					setDarkness(false);
+
+				Assets.SLIB.complete(1);
 
 				// for(e in en.Mob.ALL)
 				// 	if( e.isAlive() )

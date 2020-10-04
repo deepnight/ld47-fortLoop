@@ -58,6 +58,7 @@ class Door extends Entity {
 			for(e in en.Item.ALL)
 				if( distCase(e)<=1 && e.type==DoorKey && e.cd.has("recentThrow") && !e.isGrabbedByHero() ) {
 					e.destroy();
+					Assets.SLIB.door0(1);
 					setClosed(false);
 				}
 		}

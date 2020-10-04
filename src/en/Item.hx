@@ -123,8 +123,10 @@ class Item extends Entity {
 
 			case Diamond:
 				hero.grabItem(this);
+				Assets.SLIB.pick0(0.7);
 
 			case DoorKey:
+				Assets.SLIB.pick2(0.5);
 				hero.grabItem(this);
 			}
 		}

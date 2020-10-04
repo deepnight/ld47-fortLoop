@@ -41,6 +41,8 @@ class Vault extends Entity {
 					grabItem(e);
 					e.cd.setS("pickLock",0.6);
 					e.inVault = true;
+					fx.vaultIn(centerX, centerY+5, 0x2ae9ff);
+					Assets.SLIB.vault0(1);
 					break;
 				}
 		}
