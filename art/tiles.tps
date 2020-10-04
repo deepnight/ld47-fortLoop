@@ -241,6 +241,11 @@
             <key type="filename">export_tiles/heroThrow0.png</key>
             <key type="filename">export_tiles/heroThrow1.png</key>
             <key type="filename">export_tiles/heroTurn0.png</key>
+            <key type="filename">export_tiles/knightHit.png</key>
+            <key type="filename">export_tiles/knightIdle0.png</key>
+            <key type="filename">export_tiles/knightWalk0.png</key>
+            <key type="filename">export_tiles/knightWalk1.png</key>
+            <key type="filename">export_tiles/knightWalk2.png</key>
             <key type="filename">export_tiles/mobIdle0.png</key>
             <key type="filename">export_tiles/stair.png</key>
             <key type="filename">export_tiles/uiBox.png</key>

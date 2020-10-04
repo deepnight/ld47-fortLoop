@@ -13,14 +13,14 @@ darkHalo
   index: -1
 doorClosed
   rotate: false
-  xy: 233, 456
+  xy: 244, 390
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 doorKeyClosed
   rotate: false
-  xy: 250, 456
+  xy: 253, 291
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
@@ -375,9 +375,44 @@ itemKey
   orig: 14, 7
   offset: 0, 0
   index: -1
-mobIdle0
+knightHit
   rotate: false
   xy: 198, 258
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+knightIdle0
+  rotate: false
+  xy: 187, 324
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+knightWalk0
+  rotate: false
+  xy: 187, 357
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+knightWalk1
+  rotate: false
+  xy: 211, 390
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+knightWalk2
+  rotate: false
+  xy: 233, 423
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+mobIdle0
+  rotate: false
+  xy: 233, 456
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -412,7 +447,7 @@ slash2
   index: -1
 stair
   rotate: false
-  xy: 187, 324
+  xy: 220, 291
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -454,21 +489,21 @@ uiBarBg
   index: -1
 uiBox
   rotate: false
-  xy: 187, 357
+  xy: 231, 258
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 vault
   rotate: false
-  xy: 211, 390
+  xy: 220, 324
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 vaultLock
   rotate: false
-  xy: 233, 423
+  xy: 220, 357
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

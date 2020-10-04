@@ -10,7 +10,7 @@ class Item extends Entity {
 	public function new(x,y, t:Enum_ItemType) {
 		super(x, y);
 		ALL.push(this);
-		gravityMul*=0.5;
+		gravityMul*=0.35;
 		frictX = frictY = 0.96;
 
 		type = t;

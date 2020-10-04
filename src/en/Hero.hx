@@ -127,18 +127,20 @@ class Hero extends Entity {
 
 		if( onGround ) {
 			cd.setS("onGroundRecently",0.1);
-			cd.setS("airControl",0.7);
+			cd.setS("airControl",10);
 		}
 
 		// Walk
 		if( !controlsLocked() && ca.leftDist() > 0 ) {
 			if( !climbing )
-				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.2+0.8*cd.getRatio("airControl") ) * tmod;
+				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.4+0.6*cd.getRatio("airControl") ) * tmod;
 			var old = dir;
 			dir = M.sign( Math.cos(ca.leftAngle()) );
 			if( old!=dir && !isCrouching() && !climbing )
 				spr.anim.playOverlap("heroTurn", 0.66);
 		}
+		else
+			dx*=Math.pow(0.8,tmod);
 
 		// Jump
 		if( !controlsLocked() && ca.aPressed() && ( cd.has("onGroundRecently") || climbing ) && !isCrouching() ) {
@@ -271,6 +273,7 @@ class Hero extends Entity {
 				e.hit(1,hero);
 				bump(-dirTo(e)*rnd(0.03,0.06), 0);
 				e.bump(dirTo(e)*rnd(0.06,0.12), -rnd(0.04,0.08));
+				setSquashY(rnd(0.8,1));
 				spr.anim.play("heroAtkA");
 				fx.slash(centerX+dir*2, centerY, dir);
 				camera.bump(dir*rnd(1,2), 0);

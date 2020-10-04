@@ -21,8 +21,11 @@ class Mob extends Entity {
 		patrolTarget = data.f_patrol==null ? null : new CPoint(data.f_patrol.cx, data.f_patrol.cy);
 
 		circularCollisions = true;
+		sprScaleX = rnd(1,1.2);
 
-		spr.anim.registerStateAnim("mobIdle",0);
+		spr.anim.setGlobalSpeed(0.2);
+		spr.anim.registerStateAnim("knightWalk",1, 3, ()->M.fabs(dx)>=0.05); // Speed overriden by aggro
+		spr.anim.registerStateAnim("knightIdle",0);
 	}
 
 	override function dispose() {
@@ -45,7 +48,9 @@ class Mob extends Entity {
 		// bump( (from==null?-dir:from.dirTo(this))*rnd(0.2,0.3), -rnd(0.05,0.10) );
 		lockControlS(0.1);
 		setSquashX(0.5);
-		blink(0xffcc00);}
+		blink(0xffcc00);
+		spr.anim.playOverlap("knightHit", 0.3);
+	}
 
 	public function aggro(e:Entity) {
 		cd.setS("keepAggro",5);
@@ -129,6 +134,8 @@ class Mob extends Entity {
 				}
 			}
 		}
+
+		spr.anim.setStateAnimSpeed("knightWalk", aggroTarget!=null ? 3 : 2);
 
 		// Hit hero
 		// if( distCaseX(hero)<=0.7 && hero.footY>=footY-Const.GRID*1 && hero.footY<=footY+Const.GRID*0.5 && !cd.hasSetS("heroHitLock",0.3) ) {

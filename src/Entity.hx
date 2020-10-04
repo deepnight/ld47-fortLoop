@@ -654,7 +654,7 @@ class Entity {
 		if( M.fabs(bdx)<=0.0005*tmod ) bdx = 0;
 
 		// Y
-		if( !onGround && !climbing )
+		if( !onGround && !climbing && !isOutOfTheGame() )
 			dy += gravityMul*Const.GRAVITY * tmod;
 		var steps = M.ceil( M.fabs(dyTotal*tmod) );
 		var step = dyTotal*tmod / steps;
