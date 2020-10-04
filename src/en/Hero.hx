@@ -173,9 +173,10 @@ class Hero extends Entity {
 		if( ca.xPressed() ) {
 			var e = dropItem();
 			if( e!=null ) {
-				e.cd.setS("pickLock",0.1);
+				e.cd.setS("pickLock",0.2);
 				e.dx = dir*0.45;
 				e.dy = -0.15;
+				e.cd.setS("recentThrow",1);
 				bump(dir*0.05, 0);
 				spr.anim.play("heroThrow");
 				lockControlS(0.4);
@@ -288,13 +289,7 @@ class Hero extends Entity {
 		// Drop item while crouching
 		if( isGrabbingAnything() && isCrouching() ) {
 			var e = dropItem();
-			var dh = new dn.DecisionHelper( dn.Bresenham.getDisc(cx,cy, 3) );
-			dh.keepOnly( (pt)->!level.hasCollision(pt.x,pt.y) && !level.hasCollision(pt.x,pt.y-1) );
-			dh.score( (pt)->-e.distCaseFree(pt.x,pt.y) );
-			dh.useBest( (pt)->e.setPosCase(pt.x, pt.y) );
-			e.dy = -0.2;
-			e.dx = dirTo(e)*0.1;
-			e.xr = dirTo(e)==1 ? 0.1 : 0.9;
+			e.recalOffNarrow();
 		}
 
 		if( onGround || dy<0 )

@@ -284,7 +284,32 @@ class Fx extends dn.Process {
 				p.lifeS = rnd(0.2,0.5);
 				p.setFadeS(rnd(0.5,1), 0, 0.2);
 			}
+	}
 
+	public function vortex(x:Float, y:Float, r:Float, c:UInt) {
+		var base = ftime*0.03;
+		var n = r<=8 ? 4 : 8;
+		for(i in 0...n) {
+			var a = base + M.PI2 * i/n;
+			var p = allocBgAdd(getTile("fxLineDir"), x+Math.cos(a)*r, y+Math.sin(a)*r);
+			p.setFadeS(0.7, 0.2, 0.3);
+			p.colorize(c);
+			p.moveTo(x,y,0.2);
+			p.scaleX = rnd(0.3,0.4);
+			p.scaleY = 2;
+			p.rotation = a+M.PIHALF+0.8;
+			p.frict = 0.96;
+			p.lifeS = rnd(0.1,0.2);
+		}
+		// Smoke
+		var p = allocBgNormal(getTile("fxSmoke"), x+rnd(0,3,true), y+rnd(0,3,true));
+		p.colorize(c);
+		p.setFadeS(0.1, 0.2, 0.3);
+		p.rotation = rnd(0,M.PI2);
+		p.dr = rnd(0.01,0.02);
+		p.scaleX = 4*r/p.t.width * rnd(0.9,1.2,true);
+		p.scaleY = 4*r/p.t.height* rnd(0.9,1.2,true);
+		p.lifeS = 0.2;
 	}
 
 	public function shine(x:Float, y:Float, c:UInt) {

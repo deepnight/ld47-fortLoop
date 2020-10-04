@@ -82,6 +82,10 @@ class Level extends dn.Process {
 		game.hero.dy = -0.1;
 
 
+		if( level.l_Entities.all_Vortex!=null ) // BUG
+		for(e in level.l_Entities.all_Vortex)
+			new en.Vortex(e);
+
 		if( level.l_Entities.all_Text!=null ) // BUG
 		for(e in level.l_Entities.all_Text)
 			new en.Text(e);

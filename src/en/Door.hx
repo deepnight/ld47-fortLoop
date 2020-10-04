@@ -56,7 +56,7 @@ class Door extends Entity {
 
 		if( needKey && isClosed ) {
 			for(e in en.Item.ALL)
-				if( distCase(e)<=1 && e.type==DoorKey && !e.cd.has("pickLock") && !e.isGrabbedByHero() ) {
+				if( distCase(e)<=1 && e.type==DoorKey && e.cd.has("recentThrow") && !e.isGrabbedByHero() ) {
 					e.destroy();
 					setClosed(false);
 				}

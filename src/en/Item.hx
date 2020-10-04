@@ -39,8 +39,10 @@ class Item extends Entity {
 		if( darkMode==GoOutOfGame )
 			if( origin==null )
 				destroy();
-			else
+			else {
+				cancelVelocities();
 				setPosCase(origin.cx, origin.cy);
+			}
 	}
 
 	override function dispose() {
@@ -90,11 +92,31 @@ class Item extends Entity {
 		}
 	}
 
+	public function recalOffNarrow() {
+		var old = cx;
+
+		var dh = new dn.DecisionHelper( dn.Bresenham.getDisc(cx,cy, 3) );
+		dh.keepOnly( (pt)->!level.hasCollision(pt.x,pt.y) && !level.hasCollision(pt.x,pt.y-1) );
+		dh.score( (pt)->-distCaseFree(pt.x,pt.y) );
+		dh.useBest( (pt)->setPosCase(pt.x, pt.y) );
+
+		cancelVelocities();
+		dx = (cx>old?1:-1) * 0.05;
+		dy = -0.12;
+		xr = cx>old ? 0.1 : 0.9;
+	}
+
 	override function update() {
 		super.update();
 
 		if( inVault )
 			darkMode = Stay;
+
+		if( isGrabbedByHero() )
+			cd.unset("vortexLock");
+
+		if( !isGrabbedByHero() && level.hasCollision(cx,cy-1) && level.hasCollision(cx,cy+1) )
+			recalOffNarrow();
 
 		if( !inVault && distCase(hero)<=0.9 && !isOutOfTheGame() && !hero.isGrabbingAnything() && !cd.has("pickLock") ) {
 			switch type {
