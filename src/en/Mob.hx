@@ -36,6 +36,7 @@ class Mob extends Entity {
 			var e = new en.Item(cx,cy, data.f_loot);
 			e.dx = lastHitDirToSource * 0.04;
 			e.dy = -0.2;
+			e.origin = null; // to remove on darkness
 		}
 	}
 

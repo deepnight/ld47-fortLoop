@@ -12,6 +12,7 @@ class Level extends dn.Process {
 	var invalidated = true;
 
 	var lightWrapper : h2d.Object;
+	var details : h2d.TileGroup;
 	var walls : h2d.TileGroup;
 	var bg : h2d.TileGroup;
 	var dark : h2d.TileGroup;
@@ -35,6 +36,7 @@ class Level extends dn.Process {
 		lightWrapper = new h2d.Object(root);
 		bg = new h2d.TileGroup(tilesetSource, lightWrapper);
 		walls = new h2d.TileGroup(tilesetSource, lightWrapper);
+		details = new h2d.TileGroup(Assets.tiles.tile, lightWrapper);
 
 		burn = new h2d.TileGroup(tilesetSource, lightWrapper);
 		burn.blendMode = Add;
@@ -71,6 +73,9 @@ class Level extends dn.Process {
 	public function attachMainEntities() {
 		var e = level.l_Entities.all_Hero[0];
 		game.hero = new en.Hero(e);
+		game.hero.yr = 0.4;
+		game.hero.dx = 0.1;
+		game.hero.dy = -0.1;
 
 
 		if( level.l_Entities.all_Text!=null ) // BUG
@@ -200,6 +205,13 @@ class Level extends dn.Process {
 		bg.clear();
 		walls.clear();
 		dark.clear();
+		details.clear();
+
+		// Entrance gate
+		var e = level.l_Entities.all_Hero[0];
+		var t = Assets.tiles.getTile("stair");
+		t.setCenterRatio(0.5,1);
+		details.add( e.pixelX, e.pixelY, t );
 
 		// Bg
 		for( autoTile in level.l_Bg.autoTiles ) {

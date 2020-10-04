@@ -11,6 +11,7 @@ class Door extends Entity {
 		super(e.cx, e.cy);
 		ALL.push(this);
 		data = e;
+		gravityMul = 0;
 		needKey = data.f_needKey;
 		darkMode = GoOutOfGame;
 		setClosed(true);
@@ -29,7 +30,7 @@ class Door extends Entity {
 			setSquashY(0.7);
 
 		if( spr!=null && !spr.destroyed )
-			spr.set(needKey ? ( closed ? "doorKeyClosed" : "doorKeyOpen" ) : ( closed ? "doorClosed" : "doorOpen" ));
+			spr.set(needKey && data.f_showLock ? ( closed ? "doorKeyClosed" : "doorKeyOpen" ) : ( closed ? "doorClosed" : "doorOpen" ));
 
 		for(i in 0...cHei)
 			level.setExtraCollision(cx,cy-i, closed);

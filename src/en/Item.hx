@@ -3,7 +3,7 @@ package en;
 class Item extends Entity {
 	public static var ALL : Array<Item> = [];
 	public var type : Enum_ItemType;
-	public var origin : CPoint;
+	public var origin : Null<CPoint>;
 	public var inVault = false;
 	public var shineColor = new h3d.Vector();
 
@@ -37,7 +37,10 @@ class Item extends Entity {
 			hero.dropItem();
 
 		if( darkMode==GoOutOfGame )
-			setPosCase(origin.cx, origin.cy);
+			if( origin==null )
+				destroy();
+			else
+				setPosCase(origin.cx, origin.cy);
 	}
 
 	override function dispose() {

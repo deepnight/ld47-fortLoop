@@ -41,7 +41,7 @@ class Vault extends Entity {
 					grabItem(e);
 					e.cd.setS("pickLock",0.6);
 					e.inVault = true;
-					e.origin.set(cx,cy);
+					e.origin = makePoint();
 					break;
 				}
 		}

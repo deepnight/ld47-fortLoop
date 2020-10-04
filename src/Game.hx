@@ -316,8 +316,8 @@ class Game extends Process {
 		// Level complete
 		if( hero.isAlive() && !cd.has("levelComplete") ) {
 			var win = true;
-			for(e in en.Item.ALL)
-				if( e.type==Diamond && !e.inVault ) {
+			for(e in en.Vault.ALL)
+				if( !e.isGrabbingAnything() ) {
 					win = false;
 					break;
 				}

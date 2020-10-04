@@ -216,6 +216,7 @@
             <key type="filename">export_tiles/doorOpen.png</key>
             <key type="filename">export_tiles/heroIdle0.png</key>
             <key type="filename">export_tiles/mobIdle0.png</key>
+            <key type="filename">export_tiles/stair.png</key>
             <key type="filename">export_tiles/uiBox.png</key>
             <key type="filename">export_tiles/vault.png</key>
             <key type="filename">export_tiles/vaultLock.png</key>

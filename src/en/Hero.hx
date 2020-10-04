@@ -192,17 +192,17 @@ class Hero extends Entity {
 
 		// Climb ladder
 		if( climbing && ca.leftDist()>0 ) {
-			dy+=Math.sin(ca.leftAngle()) * spd * 0.5 * tmod;
+			dy+=Math.sin(ca.leftAngle()) * spd * 0.75 * tmod;
 		}
 
 		// Hop
 		if( !controlsLocked() && yr<0.5 && dy>0 && ca.leftDist()>0 ) {
-			if( xr>=0.5 && level.hasMark(GrabRight,cx,cy) && M.radDistance(ca.leftAngle(),0)<=M.PIHALF*0.7 ) {
+			if( xr>=0.5 && level.hasMark(GrabRight,cx,cy) && M.radDistance(ca.leftAngle(),0)<=M.PIHALF*0.7 && !level.hasCollision(cx+1,cy-1) ) {
 				yr = M.fmin(0.4,yr);
 				dy = -0.2;
 				dx+=0.2;
 			}
-			if( xr<=0.5 && level.hasMark(GrabLeft,cx,cy) && M.radDistance(ca.leftAngle(),M.PI)<=M.PIHALF*0.7 ) {
+			if( xr<=0.5 && level.hasMark(GrabLeft,cx,cy) && M.radDistance(ca.leftAngle(),M.PI)<=M.PIHALF*0.7 && !level.hasCollision(cx-1,cy-1) ) {
 				yr = M.fmin(0.4,yr);
 				dy = -0.2;
 				dx-=0.2;

@@ -25,6 +25,14 @@ class Trigger extends Entity {
 		var d = getTargetDoor();
 		if( d!=null )
 			d.setClosed(false);
+
+		if( data.f_target!=null ) {
+			debug("this");
+			for(e in en.Text.ALL)
+				if( !e.textVisible && e.distCaseFree(data.f_target.cx, data.f_target.cy)<=2 )
+					e.reveal();
+		}
+
 		return true;
 	}
 
@@ -37,6 +45,7 @@ class Trigger extends Entity {
 		}
 		else {
 			var dh = new dn.DecisionHelper(en.Door.ALL);
+			dh.keepOnly( (e)->e.distCaseFree(data.f_target.cx, data.f_target.cy)<=2 );
 			dh.score( (e)->-e.distCaseFree(data.f_target.cx, data.f_target.cy) );
 			return dh.getBest();
 		}
@@ -49,6 +58,8 @@ class Trigger extends Entity {
 
 	override function postUpdate() {
 		super.postUpdate();
+		if( data.f_hidden )
+			spr.visible = false;
 	}
 
 	override function dispose() {
@@ -68,7 +79,11 @@ class Trigger extends Entity {
 				untrigger();
 		}
 
-		if( !isOutOfTheGame() && hero.onGround && hero.distCaseX(this)<=1 && hero.cy==cy )
-			trigger();
+		if( !isOutOfTheGame() ) {
+			if( data.f_radius==0 && hero.onGround && hero.distCaseX(this)<=1 && hero.cy==cy )
+				trigger();
+			else if( data.f_radius>0 && hero.distCase(this)<=data.f_radius+0.5 )
+				trigger();
+		}
 	}
 }
