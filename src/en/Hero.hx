@@ -318,8 +318,8 @@ class Hero extends Entity {
 		if( !onGround && dy>0 )
 			setSquashX( 1 - 0.1 * (1-cd.getRatio("fallSquash")) );
 
-		#if debug
-		debug( M.pretty(hxd.Timer.fps(),1) );
-		#end
+		// #if debug
+		// debug( M.pretty(hxd.Timer.fps(),1) );
+		// #end
 	}
 }
