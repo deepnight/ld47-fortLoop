@@ -73,6 +73,10 @@ class Level extends dn.Process {
 		game.hero = new en.Hero(e);
 
 
+		if( level.l_Entities.all_Text!=null ) // BUG
+		for(e in level.l_Entities.all_Text)
+			new en.Text(e);
+
 		if( level.l_Entities.all_Vault!=null ) // BUG
 		for(e in level.l_Entities.all_Vault)
 			new en.Vault(e);

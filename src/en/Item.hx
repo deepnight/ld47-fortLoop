@@ -5,6 +5,7 @@ class Item extends Entity {
 	public var type : Enum_ItemType;
 	public var origin : CPoint;
 	public var inVault = false;
+	public var shineColor = new h3d.Vector();
 
 	public function new(x,y, t:Enum_ItemType) {
 		super(x, y);
@@ -59,6 +60,25 @@ class Item extends Entity {
 		super.postUpdate();
 		if( hero.isGrabbing(this) ) {
 			spr.y-=Const.GRID*1.1;
+		}
+
+		if( !isOutOfTheGame() && !isGrabbedByHero() && type==Diamond && !cd.hasSetS("fx",rnd(0.1,0.4)) )
+			fx.shine(centerX+rnd(0,5,true), centerY+rnd(0,4,true), 0x4a98ff);
+
+		// Shine
+		if( !cd.has("keepShine") ) {
+			shineColor.r*=Math.pow(0.95, tmod);
+			shineColor.g*=Math.pow(0.85, tmod);
+			shineColor.b*=Math.pow(0.70, tmod);
+		}
+		spr.colorAdd.load(baseColor);
+		spr.colorAdd.r += shineColor.r;
+		spr.colorAdd.g += shineColor.g;
+		spr.colorAdd.b += shineColor.b;
+
+		if( !inVault && !isGrabbedByHero() && !cd.hasSetS("itemBlink",1) ) {
+			cd.setS("keepShine",0.1);
+			shineColor.setColor(0x4a98ff);
 		}
 	}
 

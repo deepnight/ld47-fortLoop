@@ -197,6 +197,16 @@ class Fx extends dn.Process {
 
 	}
 
+	public function shine(x:Float, y:Float, c:UInt) {
+		var p = allocBgAdd(getTile("fxStar"),x,y);
+		p.colorize(c);
+		p.setFadeS(rnd(0.5,1), 0.1, 0.1);
+		p.dr = 0.2;
+		p.setScale(rnd(1,2));
+		p.scaleMul = 0.9;
+		p.lifeS = 0.2;
+	}
+
 	function oscilate(p:HParticle) {
 		p.dx = Math.cos(ftime*p.data0 + p.data1) * p.data2;
 	}

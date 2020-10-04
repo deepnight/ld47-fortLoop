@@ -216,6 +216,7 @@
             <key type="filename">export_tiles/doorOpen.png</key>
             <key type="filename">export_tiles/heroIdle0.png</key>
             <key type="filename">export_tiles/mobIdle0.png</key>
+            <key type="filename">export_tiles/uiBox.png</key>
             <key type="filename">export_tiles/vault.png</key>
             <key type="filename">export_tiles/vaultLock.png</key>
             <struct type="IndividualSpriteSettings">
@@ -248,7 +249,23 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">export_tiles/fxAbrams.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,1,9,3</rect>
+                <key>scale9Paddings</key>
+                <rect>5,1,9,3</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">export_tiles/fxCircle0.png</key>
+            <key type="filename">export_tiles/torchOff.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -324,6 +341,7 @@
                 <false/>
             </struct>
             <key type="filename">export_tiles/fxSmallCircle0.png</key>
+            <key type="filename">export_tiles/fxStar.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
