@@ -33,7 +33,6 @@ class Game extends Process {
 
 	public var dark(default,null) : Bool;
 	var darkMask : h2d.Bitmap;
-	public var autoSwitchS(default,null) : Float = Const.LIGHT_DURATION;
 	var darkHalo : HSprite;
 
 	public var curLevelIdx = 0;
@@ -68,24 +67,27 @@ class Game extends Process {
 
 	function startLevel(idx=-1, ?data:World_Level) {
 		curLevelIdx = idx;
+		cd.unset("levelComplete");
+
+		// Cleanup
 		if( level!=null )
 			level.destroy();
-
 		for(e in Entity.ALL)
 			e.destroy();
 		fx.clear();
 		gc();
 
+		// End game
 		if( data==null && idx>=world.levels.length ) {
 			destroy();
 			new EndGame();
 			return;
 		}
 
+		// Init
 		level = new Level( data!=null ? data : world.levels[curLevelIdx] );
 		level.attachMainEntities();
 		setDarkness(false,true);
-		level.attachLightEntities();
 
 		camera.trackTarget(hero, true);
 		Process.resizeAll();
@@ -155,9 +157,6 @@ class Game extends Process {
 						e.setClosed(false);
 			}, init ? 0 : 0.2);
 
-		// Timer
-		autoSwitchS = dark ? Const.DARKNESS_DURATION : Const.LIGHT_DURATION;
-
 		// Entities callback
 		for(e in Entity.ALL)
 			if( !e.destroyed )
@@ -167,11 +166,21 @@ class Game extends Process {
 					e.onLight();
 
 		// Init entities
-		if( dark )
+		if( init || dark )
 			level.attachLightEntities();
+
+		// Timer
+		cd.unset("autoSwitch"); // BUG cd ratio false
+		if( en.Torch.any() )
+			cd.setS("autoSwitch", dark ? Const.DARKNESS_DURATION : Const.LIGHT_DURATION);
+		else
+			cd.setS("autoSwitch", Const.INFINITE);
 
 		return dark;
 	}
+
+	public function getAutoSwitchS() return cd.getS("autoSwitch");
+	public function getAutoSwitchRatio() return M.fclamp( cd.getRatio("autoSwitch"), 0, 1 );
 
 	function gc() {
 		if( Entity.GC==null || Entity.GC.length==0 )
@@ -290,18 +299,50 @@ class Game extends Process {
 			#end
 
 			// Restart
-			if( ca.selectPressed() )
+			if( ca.selectPressed() ) {
+				#if debug
+				if( ca.isKeyboardDown(K.SHIFT) || ca.isKeyboardDown(K.CTRL) )
+					startLevel(0);
+				else
+				#end
 				startLevel(curLevelIdx);
+			}
 		}
 
 		// Auto light/dark switch
-		autoSwitchS -= tmod/Const.FPS;
-		// if( !dark && autoSwitchS<=0.5 && !cd.hasSetS("autoDarkBefore",2) ) {
-		// 	for(e in en.Door.ALL)
-		// 		e.setClosed(true);
-		// }
-		if( autoSwitchS<=0 )
+		if( en.Torch.any() && !cd.has("autoSwitch") )
 			setDarkness(!dark);
+
+		// Level complete
+		if( hero.isAlive() && !cd.has("levelComplete") ) {
+			var win = true;
+			for(e in en.Item.ALL)
+				if( e.type==Diamond && !e.inVault ) {
+					win = false;
+					break;
+				}
+
+			if( win ) {
+				if( dark )
+					setDarkness(false);
+
+				for(e in en.Mob.ALL)
+					if( e.isAlive() )
+						e.kill(null);
+
+				for(e in en.Item.ALL)
+					if( e.isAlive() && !e.inVault )
+						e.destroy();
+
+				cd.setS("autoSwitch", Const.INFINITE);
+				fx.flashBangS(0xffcc00, 0.4, 1);
+				cd.setS("levelComplete", Const.INFINITE);
+				cd.setS("autoNext",2);
+			}
+		}
+
+		if( cd.has("levelComplete") && !cd.has("autoNext") )
+			startLevel(curLevelIdx+1);
 	}
 }
 

@@ -46,6 +46,13 @@ empty
   orig: 1, 1
   offset: 0, 0
   index: -1
+fxAbrams
+  rotate: false
+  xy: 46, 370
+  size: 19, 5
+  orig: 19, 5
+  offset: 0, 0
+  index: -1
 fxCircle0
   rotate: false
   xy: 34, 336
@@ -55,7 +62,7 @@ fxCircle0
   index: -1
 fxDot0
   rotate: false
-  xy: 80, 295
+  xy: 67, 303
   size: 3, 3
   orig: 3, 3
   offset: 0, 0
@@ -76,14 +83,14 @@ fxLine0
   index: -1
 fxLineDir0
   rotate: false
-  xy: 51, 303
+  xy: 51, 309
   size: 33, 3
   orig: 33, 3
   offset: 0, 0
   index: -1
 fxSmallCircle0
   rotate: false
-  xy: 39, 353
+  xy: 39, 370
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
@@ -118,7 +125,7 @@ iconAmmoOff
   index: -1
 iconAmmoOn
   rotate: false
-  xy: 34, 353
+  xy: 34, 370
   size: 4, 8
   orig: 4, 8
   offset: 0, 0
@@ -153,7 +160,7 @@ itemDiamond
   index: -1
 itemKey
   rotate: false
-  xy: 34, 362
+  xy: 34, 379
   size: 14, 7
   orig: 14, 7
   offset: 0, 0
@@ -172,6 +179,13 @@ pixel
   orig: 1, 1
   offset: 0, 0
   index: -1
+torchOff
+  rotate: false
+  xy: 34, 353
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 triggerOff
   rotate: false
   xy: 63, 258
@@ -188,14 +202,14 @@ triggerOn
   index: -1
 uiBar
   rotate: false
-  xy: 80, 291
+  xy: 60, 303
   size: 6, 3
   orig: 6, 3
   offset: 0, 0
   index: -1
 uiBarBg
   rotate: false
-  xy: 46, 353
+  xy: 51, 303
   size: 8, 5
   orig: 8, 5
   offset: 0, 0

@@ -93,6 +93,10 @@ class Level extends dn.Process {
 	}
 
 	public function attachLightEntities() {
+		if( level.l_Entities.all_Torch!=null ) // BUG
+		for( e in level.l_Entities.all_Torch )
+			new en.Torch(e);
+
 		if( level.l_Entities.all_Mob!=null ) // BUG
 		for( e in level.l_Entities.all_Mob )
 			new en.Mob(e);
@@ -252,8 +256,8 @@ class Level extends dn.Process {
 		}
 
 		// Light warning
-		if( !game.dark && game.autoSwitchS<=3 ) {
-			var a = ( game.autoSwitchS<=1 ? 0.4 : 0.7 ) + 0.12 * Math.sin(ftime*0.25) + rnd(0,0.04);
+		if( !game.dark && game.getAutoSwitchS()<=3 ) {
+			var a = ( game.getAutoSwitchS()<=1 ? 0.4 : 0.7 ) + 0.12 * Math.sin(ftime*0.25) + rnd(0,0.04);
 			fakeLight = a;
 		}
 		else

@@ -19,14 +19,14 @@ class Fx extends dn.Process {
 
 		pool = new ParticlePool(Assets.tiles.tile, 2048, Const.FPS);
 
+		bgNormalSb = new h2d.SpriteBatch(Assets.tiles.tile);
+		game.scroller.add(bgNormalSb, Const.DP_FX_BG);
+		bgNormalSb.hasRotationScale = true;
+
 		bgAddSb = new h2d.SpriteBatch(Assets.tiles.tile);
 		game.scroller.add(bgAddSb, Const.DP_FX_BG);
 		bgAddSb.blendMode = Add;
 		bgAddSb.hasRotationScale = true;
-
-		bgNormalSb = new h2d.SpriteBatch(Assets.tiles.tile);
-		game.scroller.add(bgNormalSb, Const.DP_FX_BG);
-		bgNormalSb.hasRotationScale = true;
 
 		topNormalSb = new h2d.SpriteBatch(Assets.tiles.tile);
 		game.scroller.add(topNormalSb, Const.DP_FX_FRONT);
@@ -140,6 +140,65 @@ class Fx extends dn.Process {
 		game.tw.createS(e.alpha, 0, t).end( function() {
 			e.remove();
 		});
+	}
+
+	public function torchFlame(x:Float, y:Float, pow:Float) {
+		var c = C.interpolateInt(0xffcc00, 0xff643e, 1-pow);
+
+		// GG Abrams effect
+		var p = allocBgAdd(getTile("fxAbrams"), x,y);
+		p.colorize(c);
+		p.setFadeS(rnd(0.3,0.4)*pow, 0.1, 0.1);
+		p.scaleX = 1 + 0.2*Math.cos(ftime*0.1);
+		p.lifeS = 0.12;
+
+		// Halo
+		var p = allocBgAdd(getTile("fxSmoke"), x+rnd(0,4,true), y+rnd(0,9));
+		p.rotation = rnd(0,6.28);
+		p.colorize( C.interpolateInt(0xffad08, 0xff5c5c, 1-pow) );
+		p.setFadeS(0.05*pow, 0.2, 0.6);
+		p.setScale(rnd(2,3,true) * (0.5+0.5*pow));
+		p.lifeS = rnd(0.2,0.3);
+
+		// Smoke
+		for(i in 0...8) {
+			var p = allocBgNormal(getTile("pixel"), x+rnd(0,1,true), y-rnd(0,2));
+			p.colorize(Const.DARK_COLOR);
+			p.gy = -rnd(0.01,0.03);
+			p.frict = rnd(0.86,0.96);
+			p.lifeS = rnd(0.2,0.5);
+			p.setFadeS(rnd(0.5,1), 0.2, 0.5);
+		}
+
+		// Flame red
+		for(i in 0...8) {
+			var p = allocBgAdd(getTile("pixel"), x+rnd(0,1,true), y-rnd(0,2));
+			p.colorize(0xbb3572);
+			p.setFadeS(rnd(0.3,0.6), 0, 0.2);
+			p.gy = -rnd(0.02,0.05) * pow;
+			p.frict = rnd(0.86,0.96);
+			p.lifeS = rnd(0.2,0.5);
+
+			p.data0 = 0.04;
+			p.data1 = rnd(0,M.PI2);
+			p.data2 = 0.05;
+			p.onUpdate = oscilate;
+		}
+
+		// Flame core
+		for(i in 0...M.ceil(4*pow)) {
+			var p = allocBgAdd(getTile("pixel"), x+rnd(0,1,true), y-rnd(0,2));
+			p.colorize(c);
+			p.gy = -rnd(0.01,0.02) * pow;
+			p.frict = rnd(0.86,0.96);
+			p.lifeS = rnd(0.2,0.5);
+			p.setFadeS(rnd(0.5,1), 0, 0.2);
+		}
+
+	}
+
+	function oscilate(p:HParticle) {
+		p.dx = Math.cos(ftime*p.data0 + p.data1) * p.data2;
 	}
 
 	override function update() {

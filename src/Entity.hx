@@ -465,7 +465,7 @@ class Entity {
 	public function onDark() {
 		switch darkMode {
 			case Stay:
-			case Destroy:
+			case Destroy, DestroyAndHide:
 				destroy();
 				return;
 
@@ -481,9 +481,6 @@ class Entity {
 	}
 
     public function postUpdate() {
-		if( game.dark && darkMode!=Stay && spr.filter==null )
-			spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
-
         spr.x = (cx+xr)*Const.GRID;
         spr.y = (cy+yr)*Const.GRID;
         spr.scaleX = dir*sprScaleX * sprSquashX;
@@ -494,7 +491,13 @@ class Entity {
 		sprSquashX += (1-sprSquashX) * 0.2;
 		sprSquashY += (1-sprSquashY) * 0.2;
 
-		if( game.dark )
+		if( game.dark && darkMode!=Stay && darkMode!=DestroyAndHide && spr.filter==null )
+			spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
+
+		if( game.dark && darkMode==DestroyAndHide )
+			spr.visible = false;
+
+		if( game.dark && darkMode==Stay )
 			colorMatrix.load( C.getColorizeMatrixH2d(Const.DARK_COLOR, 0.5*(1-cd.getRatio("colorDarken"))) );
 
 		// Blink

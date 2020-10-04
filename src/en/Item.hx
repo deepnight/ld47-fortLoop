@@ -65,6 +65,9 @@ class Item extends Entity {
 	override function update() {
 		super.update();
 
+		if( inVault )
+			darkMode = Stay;
+
 		if( !inVault && distCase(hero)<=0.9 && !isOutOfTheGame() && !hero.isGrabbingAnything() && !cd.has("pickLock") ) {
 			switch type {
 			case Ammo:
