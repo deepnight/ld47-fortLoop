@@ -24,7 +24,7 @@ class Assets {
 		tiles.defineAnim("heroIdle", "0(10), 1(15)");
 		tiles.defineAnim("heroRun", "0(5), 1(3), 2(5), 3(3)");
 		tiles.defineAnim("heroCrouchRun", "0(5), 1(3), 2(5), 1(3)");
-		tiles.defineAnim("heroClimb", "0(5), 1(3), 2(5), 1(3)");
+		tiles.defineAnim("heroClimb", "1(5), 0(3), 2(5), 0(3)");
 		tiles.defineAnim("heroThrow", "0(2), 1(3)");
 	}
 }

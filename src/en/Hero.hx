@@ -24,9 +24,9 @@ class Hero extends Entity {
 		]);
 
 		spr.anim.registerStateAnim("heroJumpUp",15, ()->!climbing && !onGround && dy<=0.05 );
-		spr.anim.registerStateAnim("heroJumpDown",15, ()->!climbing && !onGround && dy>0.05 );
+		spr.anim.registerStateAnim("heroJumpDown",15, 0.9, ()->!climbing && !onGround && dy>0.05 );
 
-		spr.anim.registerStateAnim("heroClimb",11, 2, ()->climbing && M.fabs(dy)>=0.05 );
+		spr.anim.registerStateAnim("heroClimb",11, 2, ()->climbing && ( M.fabs(dy)>=0.05 || cd.has("climbAnim") ) );
 		spr.anim.registerStateAnim("heroClimbIdle",10, ()->climbing);
 
 		spr.anim.registerStateAnim("heroCrouchRun",6, 2, ()->M.fabs(dx)>=0.05 && isCrouching() );
@@ -86,17 +86,23 @@ class Hero extends Entity {
 
 	override function onLand(fallCHei:Float) {
 		super.onLand(fallCHei);
+
 		var impact = M.fmin(1, fallCHei/6);
 		dx *= (1-impact)*0.5;
 		game.camera.bump(0, 2*impact);
 		setSquashY(1-impact*0.7);
 
-		if( fallCHei>=3 )
+		if( fallCHei>=9 ) {
+			lockControlS(0.3);
+			game.camera.shakeS(1,0.3);
+			cd.setS("heavyLand",0.3);
+		}
+		else if( fallCHei>=3 )
 			lockControlS(0.03*impact);
 	}
 
 	public inline function isCrouching() {
-		return isAlive() && level.hasCollision(cx,cy-1) && level.hasCollision(cx,cy+1);
+		return isAlive() && ( level.hasCollision(cx,cy-1) && level.hasCollision(cx,cy+1) || cd.has("heavyLand") );
 	}
 
 	override function postUpdate() {
@@ -171,6 +177,7 @@ class Hero extends Entity {
 				bump(dir*0.05, 0);
 				spr.anim.play("heroThrow");
 				lockControlS(0.4);
+				stopClimbing();
 			}
 			// else {
 			// 	for(e in en.Vault.ALL)
@@ -239,8 +246,10 @@ class Hero extends Entity {
 		}
 
 		// Climb movement
-		if( climbing && ca.leftDist()>0 )
-			dy+=Math.sin(ca.leftAngle()) * spd * 0.75 * tmod;
+		if( climbing && ca.leftDist()>0 && !cd.hasSetS("climbStep", 0.2) ) {
+			dy+=Math.sin(ca.leftAngle()) * spd * 7 * tmod;
+			cd.setS("climbAnim", 0.2);
+		}
 
 		// Hop
 		if( !controlsLocked() && yr<0.5 && dy>0 && ca.leftDist()>0 ) {
@@ -262,6 +271,11 @@ class Hero extends Entity {
 				e.hit(1,hero);
 				bump(-dirTo(e)*rnd(0.03,0.06), 0);
 				e.bump(dirTo(e)*rnd(0.06,0.12), -rnd(0.04,0.08));
+				spr.anim.play("heroAtkA");
+				fx.slash(centerX+dir*2, centerY, dir);
+				camera.bump(dir*rnd(1,2), 0);
+				camera.shakeS(0.3,0.1);
+				fx.gibs(e.centerX, e.centerY, dirTo(e));
 				// var i = dropItem();
 				// if( i!=null )
 				// 	i.bump(-dirTo(e)*rnd(0.1,0.2), -0.3);
@@ -279,6 +293,11 @@ class Hero extends Entity {
 			e.dx = dirTo(e)*0.1;
 			e.xr = dirTo(e)==1 ? 0.1 : 0.9;
 		}
+
+		if( onGround || dy<0 )
+			cd.setS("fallSquash", 1);
+		if( !onGround && dy>0 )
+			setSquashX( 1 - 0.1 * (1-cd.getRatio("fallSquash")) );
 
 		// #if debug
 		debug( M.pretty(hxd.Timer.fps(),1) );

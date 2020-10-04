@@ -214,6 +214,9 @@
             </struct>
             <key type="filename">export_tiles/doorKeyOpen.png</key>
             <key type="filename">export_tiles/doorOpen.png</key>
+            <key type="filename">export_tiles/heroAtkA0.png</key>
+            <key type="filename">export_tiles/heroAtkA1.png</key>
+            <key type="filename">export_tiles/heroAtkA2.png</key>
             <key type="filename">export_tiles/heroClimb0.png</key>
             <key type="filename">export_tiles/heroClimb1.png</key>
             <key type="filename">export_tiles/heroClimb2.png</key>
@@ -223,11 +226,20 @@
             <key type="filename">export_tiles/heroCrouchRun1.png</key>
             <key type="filename">export_tiles/heroCrouchRun2.png</key>
             <key type="filename">export_tiles/heroIdle0.png</key>
+            <key type="filename">export_tiles/heroIdle1.png</key>
+            <key type="filename">export_tiles/heroIdle2.png</key>
+            <key type="filename">export_tiles/heroIdleGrab0.png</key>
             <key type="filename">export_tiles/heroIdleRun0.png</key>
+            <key type="filename">export_tiles/heroJumpDown0.png</key>
+            <key type="filename">export_tiles/heroJumpDown1.png</key>
+            <key type="filename">export_tiles/heroJumpDown2.png</key>
+            <key type="filename">export_tiles/heroJumpUp0.png</key>
             <key type="filename">export_tiles/heroRun0.png</key>
             <key type="filename">export_tiles/heroRun1.png</key>
             <key type="filename">export_tiles/heroRun2.png</key>
             <key type="filename">export_tiles/heroRun3.png</key>
+            <key type="filename">export_tiles/heroThrow0.png</key>
+            <key type="filename">export_tiles/heroThrow1.png</key>
             <key type="filename">export_tiles/heroTurn0.png</key>
             <key type="filename">export_tiles/mobIdle0.png</key>
             <key type="filename">export_tiles/stair.png</key>
@@ -307,6 +319,24 @@
                 <rect>1,1,1,1</rect>
                 <key>scale9Paddings</key>
                 <rect>1,1,1,1</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">export_tiles/fxGib0.png</key>
+            <key type="filename">export_tiles/fxGib1.png</key>
+            <key type="filename">export_tiles/fxGib2.png</key>
+            <key type="filename">export_tiles/uiBarBg.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>2,1,4,3</rect>
+                <key>scale9Paddings</key>
+                <rect>2,1,4,3</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -478,6 +508,37 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">export_tiles/slash0.png</key>
+            <key type="filename">export_tiles/slash1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,14,27,27</rect>
+                <key>scale9Paddings</key>
+                <rect>13,14,27,27</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">export_tiles/slash2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9Paddings</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">export_tiles/triggerOff.png</key>
             <key type="filename">export_tiles/triggerOn.png</key>
             <struct type="IndividualSpriteSettings">
@@ -506,21 +567,6 @@
                 <rect>2,1,3,1</rect>
                 <key>scale9Paddings</key>
                 <rect>2,1,3,1</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">export_tiles/uiBarBg.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>2,1,4,3</rect>
-                <key>scale9Paddings</key>
-                <rect>2,1,4,3</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

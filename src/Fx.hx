@@ -142,6 +142,58 @@ class Fx extends dn.Process {
 		});
 	}
 
+	public function slash(x:Float, y:Float, dir:Int) {
+		for(i in 0...3) {
+			var p = allocTopAdd(getTile("slash"), x+dir*rnd(0,8,true),y+rnd(0,4,true));
+			p.setFadeS(1, 0, 0);
+			p.colorAnimS(0xffcc00, 0x953a60, 0.1);
+			p.scaleX = rnd(0.8,1.2);
+			p.scaleY = rnd(0.7,0.9,true);
+			p.dr = rnd(0.2,0.3)*dir;
+			p.drFrict = 0.8;
+			if( dir==1 )
+				p.rotation = -1 + rnd(0,0.5,true);
+			else
+				p.rotation = M.PI + 1 - rnd(0,0.5,true);
+			p.lifeS = rnd(0.03,0.06);
+		}
+
+		var p = allocTopAdd(getTile("slash"), x+dir*rnd(0,8,true),y+rnd(0,4,true));
+		p.setFadeS(1, 0, 0);
+		p.colorize(0xffcc00);
+		p.scaleX = dir * rnd(0.8,1.2);
+		p.scaleY = rnd(0.7,0.9,true);
+		p.rotation = (dir==1?0:-M.PI);
+		p.lifeS = 0.03;
+	}
+
+	function _bloodPhysics(p:HParticle) {
+		if( collides(p) && p.data0!=1 ) {
+			p.dx = p.dy = 0;
+			p.gy *= rnd(0.,0.2);
+			p.frict *= 0.7;
+			p.data0 = 1;
+			p.scaleX*=rnd(1,2,true);
+			p.scaleY*=rnd(1,2,true);
+			p.scaleMul = rnd(0.98,0.999);
+		}
+	}
+
+	public function gibs(x:Float,y:Float, dir:Int) {
+		for(i in 0...10) {
+			var p = allocTopNormal(getTile("fxGib"), x+rnd(0,4,true), y+rnd(0,8,true));
+			p.colorize(0x951d1d);
+			p.setFadeS(rnd(0.6,1), 0, rnd(1,3));
+			p.dx = dir*rnd(3,7);
+			p.dy = rnd(-1,0);
+			p.gy = rnd(0.07,0.10);
+			p.rotation = rnd(0,M.PI2);
+			p.frict = rnd(0.92,0.96);
+			p.lifeS = rnd(3,10);
+			p.onUpdate = _bloodPhysics;
+		}
+	}
+
 	public function torchSparks(x:Float, y:Float) {
 		// Flame red
 		for(i in 0...1) {
