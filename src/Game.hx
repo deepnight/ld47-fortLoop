@@ -36,6 +36,8 @@ class Game extends Process {
 	public var autoSwitchS(default,null) : Float = Const.LIGHT_DURATION;
 	var darkHalo : HSprite;
 
+	public var curLevelIdx = 0;
+
 	public function new() {
 		super(Main.ME);
 		ME = this;
@@ -52,9 +54,6 @@ class Game extends Process {
 		camera = new Camera();
 		fx = new Fx();
 		hud = new ui.Hud();
-		level = new Level(world.all_levels.Combat);
-		level.attachMainEntities();
-		camera.trackTarget(hero, true);
 
 		darkMask = new h2d.Bitmap( h2d.Tile.fromColor(Const.DARK_COLOR) );
 		root.add(darkMask, Const.DP_TOP);
@@ -63,9 +62,33 @@ class Game extends Process {
 		root.add(darkHalo,Const.DP_TOP);
 		darkHalo.alpha = 0.;
 
-		Process.resizeAll();
+		startLevel(0);
+	}
+
+
+	function startLevel(idx=-1, ?data:World_Level) {
+		curLevelIdx = idx;
+		if( level!=null )
+			level.destroy();
+
+		for(e in Entity.ALL)
+			e.destroy();
+		fx.clear();
+		gc();
+
+		if( data==null && idx>=world.levels.length ) {
+			destroy();
+			new EndGame();
+			return;
+		}
+
+		level = new Level( data!=null ? data : world.levels[curLevelIdx] );
+		level.attachMainEntities();
 		setDarkness(false,true);
 		level.attachLightEntities();
+
+		camera.trackTarget(hero, true);
+		Process.resizeAll();
 	}
 
 	/**
@@ -78,7 +101,8 @@ class Game extends Process {
 		Called when LEd world changes on the disk, if hot-reloading is enabled in Boot.hx
 	**/
 	public function onLedReload() {
-		Main.ME.startGame();
+		world.parseJson( hxd.Res.world.world.entry.getText() );
+		startLevel(curLevelIdx);
 	}
 
 	override function onResize() {
@@ -257,6 +281,9 @@ class Game extends Process {
 			#end
 
 			#if debug
+			if( ca.isKeyboardPressed(K.N) )
+				startLevel(curLevelIdx+1);
+
 			if( ca.isKeyboardPressed(K.K) )
 				for(e in en.Mob.ALL)
 					e.destroy();
@@ -264,7 +291,7 @@ class Game extends Process {
 
 			// Restart
 			if( ca.selectPressed() )
-				Main.ME.startGame();
+				startLevel(curLevelIdx);
 		}
 
 		// Auto light/dark switch
