@@ -18,6 +18,10 @@ class CPoint {
 		this.yr = yr;
 	}
 
+	public function clone() {
+		return new CPoint(cx,cy,xr,yr);
+	}
+
 	public function set(x,y,?xr=0.5,?yr=0.5) {
 		this.cx = x;
 		this.cy = y;

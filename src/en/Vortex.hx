@@ -4,6 +4,8 @@ class Vortex extends Entity {
 	public static var ALL : Array<Vortex> = [];
 	var data : Entity_Vortex;
 	var content : Null<Enum_ItemType>;
+	var itemOrigin : Null<CPoint>;
+	var ignoreItem : Null<en.Item>;
 
 	public function new(e:Entity_Vortex) {
 		super(e.cx, e.cy);
@@ -31,9 +33,11 @@ class Vortex extends Entity {
 
 		if( content!=null ) {
 			var e = new en.Item(cx,cy, content);
+			e.origin = itemOrigin.clone();
 			e.dx = rnd(0.01,0.02,true);
 			e.dy = -0.1;
-			e.cd.setS("vortexLock",Const.INFINITE);
+			ignoreItem = e;
+			itemOrigin = null;
 			content = null;
 		}
 	}
@@ -41,10 +45,14 @@ class Vortex extends Entity {
 	override function update() {
 		super.update();
 
-		if( content==null )
+		if( ignoreItem!=null && !ignoreItem.destroyed && distCase(ignoreItem)>2.5 )
+			ignoreItem = null;
+
+		if( content==null  )
 			for(e in en.Item.ALL)
-				if( e.isAlive() && distCase(e)<=2 && !e.cd.has("vortexLock") && !e.isGrabbedByHero() ) {
+				if( e.isAlive() && distCase(e)<=1.6 && e!=ignoreItem && e.cd.has("recentThrow") && !e.isGrabbedByHero() ) {
 					content = e.type;
+					itemOrigin = e.origin.clone();
 					e.destroy();
 				}
 	}

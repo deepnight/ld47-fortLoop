@@ -112,9 +112,6 @@ class Item extends Entity {
 		if( inVault )
 			darkMode = Stay;
 
-		if( isGrabbedByHero() )
-			cd.unset("vortexLock");
-
 		if( !isGrabbedByHero() && level.hasCollision(cx,cy-1) && level.hasCollision(cx,cy+1) )
 			recalOffNarrow();
 
