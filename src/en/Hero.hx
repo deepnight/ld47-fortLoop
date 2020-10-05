@@ -26,11 +26,11 @@ class Hero extends Entity {
 		spr.anim.registerStateAnim("heroJumpUp",15, ()->!climbing && !onGround && dy<=0.05 );
 		spr.anim.registerStateAnim("heroJumpDown",15, 0.9, ()->!climbing && !onGround && dy>0.05 );
 
-		spr.anim.registerStateAnim("heroClimb",11, 2, ()->climbing && ( M.fabs(dy)>=0.05 || cd.has("climbAnim") ) );
+		spr.anim.registerStateAnim("heroClimb",11, 2, ()->climbing && ( M.fabs(dy)>=0.05*tmod || cd.has("climbAnim") ) );
 		spr.anim.registerStateAnim("heroClimbIdle",10, ()->climbing);
 
-		spr.anim.registerStateAnim("heroCrouchRun",6, 2, ()->M.fabs(dx)>=0.05 && isCrouching() );
-		spr.anim.registerStateAnim("heroRun",5, 2.5, ()->M.fabs(dx)>=0.05 );
+		spr.anim.registerStateAnim("heroCrouchRun",6, 2, ()->M.fabs(dx)>=0.05*tmod && isCrouching() );
+		spr.anim.registerStateAnim("heroRun",5, 2.5, ()->M.fabs(dx)>=0.05*tmod );
 
 		spr.anim.registerStateAnim("heroIdleGrab",1, ()->!isCrouching() && isGrabbingAnything());
 		spr.anim.registerStateAnim("heroCrouchIdle",0, ()->isCrouching());
