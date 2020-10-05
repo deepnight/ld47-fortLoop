@@ -275,8 +275,8 @@ class Game extends Process {
 		Pause briefly the game for 1 frame: very useful for impactful moments,
 		like when hitting an opponent in Street Fighter ;)
 	**/
-	public inline function stopFrame() {
-		ucd.setS("stopFrame", 0.2);
+	public inline function stopFrame(t=0.2) {
+		ucd.setS("stopFrame", t);
 	}
 
 	override function preUpdate() {

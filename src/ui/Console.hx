@@ -38,6 +38,10 @@ class Console extends h2d.Console {
 			for(k in flags.keys())
 				log(k, 0x80ff00);
 		});
+		this.addCommand("txt", [], function() {
+			for(e in en.Text.ALL)
+				e.destroy();
+		});
 		this.addAlias("+","set");
 		this.addAlias("-","unset");
 		#end
