@@ -550,7 +550,7 @@ class Entity {
 		bdx*=0.2;
 		bdy*=0.2;
 		dx*=0.3;
-		dy*=0.3;
+		dy*=0.1;
 	}
 
 	public function stopClimbing() {

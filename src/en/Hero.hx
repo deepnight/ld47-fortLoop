@@ -87,6 +87,8 @@ class Hero extends Entity {
 	override function startClimbing() {
 		super.startClimbing();
 		Assets.SLIB.ladder0(0.4);
+		cd.unset("jumpForce");
+		cd.unset("jumpExtra");
 	}
 
 	override function onLand(fallCHei:Float) {
@@ -135,14 +137,14 @@ class Hero extends Entity {
 		super.update();
 		var spd = 0.015 * (game.dark?2:1);
 
-		if( onGround ) {
+		if( onGround || climbing ) {
 			cd.setS("onGroundRecently",0.1);
 			cd.setS("airControl",10);
 		}
 
 		// Walk
 		if( !controlsLocked() && ca.leftDist() > 0 ) {
-			if( !climbing )
+			// if( !climbing )
 				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.4+0.6*cd.getRatio("airControl") ) * tmod;
 			var old = dir;
 			dir = M.sign( Math.cos(ca.leftAngle()) );
@@ -153,7 +155,8 @@ class Hero extends Entity {
 			dx*=Math.pow(0.8,tmod);
 
 		// Jump
-		if( !controlsLocked() && ca.aPressed() && ( cd.has("onGroundRecently") || climbing ) && !isCrouching() ) {
+		var jumpKeyboardDown = ca.isKeyboardDown(K.Z) || ca.isKeyboardDown(K.W) || ca.isKeyboardDown(K.UP);
+		if( !controlsLocked() && ca.aPressed() && !isCrouching() && ( !climbing && cd.has("onGroundRecently") || climbing && !jumpKeyboardDown ) ) {
 			if( climbing ) {
 				stopClimbing();
 				cd.setS("climbLock",0.2);
