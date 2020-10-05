@@ -263,7 +263,7 @@ class Hero extends Entity {
 
 		// Climb movement
 		if( climbing && ca.leftDist()>0 && !cd.hasSetS("climbStep", 0.2) ) {
-			dy+=Math.sin(ca.leftAngle()) * spd * 7 * tmod;
+			dy += Math.sin(ca.leftAngle()) * spd * 7; // no tmod because it's a step movement
 			cd.setS("climbAnim", 0.2);
 		}
 
