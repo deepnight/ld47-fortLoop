@@ -39,11 +39,11 @@ class Main extends dn.Process {
             }, 0.2);
         });
 
-        // Hot reloading (LEd)
+        // Hot reloading (LDtk)
         hxd.Res.world.world.watch(function() {
-            delayer.cancelById("led");
+            delayer.cancelById("ldtk");
 
-            delayer.addS("led", function() {
+            delayer.addS("ldtk", function() {
             	if( Game.ME!=null )
                     Game.ME.onLedReload();
             }, 0.2);

@@ -26,7 +26,7 @@ class Game extends Process {
 	var curGameSpeed = 1.0;
 	var slowMos : Map<String, { id:String, t:Float, f:Float }> = new Map();
 
-	/** LEd world data **/
+	/** LDtk world data **/
 	public var world : World;
 
 	public var hero: en.Hero;
@@ -123,7 +123,7 @@ class Game extends Process {
 	}
 
 	/**
-		Called when LEd world changes on the disk, if hot-reloading is enabled in Boot.hx
+		Called when LDtk world changes on the disk, if hot-reloading is enabled in Boot.hx
 	**/
 	public function onLedReload() {
 		world.parseJson( hxd.Res.world.world.entry.getText() );
