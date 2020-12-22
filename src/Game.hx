@@ -392,6 +392,13 @@ class Game extends Process {
 		if( en.Torch.any() && !cd.has("autoSwitch") )
 			setDarkness(!dark);
 
+		#if debug
+		if( ca.isKeyboardPressed(K.I) ) {
+			destroy();
+			new Intro(true);
+		}
+		#end
+
 		// Level complete
 		if( hero.isAlive() && !cd.has("levelComplete") ) {
 			var win = true;

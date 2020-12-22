@@ -1,5 +1,5 @@
 class Intro extends dn.Process {
-	var logo : HSprite;
+	var f : h2d.Flow;
 	var lines = 0;
 	var cm = new dn.Cinematic(Const.FPS);
 	var texts : h2d.Flow;
@@ -8,11 +8,18 @@ class Intro extends dn.Process {
 		super(Main.ME);
 		createRoot(Main.ME.root);
 
-		logo = Assets.tiles.h_get("logo",root);
-		logo.setCenterRatio(0,0.5);
+		f = new h2d.Flow(root);
+		f.layout = Vertical;
+		f.verticalSpacing = 16;
+		f.horizontalAlign = Middle;
 
-		texts = new h2d.Flow(logo);
+		var logo = Assets.tiles.h_get("logo",f);
+
+		texts = new h2d.Flow(f);
+		texts.paddingLeft = 5;
 		texts.layout = Vertical;
+		texts.verticalSpacing = 2;
+		texts.horizontalAlign = Middle;
 
 
 		if( !isEnding ) {
@@ -46,10 +53,9 @@ class Intro extends dn.Process {
 
 	override function onResize() {
 		super.onResize();
-		root.setScale(Const.SCALE);
-		logo.y = M.ceil( h()*0.5/Const.SCALE ) ;
-		texts.x = 180;
-		texts.y = Std.int( -texts.outerHeight*0.5 );
+		f.setScale(Const.SCALE);
+		f.x = M.ceil( w()*0.5 - f.outerWidth*0.5*f.scaleX ) ;
+		f.y = M.ceil( h()*0.5 - f.outerHeight*0.5*f.scaleY ) ;
 	}
 
 	override function preUpdate() {
