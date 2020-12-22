@@ -93,6 +93,7 @@ class Door extends Entity {
 			}
 			else if( willChangeWhenLeft && M.fabs(hero.cx-cx)>1 ) {
 				willChangeWhenLeft = false;
+				Assets.SLIB.door0(1);
 				setClosed( !isClosed );
 			}
 		}
