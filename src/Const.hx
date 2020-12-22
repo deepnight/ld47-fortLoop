@@ -9,7 +9,7 @@ class Const {
 	public static var DARK_COLOR = 0x1b131b;
 	public static var DARK_LIGHT_COLOR = 0x493346;
 
-	public static var DARKNESS_DURATION = 3;
+	public static var DARKNESS_DURATION = 2.5;
 	public static var LIGHT_DURATION = 12;
 
 	static var _uniq = 0;
