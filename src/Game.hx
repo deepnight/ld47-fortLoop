@@ -48,7 +48,7 @@ class Game extends Process {
 
 		scroller = new h2d.Layers();
 		root.add(scroller, Const.DP_BG);
-		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
+		scroller.filter = new h2d.filter.Nothing();
 
 		world = new World( hxd.Res.world.world.entry.getText() );
 		camera = new Camera();
@@ -75,7 +75,8 @@ class Game extends Process {
 		var tf = new h2d.Text(Assets.fontPixel,Boot.ME.s2d);
 		tf.scale(4);
 		createChildProcess((p)->{
-			tf.text = "" + Std.int( hxd.Timer.fps() );
+			if( !p.cd.hasSetS("fps",0.1) )
+				tf.text = "" + Std.int( hxd.Timer.fps() );
 		});
 		#end
 	}
@@ -157,6 +158,7 @@ class Game extends Process {
 
 		camera.trackTarget(hero, true);
 		Process.resizeAll();
+		hxd.Timer.skip();
 	}
 
 	/**
