@@ -21,7 +21,6 @@ class Trigger extends Entity {
 			return false;
 
 		triggered = true;
-		spr.set("triggerOn");
 
 		if( data.f_exitLevel ) {
 			game.nextLevel();
@@ -31,7 +30,7 @@ class Trigger extends Entity {
 		var d = getTargetDoor();
 		if( d!=null ) {
 			Assets.SLIB.door0(1);
-			d.setClosed(false);
+			d.setClosed( !d.isClosed );
 		}
 
 		if( data.f_target!=null ) {
@@ -58,15 +57,16 @@ class Trigger extends Entity {
 		}
 	}
 
-	public function untrigger() {
-		triggered = false;
-		spr.set("triggerOff");
-	}
-
 	override function postUpdate() {
 		super.postUpdate();
 		if( data.f_hidden )
 			spr.visible = false;
+
+		if( triggered && spr.groupName!="triggerOn" )
+			spr.set("triggerOn");
+
+		if( !triggered && spr.groupName!="triggerOff" )
+			spr.set("triggerOff");
 	}
 
 	override function dispose() {
@@ -78,12 +78,13 @@ class Trigger extends Entity {
 		super.update();
 
 		var e = getTargetDoor();
-		if( e!=null ) {
-			if( !triggered && !e.isClosed )
-				trigger();
+		if( e!=null && !data.f_hidden ) {
+			// Touch plates follow door state
+			if( !triggered && !e.isInDefaultState() )
+				triggered = true;
 
-			if( triggered && e.isClosed )
-				untrigger();
+			if( triggered && e.isInDefaultState() )
+				triggered = false;
 		}
 
 		if( !isOutOfTheGame() ) {

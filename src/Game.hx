@@ -99,12 +99,25 @@ class Game extends Process {
 		f.x = Std.int( w()*0.5 - f.outerWidth*0.5 );
 		f.y = Std.int( h()*0.4 - f.outerHeight*0.5 );
 
-		tw.createMs(tf.alpha, 0>1, 400);
+		tw.createMs(f.alpha, 0>1, 400);
 		tw.createMs(tf.x, w()*0.5 > 0, TEaseOut, 200).end( ()->{
 			tw.createMs(tf.x, 1000 | -w()*0.5, TEaseIn, 200).end( ()->{
 				f.remove();
 			});
 		});
+	}
+
+	public function popText(x:Float, y:Float, str:String, col=0xffcc00) {
+		var f = new h2d.Flow();
+		scroller.add(f, Const.DP_UI);
+		var tf = new h2d.Text(Assets.fontPixel, f);
+		tf.text = str;
+		tf.textColor = col;
+		f.x = Std.int( x - f.outerWidth*0.5 );
+		f.y = Std.int( y - f.outerHeight*0.5 );
+
+		tw.createMs(f.alpha, 1>0, 1200).end( f.remove );
+		tw.createMs(f.y, f.y-20, TEaseOut, 200);
 	}
 
 	function startLevel(idx=-1, ?data:World_Level) {
@@ -185,7 +198,7 @@ class Game extends Process {
 			}
 			else {
 				// Super bright effect
-				notify("Go!");
+				notify("Try again!");
 				tw.terminateWithoutCallbacks(darkMask.alpha);
 				darkMask.visible = false;
 				level.burn.visible = true;
@@ -205,7 +218,7 @@ class Game extends Process {
 		if( dark ) {
 			Assets.SLIB.door0(1);
 			for(e in en.Door.ALL)
-				e.setClosed(true);
+				e.setDefaultState();
 		}
 		else
 			delayer.addS("doors", ()->{
