@@ -36,8 +36,13 @@ class Vault extends Entity {
 		super.update();
 
 		if( !isGrabbingAnything() ) {
-			for(e in en.Item.ALL)
-				if( e.isAlive() && e.type==Diamond && !e.isGrabbedByHero() && distCase(e)<=1.3 ) {
+			for(e in en.Item.ALL) {
+				if( !e.isAlive() || e.type!=Diamond )
+					continue;
+
+				if( !e.isGrabbedByHero() && distCase(e)<=1.3 || e.isGrabbedByHero() && distCase(e)<=1.3 ) {
+					if( e.isGrabbedByHero() )
+						hero.dropItem();
 					grabItem(e);
 					e.cd.setS("pickLock",0.6);
 					e.inVault = true;
@@ -45,6 +50,7 @@ class Vault extends Entity {
 					Assets.SLIB.vault0(1);
 					break;
 				}
+			}
 		}
 
 		darkMode = isGrabbingAnything() ? Stay : GoOutOfGame;
