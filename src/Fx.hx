@@ -215,14 +215,28 @@ class Fx extends dn.Process {
 	}
 
 	public function torchLightOn(x:Float, y:Float) {
-		var p = allocBgAdd(getTile("fxStar"), x,y);
+		var p = allocTopAdd(getTile("fxStar"), x,y);
 		p.colorize(0xffe600);
-		p.setFadeS(rnd(0.5,0.8), 0, 0.1);
-		p.setScale(rnd(2,3));
+		p.setFadeS(rnd(0.5,0.8), 0, 0.2);
+		p.setScale(rnd(3,4));
 		p.rotation = rnd(0,M.PI);
 		p.dr = 0.3;
-		p.scaleMul = rnd(0.9, 0.95);
-		p.lifeS = rnd(0.2,0.6);
+		p.scaleMul = rnd(0.97, 0.98);
+		p.lifeS = rnd(0.4,0.6);
+	}
+
+	public function doorOpen(x:Float, y:Float, openDir:Int) {
+		for(i in 0...30) {
+			var p = allocBgAdd(getTile("fxLine"), x+rnd(1,4)*openDir, y-rnd(0.2,1.5)*Const.GRID);
+			p.setFadeS(rnd(0.2,0.5), 0, 0.1);
+			p.colorize(0xcd6438);
+			p.scaleX = rnd(0.3,0.6);
+			p.scaleXMul = rnd(0.94,0.97);
+			p.dx = rnd(0.3,3)*openDir;
+			p.frict = rnd(0.92,0.95);
+			p.rotation = M.PIHALF;
+			p.lifeS = rnd(0.2,0.6);
+		}
 	}
 
 	public function torchFlame(x:Float, y:Float, pow:Float) {

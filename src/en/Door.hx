@@ -24,8 +24,10 @@ class Door extends Entity {
 
 		isClosed = closed;
 
-		if( isClosed )
+		if( isClosed ) {
+			sprScaleX = 1;
 			setSquashX(0.7);
+		}
 		else
 			setSquashY(0.7);
 
@@ -56,11 +58,13 @@ class Door extends Entity {
 
 		if( needKey && isClosed ) {
 			for(e in en.Item.ALL) {
-				if( !e.isAlive() || e.type!=DoorKey || e.cd.has("recentThrow") )
+				if( !e.isAlive() || e.type!=DoorKey || !e.isGrabbedByHero() && !e.cd.has("recentThrow") )
 					continue;
 
-				if( !e.isGrabbedByHero() && distCase(e)<=1 || e.isGrabbedByHero() && distCase(e)<=0.9 ) {
+				if( !e.isGrabbedByHero() && distCase(e)<=1.4 || e.isGrabbedByHero() && distCase(e)<=1.2 ) {
 					e.destroy();
+					fx.doorOpen(footX, footY, hero.dirTo(this));
+					sprScaleX = hero.dirTo(this);
 					Assets.SLIB.door0(1);
 					setClosed(false);
 				}
