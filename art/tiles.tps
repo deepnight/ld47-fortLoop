@@ -484,6 +484,7 @@
                 <false/>
             </struct>
             <key type="filename">export_tiles/itemDiamond.png</key>
+            <key type="filename">export_tiles/itemDiamondDup.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

@@ -368,6 +368,13 @@ itemDiamond
   orig: 13, 11
   offset: 0, 0
   index: -1
+itemDiamondDup
+  rotate: false
+  xy: 308, 172
+  size: 13, 11
+  orig: 13, 11
+  offset: 0, 0
+  index: -1
 itemKey
   rotate: false
   xy: 308, 152
