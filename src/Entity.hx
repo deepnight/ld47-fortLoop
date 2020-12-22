@@ -481,6 +481,8 @@ class Entity {
 			spr.filter = null;
 	}
 
+	public inline function isOnScreen() return camera.isOnScreen(footX, footY, 32);
+
     public function postUpdate() {
         spr.x = (cx+xr)*Const.GRID;
         spr.y = (cy+yr)*Const.GRID;
@@ -492,14 +494,17 @@ class Entity {
 		sprSquashX += (1-sprSquashX) * 0.2;
 		sprSquashY += (1-sprSquashY) * 0.2;
 
-		if( game.dark && darkMode!=Stay && darkMode!=DestroyAndHide && spr.filter==null )
-			spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
+		if( isOnScreen() ) {
+			if( game.dark && darkMode!=Stay && darkMode!=DestroyAndHide && spr.filter==null )
+				spr.filter = new dn.heaps.filter.PixelOutline(Const.DARK_LIGHT_COLOR, true);
+
+			if( game.dark && darkMode==Stay )
+				colorMatrix.load( C.getColorizeMatrixH2d(Const.DARK_COLOR, 0.5*(1-cd.getRatio("colorDarken"))) );
+		}
 
 		if( game.dark && darkMode==DestroyAndHide )
 			spr.visible = false;
 
-		if( game.dark && darkMode==Stay )
-			colorMatrix.load( C.getColorizeMatrixH2d(Const.DARK_COLOR, 0.5*(1-cd.getRatio("colorDarken"))) );
 
 		// Blink
 		if( !cd.has("keepBlink") ) {
@@ -509,7 +514,8 @@ class Entity {
 		}
 
 		// Color adds
-		spr.colorAdd.load(baseColor);
+		if( isOnScreen() )
+			spr.colorAdd.load(baseColor);
 		spr.colorAdd.r += blinkColor.r;
 		spr.colorAdd.g += blinkColor.g;
 		spr.colorAdd.b += blinkColor.b;
