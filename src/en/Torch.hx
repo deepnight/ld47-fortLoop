@@ -38,14 +38,15 @@ class Torch extends Entity {
 		spr.filter = null;
 		spr.alpha = 0.3;
 
-		if( !isOutOfTheGame() && !cd.hasSetS("fx",0.1) )
-			fx.torchFlame(footX, footY-10, game.getAutoSwitchRatio());
+		if( !cd.hasSetS("fx",0.06) ) {
+			if( !isOutOfTheGame() )
+				fx.torchFlame(footX, footY-10, game.getAutoSwitchRatio());
 
-		if( isOutOfTheGame() && !cd.hasSetS("fx",0.1) )
-			fx.torchFlame(footX, footY-10, 0);
-
-		if( isOutOfTheGame() && game.getAutoSwitchS()<=1 )
-			fx.torchSparks(footX, footY-10);
+			if( isOutOfTheGame() )
+				fx.torchFlame(footX, footY-10, 0);
+		}
+		if( isOutOfTheGame() && game.getAutoSwitchS()<=1 && !cd.hasSetS("fxIgnite",0.03) )
+			fx.torchIgnition(uid, footX, footY-10, 1 - game.getAutoSwitchS()/1 );
 	}
 
 	override function update() {
