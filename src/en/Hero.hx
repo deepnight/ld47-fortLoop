@@ -11,6 +11,7 @@ class Hero extends Entity {
 		super(e.cx, e.cy);
 
 		ammo = maxAmmo = 15;
+		bumpFrict = 0.88;
 		ca = Main.ME.controller.createAccess("hero");
 		ca.setLeftDeadZone(0.2);
 		darkMode = Stay;
@@ -144,10 +145,10 @@ class Hero extends Entity {
 
 		// Walk
 		if( !controlsLocked() && ca.leftDist() > 0 ) {
-			// if( !climbing )
-				dx += Math.cos( ca.leftAngle() ) * ca.leftDist() * spd * ( 0.4+0.6*cd.getRatio("airControl") ) * tmod;
+			var xPow = Math.cos( ca.leftAngle() );
+			dx += xPow * ca.leftDist() * spd * ( 0.4+0.6*cd.getRatio("airControl") ) * tmod;
 			var old = dir;
-			dir = M.sign( Math.cos(ca.leftAngle()) );
+			dir = M.fabs(xPow)>=0.1 ? M.sign(xPow) : dir;
 			if( old!=dir && !isCrouching() && !climbing )
 				spr.anim.playOverlap("heroTurn", 0.66);
 		}
@@ -282,7 +283,7 @@ class Hero extends Entity {
 		for(e in en.Mob.ALL) {
 			if( e.isAlive() && !e.isOutOfTheGame() && distCaseX(e)<=1 && footY>=e.footY-Const.GRID*1 && footY<=e.footY+Const.GRID*0.5 && !cd.hasSetS("autoAtk",0.1) ) {
 				e.hit(1,hero);
-				bump(-dirTo(e)*rnd(0.03,0.06), 0);
+				bump(-dirTo(e)*rnd(0.02,0.03), 0);
 				e.bump(dirTo(e)*rnd(0.06,0.12), -rnd(0.04,0.08));
 				setSquashY(rnd(0.8,1));
 				spr.anim.play("heroAtkA");
