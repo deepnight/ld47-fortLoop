@@ -17,6 +17,7 @@ class Level extends dn.Process {
 	var walls : h2d.TileGroup;
 	var bg : h2d.TileGroup;
 	var dark : h2d.TileGroup;
+	var customs : h2d.TileGroup;
 	public var burn : h2d.TileGroup;
 	var extraCollMap : Map<Int,Bool> = new Map();
 
@@ -41,6 +42,8 @@ class Level extends dn.Process {
 		bg = new h2d.TileGroup(tilesetSource, lightWrapper);
 		walls = new h2d.TileGroup(tilesetSource, lightWrapper);
 		details = new h2d.TileGroup(Assets.tiles.tile, lightWrapper);
+
+		customs = new h2d.TileGroup(Assets.tiles.tile, root);
 
 		burn = new h2d.TileGroup(tilesetSource, lightWrapper);
 		burn.blendMode = Add;
@@ -119,11 +122,15 @@ class Level extends dn.Process {
 
 	override function onDispose() {
 		super.onDispose();
+
 		level = null;
 		marks = null;
+
 		tilesetSource.dispose();
 		tilesetSource = null;
+
 		front.remove();
+		customs.remove();
 	}
 
 	/**
@@ -211,6 +218,20 @@ class Level extends dn.Process {
 		dark.clear();
 		details.clear();
 		front.clear();
+		customs.clear();
+
+		// Custom tiles
+		for(e in level.l_Entities.all_CustomTile) {
+			if( e.f_tileId==null || !Assets.tiles.exists(e.f_tileId) ) {
+				trace("WARNING: unknown customTile: "+e.f_tileId);
+				continue;
+			}
+			customs.add(
+				e.pixelX, e.pixelY,
+				Assets.tiles.getTile(e.f_tileId,0, e.f_pivotX, e.f_pivotY)
+			);
+		}
+
 
 		// Entrance gate
 		var e = level.l_Entities.all_Hero[0];

@@ -78,13 +78,9 @@ class Main extends dn.Process {
 		// Start
 		#if js
 			new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
-			delayer.addF( startIntro, 1 );
+			delayer.addF( startGame, 1 );
 		#else
-			#if debug
 			startGame();
-			#else
-			startIntro();
-			#end
 		#end
 	}
 
