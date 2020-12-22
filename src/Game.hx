@@ -70,6 +70,14 @@ class Game extends Process {
 		#else
 		startLevel(0);
 		#end
+
+		#if debug
+		var tf = new h2d.Text(Assets.fontPixel,Boot.ME.s2d);
+		tf.scale(4);
+		createChildProcess((p)->{
+			tf.text = "" + Std.int( hxd.Timer.fps() );
+		});
+		#end
 	}
 
 
