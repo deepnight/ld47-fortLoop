@@ -215,12 +215,9 @@ class Hero extends Entity {
 			// }
 		}
 
-		// HACK
-		#if debug
-		if( !controlsLocked() && ca.rbPressed() ) {
-			game.setDarkness(!game.dark);
-		}
-		#end
+		// Force darkness
+		if( !game.dark && !controlsLocked() && ca.yPressed() && en.Torch.any() )
+			game.setDarkness(true);
 
 		if( !climbing && !cd.has("climbLock") && !controlsLocked() && ca.leftDist()>0 ) {
 			// Grab ladder up
