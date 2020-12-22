@@ -65,7 +65,11 @@ class Game extends Process {
 		root.add(darkHalo,Const.DP_TOP);
 		darkHalo.alpha = 0.;
 
+		#if debug
+		startLevel(3);
+		#else
 		startLevel(0);
+		#end
 	}
 
 
@@ -83,6 +87,24 @@ class Game extends Process {
 
 	public function nextLevel() {
 		startLevel(curLevelIdx+1);
+	}
+
+	public function notify(str:String, col=0x889fcd) {
+		var f = new h2d.Flow();
+		root.add(f, Const.DP_UI);
+		var tf = new h2d.Text(Assets.fontPixel, f);
+		tf.scale(Const.SCALE*2);
+		tf.text = str;
+		tf.textColor = col;
+		f.x = Std.int( w()*0.5 - f.outerWidth*0.5 );
+		f.y = Std.int( h()*0.4 - f.outerHeight*0.5 );
+
+		tw.createMs(tf.alpha, 0>1, 400);
+		tw.createMs(tf.x, w()*0.5 > 0, TEaseOut, 200).end( ()->{
+			tw.createMs(tf.x, 1000 | -w()*0.5, TEaseIn, 200).end( ()->{
+				f.remove();
+			});
+		});
 	}
 
 	function startLevel(idx=-1, ?data:World_Level) {
@@ -152,6 +174,7 @@ class Game extends Process {
 			level.burn.visible = false;
 		else {
 			if( dark ) {
+				notify("Looped back in time...");
 				camera.shakeS(2, 0.5);
 				// Black effect
 				// darkMask.visible = true;
@@ -162,6 +185,7 @@ class Game extends Process {
 			}
 			else {
 				// Super bright effect
+				notify("Go!");
 				tw.terminateWithoutCallbacks(darkMask.alpha);
 				darkMask.visible = false;
 				level.burn.visible = true;
