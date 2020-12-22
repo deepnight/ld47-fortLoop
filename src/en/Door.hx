@@ -55,12 +55,16 @@ class Door extends Entity {
 		super.update();
 
 		if( needKey && isClosed ) {
-			for(e in en.Item.ALL)
-				if( distCase(e)<=1 && e.type==DoorKey && e.cd.has("recentThrow") && !e.isGrabbedByHero() ) {
+			for(e in en.Item.ALL) {
+				if( !e.isAlive() || e.type!=DoorKey || e.cd.has("recentThrow") )
+					continue;
+
+				if( !e.isGrabbedByHero() && distCase(e)<=1 || e.isGrabbedByHero() && distCase(e)<=0.9 ) {
 					e.destroy();
 					Assets.SLIB.door0(1);
 					setClosed(false);
 				}
+			}
 		}
 	}
 }
