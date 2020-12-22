@@ -40,18 +40,6 @@ class Hero extends Entity {
 		spr.anim.registerTransitions(["heroIdle","heroIdleGrab"],["heroRun"],"heroIdleRun", 0.5);
 	}
 
-	override function onDamage(dmg:Int, from:Entity) {
-		super.onDamage(dmg, from);
-		cancelVelocities();
-		if( from!=null )
-			bump(from.dirTo(this)*0.2, -0.2);
-		setSquashX(0.5);
-		lockControlS(0.3);
-		fx.flashBangS(0xff0000,0.2, 1);
-		camera.shakeS(0.5,0.5);
-		hud.invalidate();
-	}
-
 	public function refillAmmo() {
 		ammo = maxAmmo;
 		hud.invalidate();
