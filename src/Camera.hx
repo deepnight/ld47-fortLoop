@@ -51,8 +51,12 @@ class Camera extends dn.Process {
 
 	var shakePower = 1.0;
 	public function shakeS(t:Float, ?pow=1.0) {
-		cd.setS("shaking", t, false);
+		cd.setS("shaking", t, true);
 		shakePower = pow;
+	}
+
+	public function stopShake() {
+		cd.unset("shaking");
 	}
 
 	override function update() {

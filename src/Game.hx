@@ -188,7 +188,8 @@ class Game extends Process {
 		else {
 			if( dark ) {
 				notify("Looped back in time...");
-				camera.shakeS(2, 0.5);
+				camera.stopShake();
+				camera.shakeS(2, 0.4);
 				// Black effect
 				// darkMask.visible = true;
 				// darkMask.scaleX = w();
@@ -208,6 +209,11 @@ class Game extends Process {
 				tw.createMs(camera.zoom, 1, 700, TElasticEnd);
 			}
 		}
+
+		hxd.Timer.skip();
+
+		// if( dark )
+			// camera.shakeS
 
 		if( dark )
 			Assets.SLIB.dark0(0.5);
