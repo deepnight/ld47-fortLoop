@@ -188,24 +188,17 @@ class Game extends Process {
 		else {
 			if( dark ) {
 				notify("Looped back in time...");
-				camera.stopShake();
-				camera.shakeS(2, 0.4);
-				// Black effect
-				// darkMask.visible = true;
-				// darkMask.scaleX = w();
-				// darkMask.scaleY = h();
-				// tw.createMs(darkMask.alpha, 0.7>0, 2000, TEaseInt);
+				camera.shakeS(0.3, 0.7);
 				tw.createMs(camera.zoom, 1>1.2, 1500, TEase);
 			}
 			else {
 				// Super bright effect
-				notify("Try again!");
+				notify("Try again!", 0xffcc00);
 				tw.terminateWithoutCallbacks(darkMask.alpha);
 				darkMask.visible = false;
 				level.burn.visible = true;
 				tw.createMs(level.burn.alpha, 0.5>0, 1000, TEaseIn);
 				fx.flashBangS(0xffcc00, 0.3, 2);
-				camera.shakeS(2, 0.3);
 				tw.createMs(camera.zoom, 1, 700, TElasticEnd);
 			}
 		}
