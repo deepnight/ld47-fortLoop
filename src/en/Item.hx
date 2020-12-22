@@ -106,6 +106,13 @@ class Item extends Entity {
 		xr = cx>old ? 0.1 : 0.9;
 	}
 
+	function getGrabDist() {
+		return switch type {
+			case Diamond: 1.5;
+			case _: 0.9;
+		}
+	}
+
 	override function update() {
 		super.update();
 
@@ -115,7 +122,7 @@ class Item extends Entity {
 		if( !isGrabbedByHero() && level.hasCollision(cx,cy-1) && level.hasCollision(cx,cy+1) )
 			recalOffNarrow();
 
-		if( !inVault && distCase(hero)<=0.9 && !isOutOfTheGame() && !hero.isGrabbingAnything() && !cd.has("pickLock") ) {
+		if( !inVault && distCase(hero)<=getGrabDist() && !isOutOfTheGame() && !hero.isGrabbingAnything() && !cd.has("pickLock") ) {
 			switch type {
 			case Ammo:
 				hero.addAmmo(6);
