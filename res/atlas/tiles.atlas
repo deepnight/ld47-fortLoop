@@ -90,7 +90,7 @@ fxGib2
   index: -1
 fxImpact0
   rotate: false
-  xy: 455, 183
+  xy: 455, 197
   size: 15, 9
   orig: 15, 9
   offset: 0, 0
@@ -370,9 +370,9 @@ itemDiamond
   index: -1
 itemDiamondDup
   rotate: false
-  xy: 308, 172
-  size: 13, 11
-  orig: 13, 11
+  xy: 455, 183
+  size: 15, 13
+  orig: 15, 13
   offset: 0, 0
   index: -1
 itemKey

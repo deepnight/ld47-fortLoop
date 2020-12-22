@@ -37,7 +37,7 @@ class Vortex extends Entity {
 
 		if( content!=null ) {
 			var e = new en.Item(cx,cy, content);
-			e.origin = itemOrigin.clone();
+			e.origin = itemOrigin==null ? null : itemOrigin.clone();
 			e.dx = rnd(0.01,0.02,true);
 			e.dy = -0.1;
 			ignoreItem = e;
@@ -59,12 +59,18 @@ class Vortex extends Entity {
 				if( e.isAlive() && distCase(e)<=1.6 && e!=ignoreItem && e.cd.has("recentThrow") && !e.isGrabbedByHero() ) {
 					switch e.type {
 						case Ammo:
-						case Diamond:
+						case DiamondDup:
 							cd.setS("error",1);
 
-						case DoorKey:
-							content = e.type;
-							itemOrigin = e.origin.clone();
+						case DoorKey, Diamond:
+							if( e.type==Diamond ) {
+								content = DiamondDup;
+								itemOrigin = null;
+							}
+							else {
+								content = e.type;
+								itemOrigin = e.origin.clone();
+							}
 							Assets.SLIB.vortexOut1(1);
 							game.delayer.addS(()->game.popText(centerX, centerY, "Item captured", 0x9ed5ff), 0.4);
 							e.destroy();

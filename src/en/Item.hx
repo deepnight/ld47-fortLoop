@@ -22,10 +22,12 @@ class Item extends Entity {
 			case Ammo: "itemAmmo";
 			case DoorKey: "itemKey";
 			case Diamond: "itemDiamond";
+			case DiamondDup: "itemDiamondDup";
 		});
 
 		switch type {
 			case Diamond: darkMode = GoOutOfGame;
+			case DiamondDup: darkMode = GoOutOfGame;
 			case _:
 		}
 	}
@@ -108,7 +110,7 @@ class Item extends Entity {
 
 	function getGrabDist() {
 		return switch type {
-			case Diamond: 1.5;
+			case Diamond, DiamondDup: 1.5;
 			case _: 0.9;
 		}
 	}
@@ -128,7 +130,7 @@ class Item extends Entity {
 				hero.addAmmo(6);
 				destroy();
 
-			case Diamond:
+			case Diamond, DiamondDup:
 				hero.grabItem(this);
 				Assets.SLIB.pick0(0.7);
 

@@ -37,7 +37,7 @@ class Vault extends Entity {
 
 		if( !isGrabbingAnything() ) {
 			for(e in en.Item.ALL) {
-				if( !e.isAlive() || e.type!=Diamond )
+				if( !e.isAlive() || e.type!=Diamond && e.type!=DiamondDup )
 					continue;
 
 				if( !e.isGrabbedByHero() && distCase(e)<=1.3 || e.isGrabbedByHero() && distCase(e)<=1.3 ) {

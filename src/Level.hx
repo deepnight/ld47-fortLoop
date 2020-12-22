@@ -115,7 +115,16 @@ class Level extends dn.Process {
 
 		for( e in level.l_Entities.all_Item )
 			switch e.f_type {
-				case Diamond: continue;
+				case Diamond:
+					var found = false;
+					for(ee in en.Item.ALL)
+						if( ee.origin!=null && ee.origin.cx==e.cx && ee.origin.cy==e.cy ) {
+							found = true;
+							break;
+						}
+					if( !found )
+						new en.Item(e.cx, e.cy, DiamondDup);
+
 				case _: new en.Item(e.cx, e.cy, e.f_type);
 			}
 	}
