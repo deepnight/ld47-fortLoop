@@ -69,6 +69,11 @@ class Main extends dn.Process {
 		controller.bind(SELECT, Key.R); // Restart
 		controller.bind(START, Key.N);
 
+		var f = new dn.heaps.filter.OverlayTexture(Deep);
+		f.alpha = 0.3;
+		f.autoUpdateSize = ()->return Const.SCALE;
+		Boot.ME.s2d.filter = f;
+
 		// Start
 		#if js
 			new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
@@ -101,11 +106,7 @@ class Main extends dn.Process {
 		super.onResize();
 
 		// Auto scaling
-		if( Const.AUTO_SCALE_TARGET_WID>0 )
-			Const.SCALE = M.ceil( w()/Const.AUTO_SCALE_TARGET_WID );
-		else if( Const.AUTO_SCALE_TARGET_HEI>0 )
-			Const.SCALE = M.ceil( h()/Const.AUTO_SCALE_TARGET_HEI );
-
+		Const.SCALE = dn.heaps.Scaler.bestFit_i(350,200);
 		Const.UI_SCALE = Const.SCALE;
 	}
 
