@@ -50,7 +50,7 @@ class Game extends Process {
 		root.add(scroller, Const.DP_BG);
 		scroller.filter = new h2d.filter.Nothing();
 
-		world = new World( hxd.Res.world.world.entry.getText() );
+		world = new World( hxd.Res.world.world_ldtk.entry.getText() );
 		camera = new Camera();
 		fx = new Fx();
 		hud = new ui.Hud();
@@ -171,7 +171,7 @@ class Game extends Process {
 		Called when LDtk world changes on the disk, if hot-reloading is enabled in Boot.hx
 	**/
 	public function onLedReload() {
-		world.parseJson( hxd.Res.world.world.entry.getText() );
+		world.parseJson( hxd.Res.world.world_ldtk.entry.getText() );
 		startLevel(curLevelIdx);
 	}
 

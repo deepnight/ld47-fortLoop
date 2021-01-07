@@ -40,7 +40,7 @@ class Main extends dn.Process {
         });
 
         // Hot reloading (LDtk)
-        hxd.Res.world.world.watch(function() {
+        hxd.Res.world.world_ldtk.watch(function() {
             delayer.cancelById("ldtk");
 
             delayer.addS("ldtk", function() {
