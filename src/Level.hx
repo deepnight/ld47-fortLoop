@@ -6,7 +6,6 @@ class Level extends dn.Process {
 	public var cHei(get,never) : Int; inline function get_cHei() return level.l_Collisions.cHei;
 
 	public var level : World_Level;
-	var tilesetSource : h2d.Tile;
 
 	var marks : Map< LevelMark, Map<Int,Bool> > = new Map();
 	var invalidated = true;
@@ -31,21 +30,21 @@ class Level extends dn.Process {
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 		level = l;
 
-		tilesetSource = hxd.Res.world.tileset.toTile();
+		var sourceTile = l.l_Collisions.tileset.getAtlasTile();
 
-		front = new h2d.TileGroup(tilesetSource);
+		front = new h2d.TileGroup(sourceTile);
 		game.scroller.add(front, Const.DP_FRONT);
 
-		dark = new h2d.TileGroup(tilesetSource, root);
+		dark = new h2d.TileGroup(sourceTile, root);
 
 		lightWrapper = new h2d.Object(root);
-		bg = new h2d.TileGroup(tilesetSource, lightWrapper);
-		walls = new h2d.TileGroup(tilesetSource, lightWrapper);
+		bg = new h2d.TileGroup(sourceTile, lightWrapper);
+		walls = new h2d.TileGroup(sourceTile, lightWrapper);
 		details = new h2d.TileGroup(Assets.tiles.tile, lightWrapper);
 
 		customs = new h2d.TileGroup(Assets.tiles.tile, root);
 
-		burn = new h2d.TileGroup(tilesetSource, lightWrapper);
+		burn = new h2d.TileGroup(sourceTile, lightWrapper);
 		burn.blendMode = Add;
 		burn.filter = new h2d.filter.Group([
 			new h2d.filter.Bloom(4, 1, 16),
@@ -134,9 +133,6 @@ class Level extends dn.Process {
 
 		level = null;
 		marks = null;
-
-		tilesetSource.dispose();
-		tilesetSource = null;
 
 		front.remove();
 		customs.remove();
@@ -252,19 +248,19 @@ class Level extends dn.Process {
 
 		// Front
 		for( autoTile in level.l_Front_elements.autoTiles ) {
-			var tile = level.l_Front_elements.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			var tile = level.l_Front_elements.tileset.getAutoLayerTile(autoTile);
 			front.add(autoTile.renderX, autoTile.renderY, tile);
 		}
 
 		// Bg
 		for( autoTile in level.l_Bg.autoTiles ) {
-			var tile = level.l_Bg.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			var tile = level.l_Bg.tileset.getAutoLayerTile(autoTile);
 			bg.add(autoTile.renderX, autoTile.renderY, tile);
 		}
 
 		// Plants
 		for( autoTile in level.l_Plants.autoTiles ) {
-			var tile = level.l_Plants.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			var tile = level.l_Plants.tileset.getAutoLayerTile(autoTile);
 			tile.setCenterRatio();
 			walls.addTransform(
 				autoTile.renderX + Const.GRID*0.5 + rnd(0,6,true),
@@ -278,14 +274,14 @@ class Level extends dn.Process {
 
 		// Walls
 		for( autoTile in level.l_Collisions.autoTiles ) {
-			var tile = level.l_Collisions.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			var tile = level.l_Collisions.tileset.getAutoLayerTile(autoTile);
 			walls.add(autoTile.renderX, autoTile.renderY, tile);
 			burn.add(autoTile.renderX, autoTile.renderY, tile);
 		}
 
 		// Dark
 		for( autoTile in level.l_DarkRender.autoTiles ) {
-			var tile = level.l_DarkRender.tileset.getAutoLayerHeapsTile(tilesetSource, autoTile);
+			var tile = level.l_DarkRender.tileset.getAutoLayerTile(autoTile);
 			dark.add(autoTile.renderX, autoTile.renderY, tile);
 		}
 	}
