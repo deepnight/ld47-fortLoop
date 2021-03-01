@@ -183,12 +183,12 @@ class Level extends dn.Process {
 
 	/** Return TRUE if "Collisions" layer contains a collision value **/
 	public inline function hasCollision(cx,cy) : Bool {
-		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==0 || extraCollMap.exists(coordId(cx,cy));
+		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==1 || extraCollMap.exists(coordId(cx,cy));
 	}
 
 	/** Return TRUE if "Collisions" layer contains a collision value **/
 	public inline function hasSky(cx,cy) : Bool {
-		return !isValid(cx,cy) ? false : level.l_Collisions.getInt(cx,cy)==2;
+		return !isValid(cx,cy) ? false : level.l_Collisions.getInt(cx,cy)==3;
 	}
 
 	public function setExtraCollision(cx,cy,v:Bool) {
@@ -201,7 +201,7 @@ class Level extends dn.Process {
 
 	/** Return TRUE if "Collisions" layer contains a collision value **/
 	public inline function hasLadder(cx,cy) : Bool {
-		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==1 || hasCollision(cx,cy) && level.l_Collisions.getInt(cx,cy+1)==1;
+		return !isValid(cx,cy) ? true : level.l_Collisions.getInt(cx,cy)==2 || hasCollision(cx,cy) && level.l_Collisions.getInt(cx,cy+1)==2;
 	}
 
 	public function setDark(v:Bool) {
