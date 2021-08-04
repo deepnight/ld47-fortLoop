@@ -1,4 +1,4 @@
-import dn.data.GetText;
+import dn.legacy.GetText;
 
 class LangParser {
 	public static function main() {

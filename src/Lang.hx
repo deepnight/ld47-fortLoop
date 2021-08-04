@@ -1,5 +1,3 @@
-import dn.data.GetText;
-
 class Lang {
     static var _initDone = false;
     static var DEFAULT = "en";
