@@ -70,10 +70,10 @@ class Main extends dn.Process {
 		controller.bind(SELECT, Key.R); // Restart
 		controller.bind(START, Key.N);
 
-		var f = new dn.heaps.filter.OverlayTexture(Deep);
-		f.alpha = 0.3;
-		f.autoUpdateSize = ()->return Const.SCALE;
-		Boot.ME.s2d.filter = f;
+		// var f = new dn.heaps.filter.OverlayTexture(Deep);
+		// f.alpha = 0.3;
+		// f.autoUpdateSize = ()->return Const.SCALE;
+		// Boot.ME.s2d.filter = f;
 
 		// Start
 		#if js
