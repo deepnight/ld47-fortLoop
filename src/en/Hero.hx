@@ -144,8 +144,9 @@ class Hero extends Entity {
 			dx*=Math.pow(0.8,tmod);
 
 		// Jump
-		var jumpKeyboardDown = ca.isKeyboardDown(K.Z) || ca.isKeyboardDown(K.W) || ca.isKeyboardDown(K.UP);
-		if( !controlsLocked() && ca.aPressed() && !isCrouching() && ( !climbing && cd.has("onGroundRecently") || climbing && !jumpKeyboardDown ) ) {
+		var jumpKeyDown = ca.aDown() || ca.isKeyboardDown(K.Z) || ca.isKeyboardDown(K.W) || ca.isKeyboardDown(K.UP);
+		var jumpKeyPressed = ca.aPressed() || ca.isKeyboardPressed(K.Z) || ca.isKeyboardPressed(K.W) || ca.isKeyboardPressed(K.UP);
+		if( !controlsLocked() && jumpKeyPressed && !isCrouching() && ( !climbing && cd.has("onGroundRecently") || climbing && ca.aDown() ) ) {
 			if( climbing ) {
 				stopClimbing();
 				cd.setS("climbLock",0.2);
@@ -165,10 +166,10 @@ class Hero extends Entity {
 				cd.setS("jumpExtra",0.1);
 			}
 		}
-		else if( cd.has("jumpExtra") && ca.aDown() )
+		else if( cd.has("jumpExtra") && jumpKeyDown )
 			dy-=0.04*tmod;
 
-		if( cd.has("jumpForce") && ca.aDown() )
+		if( cd.has("jumpForce") && jumpKeyDown )
 			dy -= 0.05 * cd.getRatio("jumpForce") * tmod;
 
 		// Throw item
