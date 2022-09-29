@@ -1,7 +1,7 @@
 package en;
 
 class Hero extends Entity {
-	var ca : dn.heaps.Controller.ControllerAccess;
+	var ca : ControllerAccess;
 	public var ammo : Int;
 	public var maxAmmo : Int;
 

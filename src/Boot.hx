@@ -40,7 +40,7 @@ class Boot extends hxd.App {
 
 		var tmod = hxd.Timer.tmod * boost * speed;
 
-		dn.heaps.Controller.beforeUpdate();
+		Controller.beforeUpdate();
 		dn.Process.updateAll(tmod);
 	}
 }
